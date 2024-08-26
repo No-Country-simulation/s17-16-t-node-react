@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "folke.vscode-monorepo-workspace",
+    "pomdtr.excalidraw-editor",
+    "hediet.vscode-drawio",
+    "vivaxy.vscode-conventional-commits"
+  ]
+}

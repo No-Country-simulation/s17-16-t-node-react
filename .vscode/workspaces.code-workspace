@@ -1,7 +1,6 @@
 {
-  "$schema": "https://json.schemastore.org/vsconfig",
-  "folders": [
-    {
+	"folders": [
+		{
       "name": "✨ root",
       "path": ".."
     },
@@ -13,5 +12,6 @@
       "name": "🎛️ backend",
       "path": "../backend"
     }
-  ]
+	],
+	"settings": {}
 }
