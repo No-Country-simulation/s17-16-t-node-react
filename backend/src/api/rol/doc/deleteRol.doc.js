@@ -1,20 +1,15 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /rols:
- *    post:
+ *  /rols/{:id}:
+ *    delete:
  *      tags:
  *        - Rol Routes
- *      summary: Create rol.
- *      description: Create rol
- *      operationId: addRol
- *      requestBody:
- *       description: Create rol.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/rolEntity'
+ *      summary: Delete Car.
+ *      description: Delete Car.
+ *      operationId: deleteCar
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
  *      responses:
  *        200:
  *          description: Success
