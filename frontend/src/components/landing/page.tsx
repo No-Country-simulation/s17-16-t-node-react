@@ -24,13 +24,13 @@ export const Landing = () => {
           <div className="flex gap-4">
             <Button
               variant="ghost"
-              className="flex items-center justify-center gap-8 rounded-[14px] bg-background px-8 py-2"
+              className="flex items-center justify-center gap-8 rounded-[0.875rem] bg-background px-8 py-2"
             >
               <LuBadgeCheck size={16} />
               Ver precios
               <RxChevronRight size={16} />
             </Button>
-            <Button className="rounded-[14px] bg-primary px-8 py-2">
+            <Button className="rounded-[0.875rem] bg-primary px-8 py-2">
               Principales características
             </Button>
           </div>
@@ -59,8 +59,8 @@ export const Landing = () => {
         </article>
 
         <article className="mb-9 flex gap-8">
-          <div className="card-shadow flex flex-col items-center rounded-3xl p-6">
-            <div className="mb-4 flex max-w-min items-center justify-center rounded-[8px] bg-[rgba(254,109,115,0.20)] p-2">
+          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+            <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(254,109,115,0.20)] p-2">
               <LuBadgeCheck size={24} />
             </div>
             <div>
@@ -72,8 +72,8 @@ export const Landing = () => {
             </div>
           </div>
 
-          <div className="card-shadow flex flex-col items-center rounded-3xl p-6">
-            <div className="mb-4 flex max-w-min items-center justify-center rounded-[8px] bg-[rgba(255,203,119,0.20)] p-2">
+          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+            <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(255,203,119,0.20)] p-2">
               <LuMonitorCheck size={24} />
             </div>
             <div>
@@ -85,8 +85,8 @@ export const Landing = () => {
             </div>
           </div>
 
-          <div className="card-shadow flex flex-col items-center rounded-3xl p-6">
-            <div className="mb-4 flex max-w-min items-center justify-center rounded-[8px] bg-[rgba(1,124,113,0.20)] p-2">
+          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+            <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(1,124,113,0.20)] p-2">
               <LuHeadphones size={24} />
             </div>
             <div>
@@ -98,7 +98,7 @@ export const Landing = () => {
             </div>
           </div>
         </article>
-        <Button className="rounded-[14px] px-8 py-2">
+        <Button className="rounded-[0.875rem] px-8 py-2">
           Comienza ahora
           <RxChevronRight className="ml-2" size={16} />
         </Button>
@@ -145,7 +145,7 @@ export const Landing = () => {
       <section className="py-20">
         <h2 className="mb-10 text-center text-4xl font-semibold">Lo que dicen nuestros clientes</h2>
         <div className="grid grid-cols-3 gap-8">
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -159,7 +159,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -173,7 +173,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -187,7 +187,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -201,7 +201,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -215,7 +215,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="card-shadow rounded-[20px] p-6 text-sm">
+          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -237,7 +237,7 @@ export const Landing = () => {
           Precios que se adaptan a tus necesidades
         </h2>
         <div className="mx-auto flex w-max gap-8">
-          <article className="card-shadow max-w-[380px] rounded-[16px] px-6 py-8">
+          <article className="shadow-card-shadow max-w-[380px] rounded-[1rem] px-6 py-8">
             <h3 className="mb-6 text-2xl font-bold">Base</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -269,11 +269,11 @@ export const Landing = () => {
               $ <span className="text-2xl font-bold">123</span>{" "}
               <span className="text-muted-foreground">/month</span>
             </p>
-            <Button variant="secondary" className="w-full rounded-[14px] py-2">
+            <Button variant="secondary" className="w-full rounded-[0.875rem] py-2">
               Elegir
             </Button>
           </article>
-          <article className="card-shadow max-w-[380px] -translate-y-12 rounded-[16px] px-6 py-8">
+          <article className="shadow-card-shadow max-w-[380px] -translate-y-12 rounded-[1rem] px-6 py-8">
             <h3 className="mb-6 text-2xl font-bold">Pro</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -305,9 +305,9 @@ export const Landing = () => {
               $ <span className="text-2xl font-bold">123</span>{" "}
               <span className="text-muted-foreground">/month</span>
             </p>
-            <Button className="w-full rounded-[14px] py-2">Elegir</Button>
+            <Button className="w-full rounded-[0.875rem] py-2">Elegir</Button>
           </article>
-          <article className="card-shadow max-w-[380px] rounded-[16px] px-6 py-8">
+          <article className="shadow-card-shadow max-w-[380px] rounded-[1rem] px-6 py-8">
             <h3 className="mb-6 text-2xl font-bold">Enterprise</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -339,7 +339,7 @@ export const Landing = () => {
               $ <span className="text-2xl font-bold">123</span>{" "}
               <span className="text-muted-foreground">/month</span>
             </p>
-            <Button variant="secondary" className="w-full rounded-[14px] py-2">
+            <Button variant="secondary" className="w-full rounded-[0.875rem] py-2">
               Elegir
             </Button>
           </article>

@@ -1,12 +1,12 @@
-import Image from "next/image";
+import { LogoRestify } from "@/icons";
 
 import { Button } from "./ui/button";
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <header className="h-16">
       <nav className="flex h-full items-center justify-between">
-        <Image src="/logo.png" alt="logo" width={122} height={30} />
+        <LogoRestify />
         <ul className="flex gap-4">
           <li>
             <Button variant="ghost" className="rounded-[12px]">
@@ -21,5 +21,3 @@ const Navbar = () => {
     </header>
   );
 };
-
-export default Navbar;

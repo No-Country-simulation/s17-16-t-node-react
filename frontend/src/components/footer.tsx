@@ -2,7 +2,7 @@ import Image from "next/image";
 import { RiFacebookCircleFill, RiInstagramFill, RiYoutubeFill } from "react-icons/ri";
 import { RxLinkedinLogo } from "react-icons/rx";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="py-20 text-center">
       <div className="mb-20 flex flex-col items-center gap-8">
@@ -18,5 +18,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
