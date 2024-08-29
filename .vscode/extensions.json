@@ -7,6 +7,8 @@
     "folke.vscode-monorepo-workspace",
     "pomdtr.excalidraw-editor",
     "hediet.vscode-drawio",
-    "vivaxy.vscode-conventional-commits"
+    "vivaxy.vscode-conventional-commits",
+    "cweijan.vscode-database-client2",
+    "mongodb.mongodb-vscode"
   ]
 }

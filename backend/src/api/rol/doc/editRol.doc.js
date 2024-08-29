@@ -1,20 +1,22 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /rols:
- *    post:
+ *  /rols/{:id}:
+ *    put:
  *      tags:
  *        - Rol Routes
- *      summary: Create rol.
- *      description: Create rol
- *      operationId: addRol
+ *      summary: Edit rol.
+ *      description: Edit rol.
+ *      operationId: updateRol
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
  *      requestBody:
- *       description: Create rol.
+ *       description: Edit rol.
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/rolEntity'
+ *             $ref: '#/components/body/rolEdit'
  *      responses:
  *        200:
  *          description: Success

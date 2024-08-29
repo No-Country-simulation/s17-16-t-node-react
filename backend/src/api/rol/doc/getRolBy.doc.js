@@ -1,20 +1,15 @@
 /**
  *  @swagger
  * paths:
- *  /rols:
- *    post:
+ *  /rols/{:id}:
+ *    get:
  *      tags:
  *        - Rol Routes
- *      summary: Create rol.
- *      description: Create rol
- *      operationId: addRol
- *      requestBody:
- *       description: Create rol.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/rolEntity'
+ *      summary: Cars By Id.
+ *      description: Cars By Id
+ *      operationId: getCarById
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
  *      responses:
  *        200:
  *          description: Success
@@ -42,5 +37,4 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
- *        - bearerAuth: []
  */
