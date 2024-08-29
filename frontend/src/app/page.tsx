@@ -1,15 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Footer } from "@/components/footer";
+import { Landing } from "@/components/landing/page";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
-    <main>
-      <h1>test</h1>
-      <div className="max-w-[200px]">
-        <Input type="email" placeholder="email" />
-      </div>
-      <Button>click</Button>
-      <Button variant="outline">click</Button>
+    <main className="mx-auto min-h-screen max-w-screen-xl">
+      <Navbar />
+      <Landing />
+      <Footer />
     </main>
   );
 }
