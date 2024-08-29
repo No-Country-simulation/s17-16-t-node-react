@@ -8,9 +8,10 @@ import { Button } from "../ui/button";
 
 export const Landing = () => {
   return (
-    <>
-      <section className="py-20">
-        <article className="mx-auto mb-14 flex max-w-[618px] flex-col items-center gap-9 text-center">
+    <div className="relative">
+      <div className="absolute inset-x-0 top-0 z-0 h-[42.5rem] bg-primary/10">{}</div>
+      <section className="m-auto max-w-screen-xl py-20">
+        <article className="relative z-0 mx-auto mb-14 flex max-w-[618px] flex-col items-center gap-9 text-center">
           <div className="flex flex-col gap-2">
             <h1 className="text-5xl font-semibold leading-[58px] text-foreground">
               Administra tu restaurante con eficiencia y facilidad
@@ -23,10 +24,9 @@ export const Landing = () => {
           </div>
           <div className="flex gap-4">
             <Button
-              variant="ghost"
-              className="flex items-center justify-center gap-8 rounded-[0.875rem] bg-background px-8 py-2"
+              variant={"secondary"}
+              className="flex items-center justify-center gap-3 rounded-[0.875rem] bg-background px-8 py-2"
             >
-              <LuBadgeCheck size={16} />
               Ver precios
               <RxChevronRight size={16} />
             </Button>
@@ -36,18 +36,18 @@ export const Landing = () => {
           </div>
         </article>
 
-        <article>
-          <Image
-            className="mx-auto"
-            width={956}
-            height={560}
-            src="/images/macbook.png"
-            alt="macbook image"
-          />
-        </article>
+        {/* <article className="relative z-0"> */}
+        <Image
+          className="relative z-0 mx-auto"
+          width={956}
+          height={560}
+          src="/images/macbook.png"
+          alt="macbook image"
+        />
+        {/* </article> */}
       </section>
 
-      <section className="py-20 text-center">
+      <section className="m-auto max-w-screen-xl py-20 text-center">
         <article className="mx-auto mb-9 max-w-[646px]">
           <h2 className="mb-3 text-4xl font-semibold leading-[42px] text-foreground">
             ¿Por qué elegirnos?
@@ -59,7 +59,7 @@ export const Landing = () => {
         </article>
 
         <article className="mb-9 flex gap-8">
-          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+          <div className="flex flex-col items-center rounded-3xl p-6 shadow-card-shadow">
             <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(254,109,115,0.20)] p-2">
               <LuBadgeCheck size={24} />
             </div>
@@ -72,7 +72,7 @@ export const Landing = () => {
             </div>
           </div>
 
-          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+          <div className="flex flex-col items-center rounded-3xl p-6 shadow-card-shadow">
             <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(255,203,119,0.20)] p-2">
               <LuMonitorCheck size={24} />
             </div>
@@ -85,7 +85,7 @@ export const Landing = () => {
             </div>
           </div>
 
-          <div className="shadow-card-shadow flex flex-col items-center rounded-3xl p-6">
+          <div className="flex flex-col items-center rounded-3xl p-6 shadow-card-shadow">
             <div className="mb-4 flex max-w-min items-center justify-center rounded-[0.5rem] bg-[rgba(1,124,113,0.20)] p-2">
               <LuHeadphones size={24} />
             </div>
@@ -104,7 +104,7 @@ export const Landing = () => {
         </Button>
       </section>
 
-      <section className="py-20 text-center">
+      <section className="m-auto max-w-screen-xl py-20 text-center">
         <h2 className="mx-auto mb-10 max-w-[646px] text-4xl font-semibold">
           Funciones diseñadas para ayudar a su restaurante a crecer
         </h2>
@@ -142,10 +142,10 @@ export const Landing = () => {
           <TabsContent value="reservations">Reservas</TabsContent>
         </Tabs>
       </section>
-      <section className="py-20">
+      <section className="m-auto max-w-screen-xl py-20">
         <h2 className="mb-10 text-center text-4xl font-semibold">Lo que dicen nuestros clientes</h2>
         <div className="grid grid-cols-3 gap-8">
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -159,7 +159,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -173,7 +173,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -187,7 +187,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -201,7 +201,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -215,7 +215,7 @@ export const Landing = () => {
               </div>
             </div>
           </article>
-          <article className="shadow-card-shadow rounded-[1.25rem] p-6 text-sm">
+          <article className="rounded-[1.25rem] p-6 text-sm shadow-card-shadow">
             <p className="mb-6 text-muted-foreground">
               Sinceramente, en cuanto a reservas, esta aplicación es uno de los mejores sistemas de
               reservas con los que he trabajado. Y el equipo de soporte es genial. Te responden por
@@ -232,12 +232,12 @@ export const Landing = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="m-auto max-w-screen-xl py-20">
         <h2 className="mx-auto mb-24 max-w-[646px] text-center text-4xl font-semibold">
           Precios que se adaptan a tus necesidades
         </h2>
         <div className="mx-auto flex w-max gap-8">
-          <article className="shadow-card-shadow max-w-[380px] rounded-[1rem] px-6 py-8">
+          <article className="max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
             <h3 className="mb-6 text-2xl font-bold">Base</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -273,7 +273,7 @@ export const Landing = () => {
               Elegir
             </Button>
           </article>
-          <article className="shadow-card-shadow max-w-[380px] -translate-y-12 rounded-[1rem] px-6 py-8">
+          <article className="max-w-[380px] -translate-y-12 rounded-[1rem] px-6 py-8 shadow-card-shadow">
             <h3 className="mb-6 text-2xl font-bold">Pro</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -307,7 +307,7 @@ export const Landing = () => {
             </p>
             <Button className="w-full rounded-[0.875rem] py-2">Elegir</Button>
           </article>
-          <article className="shadow-card-shadow max-w-[380px] rounded-[1rem] px-6 py-8">
+          <article className="max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
             <h3 className="mb-6 text-2xl font-bold">Enterprise</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
@@ -345,6 +345,6 @@ export const Landing = () => {
           </article>
         </div>
       </section>
-    </>
+    </div>
   );
 };
