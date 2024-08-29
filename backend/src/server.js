@@ -4,13 +4,14 @@ import express from "express";
 import helmet from "helmet";
 import logger from "morgan";
 import { config } from "dotenv";
-/*import { serverRouter } from "./routers/routers.js";*/
+//import { serverRouter } from "./routers/server.routes.js";
 import  connectDB  from "./config/database/db.js";
+import {routerNew} from "./api/users/router/user.router.js"
 
 
 config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
 const hostDev = process.env.HOST_DEV || "localhost";
 const hostProd = process.env.HOST_PROD_BACK || "rutasdoradasback.vercel.app";
@@ -25,7 +26,10 @@ server.use(cookieParser());
 server.use(logger("dev"));
 server.use(cors());
 server.use(helmet());
-//server.use(serverRouter);
+server.use("/", routerNew);
+// server.use(serverRouter);
+
+
 
 connectDB();
 

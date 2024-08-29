@@ -11,7 +11,7 @@ const usuarioSchema = new mongoose.Schema({
     trim: true,
     match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "The email format is not valid"],
   },
-  contraseña: { type: String, required: true },
+  password: { type: String, required: true },
   fechaRegistro: { type: Date, default: Date.now }
 });
 
