@@ -1,10 +1,10 @@
-import { Footer } from "@/components/footer";
-import { Landing } from "@/components/landing/page";
-import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/landing/footer";
+import { Landing } from "@/components/landing/landing-page";
+import { Navbar } from "@/components/landing/navbar";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <Navbar />
       <Landing />
       <Footer />

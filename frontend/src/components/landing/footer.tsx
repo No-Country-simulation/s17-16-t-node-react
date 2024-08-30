@@ -2,7 +2,7 @@ import { LogoRestify } from "@/icons";
 import { RiFacebookCircleFill, RiInstagramFill, RiYoutubeFill } from "react-icons/ri";
 import { RxLinkedinLogo } from "react-icons/rx";
 
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
   return (
