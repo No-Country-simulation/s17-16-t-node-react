@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoRestify } from "@/icons";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export const Navbar = () => {
   return (

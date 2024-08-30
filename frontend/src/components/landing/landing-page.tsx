@@ -2,9 +2,8 @@ import Image from "next/image";
 import { LuBadgeCheck, LuHeadphones, LuMonitorCheck } from "react-icons/lu";
 import { RxCheck, RxChevronRight } from "react-icons/rx";
 
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import { Button } from "../ui/button";
 
 export const Landing = () => {
   return (
