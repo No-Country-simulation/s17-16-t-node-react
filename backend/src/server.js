@@ -8,6 +8,7 @@ import { config } from "dotenv";
 import { serverRouter } from "./routers/server.routes.js";
 
 import connectDB from "./config/database/db.js";
+import { invalidRouter } from "./api/invalid/router/invalid.router.js";
 
 config();
 
@@ -24,7 +25,9 @@ server.use(cookieParser());
 server.use(logger("dev"));
 server.use(cors());
 server.use(helmet());
-server.use(serverRouter);
+server.use("/api/v1", serverRouter);
+server.use("*", invalidRouter);
+
 
 connectDB();
 

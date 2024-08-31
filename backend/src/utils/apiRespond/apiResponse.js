@@ -7,7 +7,7 @@ const findStatusCode = (code) => {
     .find((item) => item.code === code.toString());
 };
 
-export const apiResponse = ( res, code, data) => {
+export const apiResponse = (res, code, endPoint, data) => {
   const isValidCode =
     code > 99 && code < 600 && code !== null && code !== undefined;
   if (isValidCode) {
@@ -17,10 +17,16 @@ export const apiResponse = ( res, code, data) => {
       return res.status(code).json({
         code: code,
         status: foundData.status,
-        limit: res.get("RateLimit-Limit"),
-        remaining: res.get("RateLimit-Remaining"),
         description: foundData.description,
-        data: data || {message:"no data"},
+        endPoint: endPoint,
+        limit: `You have ${res.get(
+          "RateLimit-Limit"
+        )} requests every 15 minutes`,
+        remaining: `You have ${res.get(
+          "RateLimit-Remaining"
+        )} remaining requests`,
+        rest: `${Math.floor(res.get("RateLimit-Reset") / 60)} minute and ${(res.get("RateLimit-Reset") % 60).toString().padStart(2, "0")} seconds to reset`,
+        data: data || { message: "no data" },
       });
     } else {
       return res.status(404).json({

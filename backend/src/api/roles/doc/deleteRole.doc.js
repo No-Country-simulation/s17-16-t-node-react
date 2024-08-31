@@ -1,13 +1,15 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /rols:
- *    get:
+ *  /roles:
+ *    delete:
  *      tags:
- *        - Rol Routes
- *      summary: All rols.
- *      description: All rols.
- *      operationId: getRols
+ *        - Role Routes
+ *      summary: Delete role.
+ *      description: Delete role.
+ *      operationId: deleteRole.
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
  *      responses:
  *        200:
  *          description: Success
@@ -35,4 +37,5 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
+ *        - bearerAuth: []
  */

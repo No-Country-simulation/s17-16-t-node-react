@@ -1,15 +1,22 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /rols/{:id}:
- *    get:
+ *  /roles:
+ *    put:
  *      tags:
- *        - Rol Routes
- *      summary: Cars By Id.
- *      description: Cars By Id
- *      operationId: getCarById
+ *        - Role Routes
+ *      summary: Edit role.
+ *      description: Edit role.
+ *      operationId: updateRole
  *      parameters:
  *        - $ref: '#/components/parameters/id'
+ *      requestBody:
+ *        description: Edit rol.
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/body/role'
  *      responses:
  *        200:
  *          description: Success
@@ -37,4 +44,5 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
+ *        - bearerAuth: []
  */

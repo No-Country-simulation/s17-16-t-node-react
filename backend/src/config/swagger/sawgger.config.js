@@ -70,70 +70,70 @@ const swaggerConfig = {
 const swaggerOptions = {
   explorer: true,
   swaggerUi: true,
-  docExpansion: 'list',
+  docExpansion: "list",
   filter: true,
-  customSiteTitle: 'Restify Api',
+  customSiteTitle: "Restify Api",
   customHeadTags: [
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        name: 'twitter:card',
-        content: 'summary',
+        name: "twitter:card",
+        content: "summary",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        name: 'twitter:title',
-        content: 'Project Api',
+        name: "twitter:title",
+        content: "Project Api",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        name: 'twitter:description',
-        content: 'Un Sistema de Manejo de equipo',
+        name: "twitter:description",
+        content: "Un Sistema de Manejo de equipo",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        name: 'twitter:image',
-        content: 'https://projecto.vercel.app/assets/img/ograhp.bmp',
+        name: "twitter:image",
+        content: "https://projecto.vercel.app/assets/img/ograhp.bmp",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        property: 'og:title',
-        content: 'Project Api',
+        property: "og:title",
+        content: "Project Api",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        property: 'og:description',
-        content: 'Un Sistema de Manejo de equipo',
+        property: "og:description",
+        content: "Un Sistema de Manejo de equipo",
       },
     },
     {
-      tagName: 'meta',
+      tagName: "meta",
       closeTag: true,
       attributes: {
-        property: 'og:image',
-        content: 'https://projecto.vercel.app/assets/img/ograhp.bmp',
+        property: "og:image",
+        content: "https://projecto.vercel.app/assets/img/ograhp.bmp",
       },
     },
   ],
   customCss: `${darkStyle}
     .main{
-      background-image: url("/assets/img/logo.png");
+      background-image: url("/api/v1/assets/img/logo.png");
       background-size: 60px 60px;
       background-repeat: no-repeat;
       padding-left: 70px;
@@ -142,13 +142,13 @@ const swaggerOptions = {
     }
     .topbar{ display: none;}
     `,
-  customfavIcon: '/assets/ico/favicon.ico',
+  customfavIcon: "/api/v1/assets/ico/favicon.ico",
   customJs: `
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.4/swagger-ui-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.4/swagger-ui-standalone-preset.min.js"></script>
   `,
   customCssUrl:
-    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.4/swagger-ui.min.css',
+    "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.9.4/swagger-ui.min.css",
 };
 
 const swaggerSettings = swaggerJsDoc(swaggerConfig);

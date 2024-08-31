@@ -1,20 +1,20 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /rols:
+ *  /roles:
  *    post:
  *      tags:
- *        - Rol Routes
- *      summary: Create rol.
- *      description: Create rol
- *      operationId: addRol
+ *        - Role Routes
+ *      summary: Create role.
+ *      description: Create role.
+ *      operationId: addRole
  *      requestBody:
- *       description: Create rol.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/rolEntity'
+ *        description: Create role.
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/body/role'
  *      responses:
  *        200:
  *          description: Success

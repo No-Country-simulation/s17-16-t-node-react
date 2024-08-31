@@ -1,15 +1,17 @@
 /**
  * @swagger
  * paths:
- *  /rols/{:id}:
- *    delete:
+ *  /roles:
+ *    get:
  *      tags:
- *        - Rol Routes
- *      summary: Delete Car.
- *      description: Delete Car.
- *      operationId: deleteCar
+ *        - Role Routes
+ *      summary: Search role by value.
+ *      description: Search role by value.
+ *      operationId: getRoleByValue
  *      parameters:
  *        - $ref: '#/components/parameters/id'
+ *        - $ref: '#/components/parameters/description'
+ *        - $ref: '#/components/parameters/isActive'
  *      responses:
  *        200:
  *          description: Success
@@ -37,5 +39,4 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
- *        - bearerAuth: []
  */

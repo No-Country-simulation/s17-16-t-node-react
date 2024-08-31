@@ -39,7 +39,7 @@ export const apiLimiter = rateLimit({
   requestPropertyName: "req",
   legacyHeaders: false,
   skip: (req) => {
-    if (env === "development") {
+    if (env !== "development") {
       return allowedOrigins.includes(req.get("host"));
     } else {
       return false;
