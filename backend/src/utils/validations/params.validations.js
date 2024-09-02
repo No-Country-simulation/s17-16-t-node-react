@@ -52,9 +52,9 @@ const handlePutOrDeleteQueryParams = (queryParams, model) => {
   }
   if (
     Object.keys(queryParams).length === 1 &&
-    queryParams.hasOwnProperty("_id")
+    queryParams.hasOwnProperty("id")
   ) {
-    return isKeyAndValueValidate(queryParams, model);
+    return isKeyAndValueValidate({ _id: queryParams.id }, model);
   } else {
     throw new ParamError(
       "Query error",
@@ -67,10 +67,13 @@ const handlePutOrDeleteQueryParams = (queryParams, model) => {
 // Validate key and value
 //======================================
 const isKeyAndValueValidate = (queryParams, model) => {
-  const [key, value] = Object.entries(queryParams)[0];
+  let [key, value] = Object.entries(queryParams)[0];
   if (!key || !value) {
     throw new ParamError("Query error", "The wrong query parameter.");
   }
+   if (key === "id") {
+     key = "_id";
+   }
   const query = validateKeysInMongooseModel(model, { [key]: value });
   return query;
 };
@@ -78,13 +81,15 @@ const isKeyAndValueValidate = (queryParams, model) => {
 //==============================
 // Validate body params
 //==============================
-export const isBodyParamsValidate = (req) => {
+export const isBodyParamsValidate = async (req) => {
   const body = req.body;
   const model = getModelFromRoute(req.baseUrl);
   if (Object.keys(body).length < 1) {
     throw new ParamError("Body error", "must have body");
   }
   const validateFields = validateKeysInMongooseModel(model, body);
+  const validateZop = await getZodValidationSchema(model.modelName);
+  validateZop(body);
   return validateFields;
 };
 
@@ -105,4 +110,23 @@ const getModelFromRoute = (routePath) => {
   const parts = routePath.split("/");
   const modelName = parts[parts.length - 1].replace("s", "");
   return modelName.charAt(0).toUpperCase() + modelName.slice(1);
+};
+
+//=========================================
+// Map model name to zod validation file
+//=========================================
+const modelToZodValidationMap = {
+  Role: '../../api/roles/zod/role.zop.js',
+};
+
+//=======================================
+// Get zod validation schema for model
+//=======================================
+const getZodValidationSchema = async (modelName) => {
+  const validationFilePath = modelToZodValidationMap[modelName];
+  if (!validationFilePath) {
+    throw new ParamError("Validation error", `No validation schema found for model: ${modelName}`);
+  }
+  const { validateZop } = await import(validationFilePath);
+  return validateZop;
 };

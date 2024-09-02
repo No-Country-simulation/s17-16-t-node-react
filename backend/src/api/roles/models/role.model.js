@@ -1,27 +1,49 @@
+//==========================
+// Imports
+//==========================
 import { model, Schema } from "mongoose";
-import { toLocalDate, toUTCDate } from "../../../utils/validations/model.validations.js";
+import {
+  toLocalDate,
+  toUTCDate,
+  transform,
+  updateCurrentUser,
+} from "../../../utils/validations/model.validations.js";
 
-const roleSchema = new Schema({
-  name: { type: String, required: true, unique: true, index: true },
-  description: { type: String, required: true },
-  isActive: { type: Boolean, default: true },
-  fechaRegistro: { type: Date, default: Date.now },
-  permissions: [{ type: String, required: true, ref: 'Permission' }],
-  createdAt: {
-    type: Date,
-    default: () => new Date(),
-    set: toUTCDate,
-    get: toLocalDate
+//==========================
+// Schema Role
+//==========================
+const roleSchema = new Schema(
+  {
+    name: { type: String, required: true, unique: true, index: true },
+    description: { type: String, required: true },
+    isActive: { type: Boolean, default: true },
+    permissions: [{ type: String, required: true, ref: "Permission" }],
+    createdAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
+    updatedAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
   },
-  updatedAt: {
-    type: Date,
-    default: () => new Date(),
-    set: toUTCDate,
-    get: toLocalDate
-  }
+  { timestamps: true }
+);
+
+roleSchema.pre("updateOne", updateCurrentUser);
+
+roleSchema.set("toJSON", {
+  getters: true,
+  transform: transform,
 });
 
-roleSchema.set('toJSON', { getters: true });
-roleSchema.set('toObject', { getters: true });
+roleSchema.set("toObject", {
+  getters: true,
+  transform: transform,
+});
 
-export default model('Role', roleSchema);
+export default model("Role", roleSchema);

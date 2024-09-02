@@ -1,4 +1,7 @@
-import RoleModel from '../models/role.model.js';
+//==========================
+// Import
+//==========================
+import RoleModel from "../models/role.model.js";
 
 //==========================
 // Get role by
@@ -10,23 +13,20 @@ export const getRoleBy = async (query) => {
 //==========================
 // Save role
 //==========================
-export const saveRole = async (role) => {
-  return await RoleModel.create(role)
+export const saveRole = async (roleData, fields = []) => {
+  return await RoleModel.create(roleData);
 };
 
 //==========================
 // Update role
 //==========================
-export const updateRole = async (id, updatedRole) => {
+export const updateRole = async (id, updatedRole, fields = []) => {
   return await RoleModel.findByIdAndUpdate(id, updatedRole, { new: true });
 };
 
-/*
 //==========================
 // Delete role
 //==========================
 const deleteRoleAdmin = async (id) => {
-  const role = await RoleModel.findByIdAndDelete(id);
-  return role;
+  return await RoleModel.findByIdAndDelete(id);
 };
-*/

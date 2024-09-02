@@ -1,11 +1,22 @@
-import { getRoleBy, saveRole, updateRole } from '../dao/role.dao.js';
+//==========================
+// Imports
+//==========================
+import { getRoleBy, saveRole, updateRole } from "../dao/role.dao.js";
+import { RoleDTO } from "../dto/role.dto.js";
+
+//==========================
+// Costume fields
+//==========================
+const fieldsToShow = ["id", "name", "description", "isActive"];
 
 //==========================
 // Get role by value
 //==========================
 export const getRoleByValue = async (query) => {
   try {
-    return await getRoleBy(query);
+    console.log("queryS -> ", query);
+    const response = await getRoleBy(query);
+    return response.map((role) => new RoleDTO(role).toDTO(fieldsToShow));
   } catch (error) {
     throw new Error(error);
   }
@@ -16,31 +27,36 @@ export const getRoleByValue = async (query) => {
 //==========================
 export const createRole = async (role) => {
   try {
-    return await saveRole(role);
+    const savedRole = await saveRole(role);
+    const roleDTO = new RoleDTO(savedRole);
+    return roleDTO.toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
 };
-
 
 //==========================
 // Update role by value
 //==========================
 export const updateRoleBy = async (id, updatedRole) => {
   try {
-    return await updateRole(id, updatedRole);
+    const updated = await updateRole(id, updatedRole);
+    const roleDTO = new RoleDTO(updated);
+    return roleDTO.toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
-
-
 };
-/*
+
 //==========================
 // Delete role by value
 //==========================
-const deleteRole = async (id) => {
-  const role = await RoleDAO.deleteRole(id);
-  return role;
+export const deleteRoleBy = async (query) => {
+  try {
+    const deletedRole = await deleteRole(query);
+    const roleDTO = new RoleDTO(deletedRole);
+    return roleDTO.toDTO(fieldsToShow);
+  } catch (error) {
+    throw new Error(error);
+  }
 };
-*/
