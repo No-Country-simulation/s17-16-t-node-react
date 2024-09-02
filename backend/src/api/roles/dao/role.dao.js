@@ -1,7 +1,7 @@
 //==========================
 // Import
 //==========================
-import RoleModel from "../models/role.model.js";
+import RoleModel from "./models/role.model.js";
 
 //==========================
 // Get role by

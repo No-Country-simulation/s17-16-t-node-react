@@ -60,32 +60,3 @@ export const toLocalDate = (utcDate) => {
     timeZone: systemTimeZone,
   });
 };
-
-//==========================
-// Fields to show
-//==========================
-const fieldsToShow = ["id", "name", "description"];
-
-//===============================
-// Transform to fields to show
-//===============================
-export const transform = (doc, ret) => {
-  const transformed = {};
-  fieldsToShow.forEach((field) => {
-    if (field === "id") {
-      transformed[field] = ret._id ? ret._id.toString() : undefined;
-    } else {
-      transformed[field] = ret[field];
-    }
-  });
-  return transformed;
-};
-
-//================================
-// Update the updatedAt field
-//================================
-export const updateCurrentUser = (next) => {
-  console.log("Updating user...");
-  this.update({}, { $set: { updatedAt: new Date() } });
-  next();
-};

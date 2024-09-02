@@ -88,7 +88,7 @@ export const isBodyParamsValidate = async (req) => {
     throw new ParamError("Body error", "must have body");
   }
   const validateFields = validateKeysInMongooseModel(model, body);
-  const validateZop = await getZodValidationSchema(model.modelName);
+  const validateZop = await getZodValidationSchema(model);
   validateZop(body);
   return validateFields;
 };

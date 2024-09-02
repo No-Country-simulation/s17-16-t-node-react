@@ -17,7 +17,6 @@ export const getRoles = async (
     const query = isQueryParamsValidate(req);
     const response = await getRoleByValue(query);
     const roles = responseContentValidator(response);
-    console.log("respC -> ", roles);
     successProfiler(res, 200, 'getRoles', { roles });
   } catch (error) {
     errorProfiler(error, res, 'getRoles');

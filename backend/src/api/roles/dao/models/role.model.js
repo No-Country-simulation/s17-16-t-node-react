@@ -4,10 +4,8 @@
 import { model, Schema } from "mongoose";
 import {
   toLocalDate,
-  toUTCDate,
-  transform,
-  updateCurrentUser,
-} from "../../../utils/validations/model.validations.js";
+  toUTCDate
+} from "../../../../utils/validations/model.validations.js";
 
 //==========================
 // Schema Role
@@ -34,16 +32,12 @@ const roleSchema = new Schema(
   { timestamps: true }
 );
 
-roleSchema.pre("updateOne", updateCurrentUser);
-
 roleSchema.set("toJSON", {
   getters: true,
-  transform: transform,
 });
 
 roleSchema.set("toObject", {
   getters: true,
-  transform: transform,
 });
 
 export default model("Role", roleSchema);

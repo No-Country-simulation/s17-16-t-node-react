@@ -7,7 +7,7 @@ import { RoleDTO } from "../dto/role.dto.js";
 //==========================
 // Costume fields
 //==========================
-const fieldsToShow = ["id", "name", "description", "isActive"];
+const fieldsToShow = ["id", "name", "description", "isActive","updatedAt"];
 
 //==========================
 // Get role by value

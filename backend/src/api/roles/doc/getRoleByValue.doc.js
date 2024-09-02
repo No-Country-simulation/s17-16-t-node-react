@@ -10,6 +10,7 @@
  *      operationId: getRoleByValue
  *      parameters:
  *        - $ref: '#/components/parameters/id'
+ *        - $ref: '#/components/parameters/name'
  *        - $ref: '#/components/parameters/description'
  *        - $ref: '#/components/parameters/isActive'
  *      responses:
