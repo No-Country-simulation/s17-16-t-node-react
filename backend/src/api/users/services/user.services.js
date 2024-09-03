@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import cloudinary from '../../../config/cloudinaryConfig.js';// arreglar esto 
+import cloudinary from '../../../config/cloudinary/cloudinaryConfig.js';// arreglar esto 
 import { UserDao } from '../dao/user.dao.js';
 
 const userDao = new UserDao();
