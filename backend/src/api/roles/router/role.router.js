@@ -16,6 +16,6 @@ import { setApiKey } from "#src/middlewares";
 export const roleRouter = Router();
 
 roleRouter.get("/", setApiKey, listRoles);
-roleRouter.post("/", addRole);
-roleRouter.put("/", updateRole);
-roleRouter.delete("/", deleteRole);
+roleRouter.post("/", setApiKey ,addRole);
+roleRouter.put("/", setApiKey, updateRole);
+roleRouter.delete("/", setApiKey, deleteRole);
