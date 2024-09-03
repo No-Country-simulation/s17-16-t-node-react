@@ -5,9 +5,10 @@ import helmet from "helmet";
 import logger from "morgan";
 import { config } from "dotenv";
 
-import connectDB from "./config/database/db.js";
-import { invalidRouter } from "./api/invalid/router/invalid.router.js";
+import { invalidRouter } from "#api/invalid";
 import { serverRouter } from "./routers/server.routes.js";
+import { connectDB } from "./config/database/db.js";
+
 
 config();
 

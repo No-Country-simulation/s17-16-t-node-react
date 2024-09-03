@@ -31,7 +31,6 @@ export const listRoles = async (req, res) => {
 export const addRole = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
-    console.log("body -> ", body);
     const response = await createRole(body);
     const role = responseContentValidator(response);
     successProfiler(res, 201, "createRole", { role });
@@ -46,7 +45,7 @@ export const addRole = async (req, res) => {
 export const updateRole = async (req, res) => {
   try {
     const query = isQueryParamsValidate(req);
-    const body = isBodyParamsValidate(req);
+    const body =  await isBodyParamsValidate(req);
     const response = await updateRoleBy(query, body);
     const role = responseContentValidator(response);
     successProfiler(res, 202, "updateRole", { role });

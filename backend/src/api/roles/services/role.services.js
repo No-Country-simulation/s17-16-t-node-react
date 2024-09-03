@@ -13,7 +13,6 @@ const fieldsToShow = ["id", "name", "description", "isActive","updatedAt"];
 //==========================
 export const getRoleByValue = async (query) => {
   try {
-    console.log("queryS -> ", query);
     const response = await getRoleBy(query);
     return response.map((role) => new RoleDTO(role).toDTO(fieldsToShow));
   } catch (error) {
