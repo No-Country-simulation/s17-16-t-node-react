@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { invalid } from "../controller/invalid.controller.js";
+import { invalid } from "#api/invalid";
 
 export const invalidRouter = Router();
 

@@ -1,0 +1,5 @@
+/**
+ * @swagger
+ * components:
+ *   callbacks:
+  */
