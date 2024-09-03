@@ -3,7 +3,6 @@ import { rateLimit } from "express-rate-limit";
 import { config } from "dotenv";
 import { apiResponse } from "#utils/apiRespond";
 
-
 config();
 
 const env = process.env.NODE_ENV || "development";

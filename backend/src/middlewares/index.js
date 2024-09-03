@@ -1,1 +1,1 @@
-export * from "./apiKey.middleware.js";
+export * from "./apiKey/apiKey.middleware.js";
