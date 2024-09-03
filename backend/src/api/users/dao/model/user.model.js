@@ -12,7 +12,8 @@ const usuarioSchema = new mongoose.Schema({
     match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "The email format is not valid"],
   },
   password: { type: String, required: true },
-  fechaRegistro: { type: Date, default: Date.now }
+  fechaRegistro: { type: Date, default: Date.now },
+  foto: { type: String, default: null } // Campo opcional para la URL de la foto
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);

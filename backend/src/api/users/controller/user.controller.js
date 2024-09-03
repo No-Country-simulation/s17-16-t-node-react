@@ -1,4 +1,7 @@
+import multer from 'multer';
 import * as UserService from '../services/user.services.js';
+
+const upload = multer({ dest: 'uploads/' });
 
 export const register = async (req, res) => {
     try {
@@ -27,11 +30,26 @@ export const getProfile = async (req, res) => {
         res.status(404).json({ mensaje: error.message });
     }
 };
-
+/*
 export const updateProfile = async (req, res) => {
     try {
         const updatedUser = await UserService.updateUserProfile(req.user._id, req.body);
         res.json(updatedUser);
+    } catch (error) {
+        res.status(400).json({ mensaje: error.message });
+    }
+};
+*/
+
+export const updateProfile = async (req, res) => {
+    try {
+        upload.single('foto')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json({ mensaje: 'Error al subir el archivo' });
+            }
+            const updatedUser = await UserService.updateUserProfileWithPhoto(req.user._id, req.body, req.file);
+            res.json(updatedUser);
+        });
     } catch (error) {
         res.status(400).json({ mensaje: error.message });
     }
