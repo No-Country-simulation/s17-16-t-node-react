@@ -47,7 +47,8 @@ export const updateProfile = async (req, res) => {
             if (err) {
                 return res.status(400).json({ mensaje: 'Error al subir el archivo' });
             }
-            const updatedUser = await UserService.updateUserProfileWithPhoto(req.user._id, req.body, req.file);
+            console.log(req.body)
+            const updatedUser = await UserService.updateUserProfileWithPhoto(req.body._id, req.body, req.file);
             res.json(updatedUser);
         });
     } catch (error) {
