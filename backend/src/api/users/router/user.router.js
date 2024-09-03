@@ -11,5 +11,3 @@ userRouter.get('/profile', logged, UserController.getProfile);
 userRouter.put('/profile', UserController.updateProfile);
 userRouter.delete('/profile', UserController.deleteProfile);
 userRouter.get('/all', UserController.getAllUsers);
-
-

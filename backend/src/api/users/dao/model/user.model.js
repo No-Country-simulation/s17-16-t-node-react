@@ -13,13 +13,9 @@ const usuarioSchema = new mongoose.Schema({
   },
   password: { type: String, required: true },
   fechaRegistro: { type: Date, default: Date.now },
-  foto: { type: String, default: null } // Campo opcional para la URL de la foto
+  foto: { type: String } // Campo opcional para la URL de la foto
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
 export default Usuario
-
-
-
-

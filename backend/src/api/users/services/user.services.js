@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import cloudinary from '../../../config/cloudinary/cloudinaryConfig.js';// arreglar esto 
+import cloudinary from '../../../config/cloudinary/cloudinaryConfig.js';
 import { UserDao } from '../dao/user.dao.js';
 
 const userDao = new UserDao();
@@ -41,8 +41,7 @@ export const getAllUserProfiles = async () => {
 
 export const updateUserProfileWithPhoto = async (id, updateData, file) => {
     let update = { ...updateData };
-    
-    if (file) {
+  if (file) {
         try {
             const result = await cloudinary.uploader.upload(file.path, {
                 folder: 'user_photos',
@@ -58,6 +57,5 @@ export const updateUserProfileWithPhoto = async (id, updateData, file) => {
     if (update.password) {
         update.password = await bcrypt.hash(update.password, 10);
     }
-
     return await userDao.update(id, update);
 };

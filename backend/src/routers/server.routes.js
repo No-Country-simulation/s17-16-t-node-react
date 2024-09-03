@@ -22,6 +22,6 @@ serverRouter.use("/assets", express.static(join(root, "assets")));
 serverRouter.use(favicon(join(root, "assets/ico/favicon.ico")));
 serverRouter.use("/docs", middleware, controller);
 serverRouter.use("/roles", roleRouter);
-serverRouter.use("/user", userRouter);
+serverRouter.use("/users", userRouter);
 serverRouter.use("/", startRouter);
 serverRouter.use("*", invalidRouter);
