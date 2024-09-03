@@ -46,6 +46,7 @@
   },
   "imports": {
     "#utils/*": "./src/utils/*/index.js",
-    "#api/*": "./src/api/*/index.js"
+    "#api/*": "./src/api/*/index.js",
+    "#src/*": "./src/*/index.js"
   }
 }

@@ -6,9 +6,8 @@ import logger from "morgan";
 import { config } from "dotenv";
 
 import { invalidRouter } from "#api/invalid";
-import { serverRouter } from "./routers/server.routes.js";
-import { connectDB } from "./config/database/db.js";
-
+import { connectDB } from "#src/config";
+import { serverRouter } from "#src/routers";
 
 config();
 

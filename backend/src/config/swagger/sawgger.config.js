@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
 import swaggerJsDoc from 'swagger-jsdoc';
+import { config } from 'dotenv';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import swaggerUI from 'swagger-ui-express';
 
