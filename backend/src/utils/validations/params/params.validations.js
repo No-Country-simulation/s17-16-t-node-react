@@ -1,4 +1,7 @@
-import { validateKeysInMongooseModel } from "./model.validations.js";
+//=====================
+// Imports
+//=====================
+import { validateKeysInMongooseModel } from "#utils/validations";
 
 //=====================
 // Class Param Error
@@ -11,12 +14,11 @@ class ParamError extends Error {
   }
 }
 
-//========================
+//=========================
 // Validate query params
-//========================
+//=========================
 export const isQueryParamsValidate = (req) => {
   const method = req.method;
-  console.log("method ->", method);
   const model = getModelFromRoute(req.baseUrl);
   let validatedParams;
   if (method === "GET") {
@@ -71,9 +73,9 @@ const isKeyAndValueValidate = (queryParams, model) => {
   if (!key || !value) {
     throw new ParamError("Query error", "The wrong query parameter.");
   }
-   if (key === "id") {
-     key = "_id";
-   }
+  if (key === "id") {
+    key = "_id";
+  }
   const query = validateKeysInMongooseModel(model, { [key]: value });
   return query;
 };
@@ -116,7 +118,7 @@ const getModelFromRoute = (routePath) => {
 // Map model name to zod validation file
 //=========================================
 const modelToZodValidationMap = {
-  Role: '../../api/roles/zod/role.zop.js',
+  Role: "#api/roles",
 };
 
 //=======================================
@@ -125,7 +127,10 @@ const modelToZodValidationMap = {
 const getZodValidationSchema = async (modelName) => {
   const validationFilePath = modelToZodValidationMap[modelName];
   if (!validationFilePath) {
-    throw new ParamError("Validation error", `No validation schema found for model: ${modelName}`);
+    throw new ParamError(
+      "Validation error",
+      `No validation schema found for model: ${modelName}`
+    );
   }
   const { validateZop } = await import(validationFilePath);
   return validateZop;

@@ -6,14 +6,6 @@ import { model } from "mongoose";
 //=====================
 class FieldError extends Error {}
 
-//=====================
-// Load Model Fields
-//=====================
-const loadModelFields = (modelName) => {
-  const fields = Object.keys(model(modelName).schema.paths);
-  return new Set(fields);
-};
-
 //==========================
 // Validate keys in model
 //==========================
@@ -36,6 +28,15 @@ export const validateKeysInMongooseModel = (modelName, validateObject) => {
   return validKeys;
 };
 
+
+//=====================
+// Load Model Fields
+//=====================
+const loadModelFields = (modelName) => {
+  const fields = Object.keys(model(modelName).schema.paths);
+  return new Set(fields);
+};
+
 //==========================
 // Save Date to UTC 0
 //==========================
@@ -47,16 +48,16 @@ export const toUTCDate = (v) => {
 //==========================
 // Get System Region
 //==========================
-export const getSystemRegion = () => {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
-};
-
-//==========================
-// Get System Region
-//==========================
 export const toLocalDate = (utcDate) => {
   const systemTimeZone = getSystemRegion();
   return format(new Date(utcDate), "yyyy-MM-dd HH:mm:ssXXX", {
     timeZone: systemTimeZone,
   });
+};
+
+//==========================
+// Get System Region
+//==========================
+const getSystemRegion = () => {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };

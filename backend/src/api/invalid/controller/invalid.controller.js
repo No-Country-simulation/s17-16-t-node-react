@@ -1,7 +1,12 @@
-import { apiResponse } from "../../../utils/apiRespond/apiResponse.js";
-import { getInvalid } from "../services/invalid.services.js";
+//===========
+// Imports
+//===========
+import { apiResponse } from "#utils/apiRespond";
+import { getInvalid } from "#api/invalid";
 
-
+//===========
+// Invalid
+//===========
 export const invalid = async (req, res) => {
   try {
     const invalidResponse = await getInvalid();

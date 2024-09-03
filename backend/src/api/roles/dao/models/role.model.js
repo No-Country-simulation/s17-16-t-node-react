@@ -1,11 +1,8 @@
-//==========================
+//===========
 // Imports
-//==========================
+//===========
 import { model, Schema } from "mongoose";
-import {
-  toLocalDate,
-  toUTCDate
-} from "../../../../utils/validations/model.validations.js";
+import { toLocalDate, toUTCDate } from "#utils/validations";
 
 //==========================
 // Schema Role
@@ -40,4 +37,4 @@ roleSchema.set("toObject", {
   getters: true,
 });
 
-export default model("Role", roleSchema);
+export const RoleModel = model("Role", roleSchema);

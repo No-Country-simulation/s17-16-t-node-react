@@ -1,4 +1,3 @@
-
 import favicon from "serve-favicon";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
@@ -12,7 +11,6 @@ import { roleRouter } from "../api/roles/router/role.router.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const root = join(__dirname, "..");
-console.log(join(root, "assets/ico/favicon.ico"));
 
 export const serverRouter = Router();
 

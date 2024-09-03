@@ -1,5 +1,8 @@
+//====================
+// Imports
+//====================
 import { ZodError } from 'zod';
-import { apiResponse } from '../apiRespond/apiResponse.js';
+import { apiResponse } from '#utils/apiRespond';
 
 //====================
 // Success Profiler

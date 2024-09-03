@@ -43,5 +43,9 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
+  },
+  "imports": {
+    "#utils/*": "./src/utils/*/index.js",
+    "#api/*": "./src/api/*/index.js"
   }
 }

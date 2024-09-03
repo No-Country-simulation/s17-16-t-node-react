@@ -1,10 +1,10 @@
-//==========================
+//=================
 // Class RoleDTO
-//==========================
+//=================
 export class RoleDTO {
-  //==========================
+  //===============
   // Constructor
-  //==========================
+  //================
   constructor(role) {
     this.id = role.id;
     this.name = role.name;
@@ -15,9 +15,9 @@ export class RoleDTO {
     this.updatedAt = role.updatedAt;
   }
 
-  //==========================
+  //===========
   // Setters
-  //==========================
+  //===========
   setId(id) {
     this.id = id;
   }
@@ -46,9 +46,9 @@ export class RoleDTO {
     this.updatedAt = updatedAt;
   }
 
-  //==========================
+  //===========
   // Getters
-  //==========================
+  //===========
   getId() {
     return this.id;
   }
@@ -76,9 +76,9 @@ export class RoleDTO {
     return this.updatedAt;
   }
 
-  //==========================
+  //============
   // Function
-  //==========================
+  //============
   toDTO(fieldsToShow) {
     const dto = {};
     fieldsToShow.forEach((field) => {

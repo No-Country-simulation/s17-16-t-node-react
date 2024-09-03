@@ -16,6 +16,4 @@ const permissionSchema = new Schema({
   }
 });
 
-const Permission = model('Permission', permissionSchema);
-
-module.exports = Permission;
+export const Permission = model('Permission', permissionSchema);
