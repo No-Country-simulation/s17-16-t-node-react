@@ -1,13 +1,21 @@
-import express from 'express';
-import * as UserController from '../controller/user.controller.js';
-import { logged } from '../middlewares/auth.middleware.js';
+import { Router } from "express";
 
-export const userRouter = express.Router();
+import {
+  deleteProfile,
+  getAllUsers,
+  getProfile,
+  login,
+  register,
+  updateProfile,
+} from "#api/users";
+import { setApiKey, setAuthorize, setUpload } from "#src/middlewares";
 
-userRouter.post('/register', UserController.register);
-userRouter.post('/login', UserController.login);
+export const userRouter = Router();
 
-userRouter.get('/profile', logged, UserController.getProfile);
-userRouter.put('/profile', UserController.updateProfile);
-userRouter.delete('/profile', UserController.deleteProfile);
-userRouter.get('/all', UserController.getAllUsers);
+userRouter.post("/register", setApiKey, setUpload, register);
+userRouter.post("/login", setApiKey, login);
+
+userRouter.get("/profile", setApiKey, setAuthorize, getProfile);
+userRouter.put("/profile", setApiKey, setAuthorize, setUpload, updateProfile);
+userRouter.delete("/profile", setApiKey, setAuthorize, deleteProfile);
+userRouter.get("/all", setApiKey, getAllUsers);

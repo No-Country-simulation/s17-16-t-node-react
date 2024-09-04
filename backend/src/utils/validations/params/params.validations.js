@@ -1,6 +1,7 @@
 //=====================
 // Imports
 //=====================
+import { CD_MAX_FILE_SIZE, CD_RESOURCE_EXT, CD_RESOURCE_TYPE } from "#src/config";
 import { validateKeysInMongooseModel } from "#utils/validations";
 
 //=====================
@@ -12,7 +13,7 @@ class ParamError extends Error {
     this.key = key;
     this.message = message;
   }
-}
+};
 
 //=========================
 // Validate query params
@@ -86,13 +87,67 @@ const isKeyAndValueValidate = (queryParams, model) => {
 export const isBodyParamsValidate = async (req) => {
   const body = req.body;
   const model = getModelFromRoute(req.baseUrl);
+  console.log(model);
   if (Object.keys(body).length < 1) {
     throw new ParamError("Body error", "must have body");
   }
   const validateFields = validateKeysInMongooseModel(model, body);
-  const validateZop = await getZodValidationSchema(model);
-  validateZop(body);
+  const validateZod = await getZodValidationSchema(model);
+  validateZod(body);
   return validateFields;
+};
+
+//=================
+// validate File
+//================
+export const isValidateFile = (file) => {
+  if (!file) {
+    return "https://res.cloudinary.com/restity/image/upload/v1725477947/User/test2_test2.png";
+  }
+  validateMimeType(file);
+  validateSize(file);
+  validateName(file);
+  validatePath(file);
+  return file;
+};
+const validateMimeType = (file) => {
+  const resourceType = CD_RESOURCE_TYPE; // "image"
+  const allowedExtensions = CD_RESOURCE_EXT.replace(/[\[\]]/g, "").split(",");
+  const allowedMimeTypes = allowedExtensions.map(
+    (ext) => `${resourceType}/${ext}`
+  );
+  if (!allowedMimeTypes.includes(file.mimetype)) {
+    throw new ParamError(
+      "File error",
+      `The file must be one of the following types: ${allowedMimeTypes.join(
+        ", "
+      )}`
+    );
+  }
+};
+
+const validateSize = (file) => {
+  const maxSize = parseInt(CD_MAX_FILE_SIZE, 10); // Max size from .env
+  const minSize = 1; // 0B
+  if (file.size > maxSize) {
+    throw new ParamError("File error", `The file size must be less than ${maxSize / (1024 * 1024)}MB`);
+  }
+  if (file.size < minSize) {
+    throw new ParamError("File error", "The file size must be greater than 0B");
+  }
+};
+
+const validateName = (file) => {
+  if (!file.originalname) {
+    throw new ParamError("File error", "The file must have a name");
+  }
+  file.fiels
+};
+
+const validatePath = (file) => {
+  if (!file.path) {
+    throw new ParamError("File error", "The file must have a path");
+  }
 };
 
 //==============================
@@ -108,9 +163,12 @@ export const responseContentValidator = (response) => {
 //==============================
 // Get model from route
 //==============================
-const getModelFromRoute = (routePath) => {
+export const getModelFromRoute = (routePath) => {
   const parts = routePath.split("/");
-  const modelName = parts[parts.length - 1].replace("s", "");
+  let modelName = parts[parts.length - 1];
+  if (modelName.endsWith("s")) {
+    modelName = modelName.slice(0, -1);
+  }
   return modelName.charAt(0).toUpperCase() + modelName.slice(1);
 };
 
@@ -119,6 +177,7 @@ const getModelFromRoute = (routePath) => {
 //=========================================
 const modelToZodValidationMap = {
   Role: "#api/roles",
+  User: "#api/users",
 };
 
 //=======================================
@@ -132,6 +191,6 @@ const getZodValidationSchema = async (modelName) => {
       `No validation schema found for model: ${modelName}`
     );
   }
-  const { validateZop } = await import(validationFilePath);
-  return validateZop;
+  const { validateZod } = await import(validationFilePath);
+  return validateZod;
 };

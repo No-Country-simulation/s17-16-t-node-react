@@ -1,22 +1,25 @@
+//==================
+// Imports
+//==================
 import MongoStore from "rate-limit-mongo";
 import { rateLimit } from "express-rate-limit";
-import { config } from "dotenv";
 import { apiResponse } from "#utils/apiRespond";
+import { HOST_DEV, NODE_ENV, PASS_MONGO, PORT, URL_MONGO, USER_MONGO } from "#src/config";
 
-config();
-
-const env = process.env.NODE_ENV || "development";
-const port = process.env.PORT || 3000;
-const hostDev = process.env.HOST_DEV || "localhost";
-
+//====================
+// Allowed origins
+//====================
 const allowedOrigins = [
-  `${hostDev}:${port}`,
-  `http://${hostDev}:${port}`,
-  `127.0.0.1:${port}`,
-  `http://127.0.0.1:${port}`,
+  `${HOST_DEV}:${PORT}`,
+  `http://${HOST_DEV}:${PORT}`,
+  `127.0.0.1:${PORT}`,
+  `http://127.0.0.1:${PORT}`,
 ];
 
-export const apiLimiter = rateLimit({
+//==================
+// Set Limit
+//==================
+export const SetLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 1500, // 1500 requests per IP
   message: async (req, res) => {
@@ -29,7 +32,7 @@ export const apiLimiter = rateLimit({
   keyGenerator: async (req) => {
     console.log("ip req->", req.ip);
     if (req.ip) {
-      const separador = env === "development" ? ":" : ".";
+      const separador = NODE_ENV === "development" ? ":" : ".";
       const ip = req.ip.toString().split(`${separador}`)
       const key = ip[ip.length - 1];
       console.log("key->", key);
@@ -39,16 +42,16 @@ export const apiLimiter = rateLimit({
   requestPropertyName: "req",
   legacyHeaders: false,
   skip: (req) => {
-    if (env !== "development") {
+    if (NODE_ENV !== "development") {
       return allowedOrigins.includes(req.get("host"));
     } else {
       return false;
     }
   },
   store: new MongoStore({
-    uri: process.env.URL_MONGO,
-    user: process.env.USER_MONGO,
-    password: process.env.PASS_MONGO,
+    uri: URL_MONGO,
+    user: USER_MONGO,
+    password: PASS_MONGO,
     // should match windowMs
     expireTimeMs: 15 * 60 * 1000,
     errorHandler: console.error.bind(null, "rate-limit-mongo"),

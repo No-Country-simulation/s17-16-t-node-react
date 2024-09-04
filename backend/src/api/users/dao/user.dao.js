@@ -1,4 +1,4 @@
-import User from "./model/user.model.js";
+import { User } from "#api/users";
 
 export class UserDao {
   async create(userData) {

@@ -1,22 +1,36 @@
+//==========================
+// Imports
+//==========================
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import cloudinary from '../../../config/cloudinary/cloudinaryConfig.js';
-import { UserDao } from '../dao/user.dao.js';
+import { UserDao } from '#api/users';
 
+//==========================
+// Const
+//==========================
 const userDao = new UserDao();
 
+//==========================
+// Register user
+//==========================
 export const registerUser = async (userData) => {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = await userDao.create({ ...userData, password: hashedPassword });
+    const newUser = await userDao.create({
+      ...userData,
+      password: hashedPassword,
+    });
     return newUser;
 };
 
+//==========================
+// Login user
+//==========================
 export const loginUser = async (email, password) => {
     const user = await userDao.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
         throw new Error('Credenciales inválidas');
     }
-    const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
     return { user, token };
 };
 

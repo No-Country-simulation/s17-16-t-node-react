@@ -1,5 +1,10 @@
-import { HostDev, HostProdBack, HostProdFront, Key, PORT } from "#src/config";
+//==================
+// Imports
+//==================
+
+import { API_KEY, HOST_DEV, HOST_PROD_BACK, HOST_PROD_FRONT, PORT } from "#src/config";
 import { errorProfiler } from "#utils/validations";
+
 //=====================
 // Class Param Error
 //=====================
@@ -15,18 +20,18 @@ class ApiKeyError extends Error {
 // Host Authorization
 //======================
 const authorizedHosts = [
-  `${HostProdFront}`,
-  `${HostProdBack}`,
-  `${HostDev}:${PORT}`,
+  `${HOST_PROD_FRONT}`,
+  `${HOST_PROD_BACK}`,
+  `${HOST_DEV}:${PORT}`,
 ];
 
-//===================
-// Require Api Key
-//===================
+//======================
+// Api Key Middleware
+//======================
 export const setApiKey = (req, res, next) => {
   try {
     const apiKey = req.headers.apikey;
-    if (!apiKey || Key !== apiKey) {
+    if (!apiKey || API_KEY !== apiKey) {
       throw new ApiKeyError('Key error', 'The api key is not valid.');
     }
     const host = req.headers.host;
@@ -38,6 +43,6 @@ export const setApiKey = (req, res, next) => {
     }
     next();
   } catch (error) {
-    errorProfiler(error, res, "createProject");
+    errorProfiler(error, res, "setApiKey");
   }
 };
