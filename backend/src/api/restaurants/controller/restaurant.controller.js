@@ -1,8 +1,15 @@
-const Restaurant = require("../dao/mongodb/model/restaurant.model");
-const upload = require("../../../config/multer.config");
+import {
+  getRestaurantById,
+  createRestaurant,
+  updateRestaurantById,
+  deleteRestaurantById,
+} from "../services/restaurant.services";
+import upload from "../../../config/multer.config";
 
+//==========================
 // Create a new restaurant
-const createRestaurant = async (req, res) => {
+//==========================
+const createRestaurantController = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       return res
@@ -15,13 +22,13 @@ const createRestaurant = async (req, res) => {
         name: req.body.name,
         address: req.body.address,
         category: req.body.category,
-        userId: req.body.userId,
-        image: req.file ? req.file.path : null, // Guarda la ruta de la imagen cargada
+        owner: req.body.userId,
+        logo: req.file ? req.file.path : null, // save the route of the uploaded image
         menus: req.body.menus || [],
         staff: req.body.staff || [],
       };
 
-      const newRestaurant = await Restaurant.create(newRestaurantData);
+      const newRestaurant = await createRestaurant(newRestaurantData);
       res.status(201).json(newRestaurant);
     } catch (error) {
       res.status(500).json({ message: "Error creating restaurant", error });
@@ -29,8 +36,10 @@ const createRestaurant = async (req, res) => {
   });
 };
 
+//==========================
 // Get all restaurants
-const getAllRestaurants = async (req, res) => {
+//==========================
+const getAllRestaurantsController = async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
     res.status(200).json(restaurants);
@@ -39,10 +48,12 @@ const getAllRestaurants = async (req, res) => {
   }
 };
 
+//==========================
 // Get a restaurant by ID
-const getRestaurantById = async (req, res) => {
+//==========================
+const getRestaurantByIdController = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const restaurant = await getRestaurantById(req.params.id);
     if (!restaurant) {
       return res.status(404).json({ message: "Restaurant not found" });
     }
@@ -52,8 +63,10 @@ const getRestaurantById = async (req, res) => {
   }
 };
 
+//==========================
 // Update a restaurant by ID
-const updateRestaurantById = async (req, res) => {
+//==========================
+const updateRestaurantByIdController = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       return res
@@ -66,16 +79,15 @@ const updateRestaurantById = async (req, res) => {
         name: req.body.name,
         address: req.body.address,
         category: req.body.category,
-        userId: req.body.userId,
-        image: req.file ? req.file.path : null, // Actualiza la ruta de la imagen cargada
+        owner: req.body.userId,
+        logo: req.file ? req.file.path : null, // Actualiza la ruta de la imagen cargada
         menus: req.body.menus || [],
         staff: req.body.staff || [],
       };
 
-      const updatedRestaurant = await Restaurant.findByIdAndUpdate(
+      const updatedRestaurant = await updateRestaurantById(
         req.params.id,
-        updatedRestaurantData,
-        { new: true }
+        updatedRestaurantData
       );
       if (!updatedRestaurant) {
         return res.status(404).json({ message: "Restaurant not found" });
@@ -87,10 +99,12 @@ const updateRestaurantById = async (req, res) => {
   });
 };
 
+//==========================
 // Delete a restaurant by ID
-const deleteRestaurantById = async (req, res) => {
+//==========================
+const deleteRestaurantByIdController = async (req, res) => {
   try {
-    const deletedRestaurant = await Restaurant.findByIdAndDelete(req.params.id);
+    const deletedRestaurant = await deleteRestaurantById(req.params.id);
     if (!deletedRestaurant) {
       return res.status(404).json({ message: "Restaurant not found" });
     }
@@ -100,8 +114,10 @@ const deleteRestaurantById = async (req, res) => {
   }
 };
 
+//==========================
 // Get restaurants by user ID
-const getRestaurantsByUserId = async (req, res) => {
+//==========================
+const getRestaurantsByUserIdController = async (req, res) => {
   try {
     const restaurants = await Restaurant.find({ userId: req.params.userId });
     res.status(200).json(restaurants);
@@ -110,11 +126,11 @@ const getRestaurantsByUserId = async (req, res) => {
   }
 };
 
-module.exports = {
-  createRestaurant,
-  getAllRestaurants,
-  getRestaurantById,
-  updateRestaurantById,
-  deleteRestaurantById,
-  getRestaurantsByUserId,
+export default {
+  createRestaurantController,
+  getAllRestaurantsController,
+  getRestaurantByIdController,
+  updateRestaurantByIdController,
+  deleteRestaurantByIdController,
+  getRestaurantsByUserIdController,
 };

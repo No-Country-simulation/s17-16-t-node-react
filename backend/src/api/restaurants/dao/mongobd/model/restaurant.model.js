@@ -1,45 +1,64 @@
-const mongoose = require("mongoose");
+import { model, Schema } from "mongoose";
+import { toLocalDate, toUTCDate } from "#utils/validations";
 
-const restaurantSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String, // Path to the uploaded image file
-    required: false,
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  menus: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Menu",
+const restaurantSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-  ],
-  staff: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Staff",
+    address: {
+      type: String,
+      required: true,
     },
-  ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    category: {
+      type: String,
+      required: true,
+    },
+    logo: {
+      type: String, // Path to the uploaded image file
+      required: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    menus: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Menu",
+      },
+    ],
+    staff: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Staff",
+      },
+    ],
+
+    isActive: { type: Boolean, default: true },
+    createdAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
+    updatedAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
   },
+  { timestamps: true }
+);
+restaurantSchema.set("toJSON", {
+  getters: true,
 });
 
-const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+restaurantSchema.set("toObject", {
+  getters: true,
+});
 
-module.exports = Restaurant;
+export const restaurantModel = model("Restaurant", restaurantSchema);

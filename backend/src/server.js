@@ -4,13 +4,10 @@ import express from "express";
 import helmet from "helmet";
 import logger from "morgan";
 import { config } from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 
-import { serverRouter } from "./routers/server.routes.js";
-
-import connectDB from "./config/database/db.js";
+import { invalidRouter } from "#api/invalid";
+import { connectDB } from "#src/config";
+import { serverRouter } from "#src/routers";
 
 config();
 
@@ -22,10 +19,6 @@ const host =
   env?.trim() === "production"
     ? `https://${hostProd}`
     : `http://${hostDev}:${port}`;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const server = express();
 //server
 server.use(express.json());
@@ -34,11 +27,8 @@ server.use(cookieParser());
 server.use(logger("dev"));
 server.use(cors());
 server.use(helmet());
-// Middleware to serve static files (uploaded images)
-server.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Use '/api/v1' as the base path for the routes in serverRouter
 server.use("/api/v1", serverRouter);
+server.use("*", invalidRouter);
 
 connectDB();
 

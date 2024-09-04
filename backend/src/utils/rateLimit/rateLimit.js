@@ -1,7 +1,7 @@
 import MongoStore from "rate-limit-mongo";
 import { rateLimit } from "express-rate-limit";
 import { config } from "dotenv";
-import { apiResponse } from "../apiRespond/apiResponse.js";
+import { apiResponse } from "#utils/apiRespond";
 
 config();
 
@@ -39,7 +39,7 @@ export const apiLimiter = rateLimit({
   requestPropertyName: "req",
   legacyHeaders: false,
   skip: (req) => {
-    if (env === "development") {
+    if (env !== "development") {
       return allowedOrigins.includes(req.get("host"));
     } else {
       return false;
