@@ -1,36 +1,43 @@
-const express = require("express");
-const restaurantController = require("../controller/restaurant.controller");
-const upload = require("../../../config/multer/multer.config");
+import { Router } from "express";
+import restaurantController from "../controller/restaurant.controller.js";
+import { upload } from "../../../config/multer/multer.config.js";
 
-const router = express.Router();
+export const restaurantRouter = Router();
 
-// Route to create a new restaurant with image upload
-router.post(
+// Path to create a new restaurant with image upload
+restaurantRouter.post(
   "/restaurants",
   upload.single("image"),
-  restaurantController.createRestaurant
+  restaurantController.createRestaurantController
 );
 
-// Route to get all restaurants
-router.get("/restaurants", restaurantController.getAllRestaurants);
+// Path to get all restaurants
+restaurantRouter.get(
+  "/restaurants",
+  restaurantController.getAllRestaurantsController
+);
 
-// Route to get a restaurant by ID
-router.get("/restaurants/:id", restaurantController.getRestaurantById);
+// Path to get a restaurant by ID
+restaurantRouter.get(
+  "/restaurants/:id",
+  restaurantController.getRestaurantByIdController
+);
 
-// Route to update a restaurant by ID
-router.put(
+// Path to update a restaurant by ID
+restaurantRouter.put(
   "/restaurants/:id",
   upload.single("image"),
-  restaurantController.updateRestaurantById
+  restaurantController.updateRestaurantByIdController
 );
 
-// Route to delete a restaurant by ID
-router.delete("/restaurants/:id", restaurantController.deleteRestaurantById);
-
-// Route to get restaurants by user ID
-router.get(
-  "/users/:userId/restaurants",
-  restaurantController.getRestaurantsByUserId
+// Path to delete a restaurant by ID
+restaurantRouter.delete(
+  "/restaurants/:id",
+  restaurantController.deleteRestaurantByIdController
 );
 
-module.exports = router;
+// Path to get all restaurants by user ID
+restaurantRouter.get(
+  "/users/:owner/restaurants",
+  restaurantController.getRestaurantsByUserIdController
+);

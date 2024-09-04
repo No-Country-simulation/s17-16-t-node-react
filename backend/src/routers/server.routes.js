@@ -7,6 +7,7 @@ import { invalidRouter } from "#api/invalid";
 import { roleRouter } from "#api/roles";
 import { apiLimiter } from "#utils/rateLimit";
 import { controller, middleware } from "#src/config";
+import { restaurantRouter } from "#api/restaurants";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,5 +20,6 @@ serverRouter.use("/assets", express.static(join(root, "assets")));
 serverRouter.use(favicon(join(root, "assets/ico/favicon.ico")));
 serverRouter.use("/docs", middleware, controller);
 serverRouter.use("/roles", roleRouter);
+serverRouter.use("/restaurants", restaurantRouter);
 serverRouter.use("/", startRouter);
 serverRouter.use("*", invalidRouter);

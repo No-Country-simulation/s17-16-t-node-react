@@ -1,10 +1,10 @@
+//restaurant.controller.js
 import {
   getRestaurantById,
   createRestaurant,
   updateRestaurantById,
   deleteRestaurantById,
-} from "../services/restaurant.services";
-import upload from "../../../config/multer.config";
+} from "../services/restaurant.services.js";
 
 //==========================
 // Create a new restaurant
@@ -80,7 +80,7 @@ const updateRestaurantByIdController = async (req, res) => {
         address: req.body.address,
         category: req.body.category,
         owner: req.body.userId,
-        logo: req.file ? req.file.path : null, // Actualiza la ruta de la imagen cargada
+        logo: req.file ? req.file.path : null, //update the route of the uploaded image
         menus: req.body.menus || [],
         staff: req.body.staff || [],
       };

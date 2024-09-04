@@ -1,5 +1,8 @@
-const Restaurant = require("../dao/mongodb/model/restaurant.model");
-const RestaurantDTO = require("../dto/restaurant.dto");
+import { restaurantModel as Restaurant } from "../dao/mongobd/model/restaurant.model.js";
+//const Restaurant = require("../dao/mongodb/model/restaurant.model");
+//const RestaurantDTO = require("../dto/restaurant.dto");
+//import Restaurant from "#api/restaurants";
+//import RestaurantDTO from "#api/restaurants";
 
 function toRestaurantDTO(restaurantDoc) {
   return new RestaurantDTO({
@@ -19,7 +22,7 @@ function toRestaurantDTO(restaurantDoc) {
 //==========================
 // Get restaurant by ID
 //==========================
-const getRestaurantById = async (id) => {
+export const getRestaurantById = async (id) => {
   try {
     const restaurantDoc = await Restaurant.findById(id);
     if (!restaurantDoc) {
@@ -34,7 +37,7 @@ const getRestaurantById = async (id) => {
 //==========================
 // Create new restaurant
 //==========================
-const createRestaurant = async (restaurantData) => {
+export const createRestaurant = async (restaurantData) => {
   try {
     const newRestaurant = new Restaurant(restaurantData);
     const savedRestaurant = await newRestaurant.save();
@@ -47,7 +50,7 @@ const createRestaurant = async (restaurantData) => {
 //==========================
 // Update restaurant by ID
 //==========================
-const updateRestaurantById = async (id, updatedData) => {
+export const updateRestaurantById = async (id, updatedData) => {
   try {
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
       id,
@@ -66,7 +69,7 @@ const updateRestaurantById = async (id, updatedData) => {
 //==========================
 // Delete restaurant by ID
 //==========================
-const deleteRestaurantById = async (id) => {
+export const deleteRestaurantById = async (id) => {
   try {
     const deletedRestaurant = await Restaurant.findByIdAndDelete(id);
     if (!deletedRestaurant) {
@@ -76,14 +79,4 @@ const deleteRestaurantById = async (id) => {
   } catch (error) {
     throw new Error(error);
   }
-};
-
-//==========================
-// Export functions
-//==========================
-module.exports = {
-  getRestaurantById,
-  createRestaurant,
-  updateRestaurantById,
-  deleteRestaurantById,
 };

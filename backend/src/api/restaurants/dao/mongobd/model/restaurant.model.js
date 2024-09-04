@@ -1,3 +1,4 @@
+//restaurant.model.js
 import { model, Schema } from "mongoose";
 import { toLocalDate, toUTCDate } from "#utils/validations";
 

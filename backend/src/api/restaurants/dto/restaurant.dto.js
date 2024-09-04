@@ -1,26 +1,15 @@
-class RestaurantDTO {
-  constructor({
-    name,
-    address,
-    category,
-    logo,
-    owner,
-    menus = [],
-    staff = [],
-    isActive = true,
-    createdAt = new Date(),
-    updatedAt = new Date(),
-  }) {
-    this._name = name;
-    this._address = address;
-    this._category = category;
-    this._logo = logo;
-    this._owner = owner;
-    this._menus = menus;
-    this._staff = staff;
-    this._isActive = isActive;
-    this._createdAt = createdAt;
-    this._updatedAt = updatedAt;
+export class RestaurantDTO {
+  constructor(restaurant) {
+    this._name = restaurant.name;
+    this._address = restaurant.address;
+    this._category = restaurant.category;
+    this._logo = restaurant.logo;
+    this._owner = restaurant.owner;
+    this._menus = restaurant.menus;
+    this._staff = restaurant.staff;
+    this._isActive = restaurant.isActive;
+    this._createdAt = restaurant.createdAt;
+    this._updatedAt = restaurant.updatedAt;
   }
 
   // Getters
@@ -105,5 +94,3 @@ class RestaurantDTO {
     this._updatedAt = value;
   }
 }
-
-module.exports = RestaurantDTO;
