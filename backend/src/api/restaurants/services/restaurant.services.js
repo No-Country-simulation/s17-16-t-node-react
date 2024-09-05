@@ -1,8 +1,8 @@
-import { restaurantModel as Restaurant } from "../dao/mongobd/model/restaurant.model.js";
-//const Restaurant = require("../dao/mongodb/model/restaurant.model");
-//const RestaurantDTO = require("../dto/restaurant.dto");
-//import Restaurant from "#api/restaurants";
-//import RestaurantDTO from "#api/restaurants";
+//import { restaurantModel as Restaurant } from "../dao/mongobd/model/restaurant.model.js";
+
+import { getAll, saveRestaurant } from "#api/restaurants";
+
+/*const restaurantDAO = new restaurantDAO();
 
 function toRestaurantDTO(restaurantDoc) {
   return new RestaurantDTO({
@@ -17,14 +17,29 @@ function toRestaurantDTO(restaurantDoc) {
     createdAt: restaurantDoc.createdAt,
     updatedAt: restaurantDoc.updatedAt,
   });
-}
+}*/
+
+//==========================
+// Get all restaurants
+//==========================
+export const getAllRestaurants = async () => {
+  try {
+    const restaurantDoc = await getAll();
+    if (!restaurantDoc) {
+      throw new Error("Restaurant not found");
+    }
+    return toRestaurantDTO(restaurantDoc);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 //==========================
 // Get restaurant by ID
 //==========================
 export const getRestaurantById = async (id) => {
   try {
-    const restaurantDoc = await Restaurant.findById(id);
+    const restaurantDoc = await restaurantModel.findById(id);
     if (!restaurantDoc) {
       throw new Error("Restaurant not found");
     }
@@ -39,8 +54,7 @@ export const getRestaurantById = async (id) => {
 //==========================
 export const createRestaurant = async (restaurantData) => {
   try {
-    const newRestaurant = new Restaurant(restaurantData);
-    const savedRestaurant = await newRestaurant.save();
+    const savedRestaurant = await saveRestaurant(newRestaurant);
     return toRestaurantDTO(savedRestaurant);
   } catch (error) {
     throw new Error(error);

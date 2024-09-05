@@ -4,4 +4,4 @@ export * from "./dao/role.dao.js";
 export * from "./dao/models/role.model.js";
 export * from "./router/role.router.js";
 export * from "./services/role.services.js";
-export * from "./zod/role.zop.js";
+export * from "./zod/role.zod.js";

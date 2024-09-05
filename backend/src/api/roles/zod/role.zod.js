@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Define validations for the zop model fields
-const zopSchema = z.object({
+const zodSchema = z.object({
   name: z.string().min(3, { message: 'Name must be at least 3 characters long.' })
                   .max(30, { message: 'Name cannot be longer than 30 characters.' })
                   .optional(),
@@ -11,9 +11,9 @@ const zopSchema = z.object({
 });
 
 // Function to validate a zop object
-export const validateZop = (zop) => {
+export const validateZod = (zod) => {
   try {
-    zopSchema.parse(zop);
+    zodSchema.parse(zod);
   } catch (error) {
     throw new Error(`Validation error: ${error.errors.map(x => x.message).join(', ')}`);
   }

@@ -10,8 +10,8 @@ import { getInvalid } from "#api/invalid";
 export const invalid = async (req, res) => {
   try {
     const invalidResponse = await getInvalid();
-    apiResponse(res, 404, invalidResponse);
+    apiResponse(res, 404, "invalid", invalidResponse);
   } catch (error) {
-    apiResponse(res, 500, { error: error.message });
+    apiResponse(res, 500, "invalid", { error: error.message });
   }
 };

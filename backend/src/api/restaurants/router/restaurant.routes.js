@@ -1,43 +1,31 @@
 import { Router } from "express";
-import restaurantController from "../controller/restaurant.controller.js";
+import {
+  createRestaurantController,
+  deleteRestaurantByIdController,
+  getAllRestaurantsController,
+  getRestaurantByIdController,
+  getRestaurantsByUserIdController,
+  updateRestaurantByIdController,
+} from "../controller/restaurant.controller.js";
 import { upload } from "../../../config/multer/multer.config.js";
+import { setUpload } from "#src/middlewares";
 
 export const restaurantRouter = Router();
 
 // Path to create a new restaurant with image upload
-restaurantRouter.post(
-  "/restaurants",
-  upload.single("image"),
-  restaurantController.createRestaurantController
-);
+restaurantRouter.post("/create", setUpload, createRestaurantController);
 
 // Path to get all restaurants
-restaurantRouter.get(
-  "/restaurants",
-  restaurantController.getAllRestaurantsController
-);
+restaurantRouter.get("/list", getAllRestaurantsController);
 
 // Path to get a restaurant by ID
-restaurantRouter.get(
-  "/restaurants/:id",
-  restaurantController.getRestaurantByIdController
-);
+restaurantRouter.get("/search/:id", getRestaurantByIdController);
 
 // Path to update a restaurant by ID
-restaurantRouter.put(
-  "/restaurants/:id",
-  upload.single("image"),
-  restaurantController.updateRestaurantByIdController
-);
+restaurantRouter.put("/search/:id", setUpload, updateRestaurantByIdController);
 
 // Path to delete a restaurant by ID
-restaurantRouter.delete(
-  "/restaurants/:id",
-  restaurantController.deleteRestaurantByIdController
-);
+restaurantRouter.delete("/search/:id", deleteRestaurantByIdController);
 
 // Path to get all restaurants by user ID
-restaurantRouter.get(
-  "/users/:owner/restaurants",
-  restaurantController.getRestaurantsByUserIdController
-);
+restaurantRouter.get("/owner/:id", getRestaurantsByUserIdController);

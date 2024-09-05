@@ -1,7 +1,7 @@
 import { restaurantModel } from "#api/restaurants";
 
 // create a new restaurant
-export const createRestaurant = async (restaurantData) => {
+export const saveRestaurant = async (restaurantData) => {
   try {
     const restaurant = new restaurantModel(restaurantData);
     await restaurant.save();
@@ -12,7 +12,7 @@ export const createRestaurant = async (restaurantData) => {
 };
 
 // get all restaurants
-export const getAllRestaurants = async () => {
+export const getAll = async () => {
   try {
     const restaurants = await restaurantModel.find();
     return restaurants;

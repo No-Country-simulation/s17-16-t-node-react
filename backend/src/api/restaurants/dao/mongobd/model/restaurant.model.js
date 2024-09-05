@@ -19,6 +19,7 @@ const restaurantSchema = new Schema(
     logo: {
       type: String, // Path to the uploaded image file
       required: false,
+      default: null,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -29,12 +30,14 @@ const restaurantSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Menu",
+        default: null,
       },
     ],
     staff: [
       {
         type: Schema.Types.ObjectId,
         ref: "Staff",
+        default: null,
       },
     ],
 

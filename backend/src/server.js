@@ -1,38 +1,47 @@
+//==================
+// Imports
+//==================
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import logger from "morgan";
-import { config } from "dotenv";
-
 import { invalidRouter } from "#api/invalid";
-import { connectDB } from "#src/config";
+import { connectDB, HOST_DEV, HOST_PROD_BACK, NODE_ENV, PORT } from "#src/config";
 import { serverRouter } from "#src/routers";
+import { SetLimiter } from "#utils/rateLimit";
 
-config();
-
-const port = process.env.PORT || 3002;
-const env = process.env.NODE_ENV || "development";
-const hostDev = process.env.HOST_DEV || "localhost";
-const hostProd = process.env.HOST_PROD_BACK || "restifyApi.onrender.com";
+//==================
+// Const
+//==================
 const host =
-  env?.trim() === "production"
-    ? `https://${hostProd}`
-    : `http://${hostDev}:${port}`;
+  NODE_ENV?.trim() === "production"
+    ? `https://${HOST_PROD_BACK}`
+    : `http://${HOST_DEV}:${PORT}`;
 const server = express();
-//server
+
+//==================
+// Server Config
+//==================
 server.use(express.json());
 server.use(express.urlencoded({ extends: true }));
 server.use(cookieParser());
 server.use(logger("dev"));
 server.use(cors());
 server.use(helmet());
+server.use(SetLimiter);
 server.use("/api/v1", serverRouter);
 server.use("*", invalidRouter);
 
+//==================
+// Connect DB
+//==================
 connectDB();
 
-server.listen(port, (err) => {
+//==================
+// Server Listen
+//==================
+server.listen(PORT, (err) => {
   if (err) console.error("Error starting server", err);
   console.log(`✅ Server 🆗 is running 💯 on ${host}/api/v1/docs`);
 });

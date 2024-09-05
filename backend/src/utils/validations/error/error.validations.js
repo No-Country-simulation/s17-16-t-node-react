@@ -45,6 +45,8 @@ const errorMapping = {
   SyntaxError: { statusCode: 500, key: "Syntax error" },
   ReferenceError: { statusCode: 500, key: "Reference error" },
   ApiKeyError: { statusCode: 404 },
+  AuthError: { statusCode: 401 },
+  UploadError: { statusCode: 500},
 };
 
 //==============================================

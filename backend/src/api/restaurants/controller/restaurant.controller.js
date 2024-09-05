@@ -1,5 +1,12 @@
 //restaurant.controller.js
 import {
+  errorProfiler,
+  getModelFromRoute,
+  isValidateFile,
+  responseContentValidator,
+  successProfiler,
+} from "#utils/validations";
+import {
   getRestaurantById,
   createRestaurant,
   updateRestaurantById,
@@ -9,39 +16,35 @@ import {
 //==========================
 // Create a new restaurant
 //==========================
-const createRestaurantController = async (req, res) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      return res
-        .status(400)
-        .json({ message: "Error uploading image", error: err });
-    }
-
-    try {
-      const newRestaurantData = {
-        name: req.body.name,
-        address: req.body.address,
-        category: req.body.category,
-        owner: req.body.userId,
-        logo: req.file ? req.file.path : null, // save the route of the uploaded image
-        menus: req.body.menus || [],
-        staff: req.body.staff || [],
-      };
-
-      const newRestaurant = await createRestaurant(newRestaurantData);
-      res.status(201).json(newRestaurant);
-    } catch (error) {
-      res.status(500).json({ message: "Error creating restaurant", error });
-    }
-  });
+export const createRestaurantController = async (req, res) => {
+  try {
+    const newRestaurantData = {
+      name: req.body.name,
+      address: req.body.address,
+      category: req.body.category,
+      owner: req.body.userId,
+      logo: req.file ? req.file.path : null, // save the route of the uploaded image
+      menus: req.body.menus || [],
+      staff: req.body.staff || [],
+    };
+    const folder = getModelFromRoute(req.baseUrl);
+    const file = isValidateFile(req.file);
+    const fieldName = `${newRestaurantData.name}_${newRestaurantData.lastName}`;
+    newRestaurantData.logo = await uploadImage(file, folder, fieldName);
+    const response = await createRestaurant(newRestaurantData);
+    const restaurant = responseContentValidator(response);
+    successProfiler(res, 201, "createRestaurantController", { restaurant });
+  } catch (error) {
+    errorProfiler(error, res, "createRestaurantController");
+  }
 };
 
 //==========================
 // Get all restaurants
 //==========================
-const getAllRestaurantsController = async (req, res) => {
+export const getAllRestaurantsController = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find();
+    const restaurants = await getAllRestaurants();
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: "Error fetching restaurants", error });
@@ -51,7 +54,7 @@ const getAllRestaurantsController = async (req, res) => {
 //==========================
 // Get a restaurant by ID
 //==========================
-const getRestaurantByIdController = async (req, res) => {
+export const getRestaurantByIdController = async (req, res) => {
   try {
     const restaurant = await getRestaurantById(req.params.id);
     if (!restaurant) {
@@ -66,7 +69,7 @@ const getRestaurantByIdController = async (req, res) => {
 //==========================
 // Update a restaurant by ID
 //==========================
-const updateRestaurantByIdController = async (req, res) => {
+export const updateRestaurantByIdController = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       return res
@@ -102,7 +105,7 @@ const updateRestaurantByIdController = async (req, res) => {
 //==========================
 // Delete a restaurant by ID
 //==========================
-const deleteRestaurantByIdController = async (req, res) => {
+export const deleteRestaurantByIdController = async (req, res) => {
   try {
     const deletedRestaurant = await deleteRestaurantById(req.params.id);
     if (!deletedRestaurant) {
@@ -117,20 +120,11 @@ const deleteRestaurantByIdController = async (req, res) => {
 //==========================
 // Get restaurants by user ID
 //==========================
-const getRestaurantsByUserIdController = async (req, res) => {
+export const getRestaurantsByUserIdController = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find({ userId: req.params.userId });
+    const restaurants = await Restaurant.find({ owner: req.params.id });
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: "Error fetching restaurants", error });
   }
-};
-
-export default {
-  createRestaurantController,
-  getAllRestaurantsController,
-  getRestaurantByIdController,
-  updateRestaurantByIdController,
-  deleteRestaurantByIdController,
-  getRestaurantsByUserIdController,
 };
