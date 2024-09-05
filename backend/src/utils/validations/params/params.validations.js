@@ -1,7 +1,7 @@
 //=====================
 // Imports
 //=====================
-import { CD_MAX_FILE_SIZE, CD_RESOURCE_EXT, CD_RESOURCE_TYPE } from "#src/config";
+import { CD_MAX_FILE_SIZE, CD_RESOURCE_EXT, CD_RESOURCE_TYPE, DEFAULT_AVATAR } from "#src/config";
 import { validateKeysInMongooseModel } from "#utils/validations";
 
 //=====================
@@ -102,7 +102,7 @@ export const isBodyParamsValidate = async (req) => {
 //================
 export const isValidateFile = (file) => {
   if (!file) {
-    return "https://res.cloudinary.com/restity/image/upload/v1725477947/User/test2_test2.png";
+    return DEFAULT_AVATAR;
   }
   validateMimeType(file);
   validateSize(file);

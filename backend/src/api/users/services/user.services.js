@@ -4,6 +4,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserDao } from '#api/users';
+import { JWT_EXPIRATION, JWT_SECRET } from '#src/config';
 
 //==========================
 // Const
@@ -30,7 +31,9 @@ export const loginUser = async (email, password) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
         throw new Error('Credenciales inválidas');
     }
-    const token = jwt.sign({ id: user }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRATION,
+    });
     return { user, token };
 };
 
@@ -39,8 +42,8 @@ export const getUserProfile = async (id) => {
 };
 
 export const updateUserProfile = async (id, updateData) => {
-    if (updateData.contraseña) {
-        updateData.contraseña = await bcrypt.hash(updateData.contraseña, 10);
+    if (updateData.password) {
+        updateData.password = await bcrypt.hash(updateData.password, 10);
     }
     return await userDao.update(id, updateData);
 };
@@ -51,25 +54,4 @@ export const deleteUserProfile = async (id) => {
 
 export const getAllUserProfiles = async () => {
     return await userDao.findAll();
-};
-
-export const updateUserProfileWithPhoto = async (id, updateData, file) => {
-    let update = { ...updateData };
-  if (file) {
-        try {
-            const result = await cloudinary.uploader.upload(file.path, {
-                folder: 'user_photos',
-                use_filename: true
-            });
-            update.foto = result.secure_url;
-        } catch (error) {
-            console.error('Error al subir la imagen a Cloudinary:', error);
-            throw new Error('Error al subir la imagen');
-        }
-    }
-
-    if (update.password) {
-        update.password = await bcrypt.hash(update.password, 10);
-    }
-    return await userDao.update(id, update);
 };
