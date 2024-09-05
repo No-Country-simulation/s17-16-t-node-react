@@ -32,7 +32,6 @@ export const uploadImage = async (file, folder, filedName) => {
       ],
     };
     const result = await cloudinary.uploader.upload(file.path, options);
-    console.log("UCD -> ", result);
     if (!result) throw new CloudinaryError('Error con el servidor Cloudinary');
     return result.secure_url;
   } catch (error) {

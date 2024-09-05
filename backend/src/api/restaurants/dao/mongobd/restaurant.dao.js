@@ -1,18 +1,7 @@
 import { restaurantModel } from "#api/restaurants";
 
-// create a new restaurant
-export const saveRestaurant = async (restaurantData) => {
-  try {
-    const restaurant = new restaurantModel(restaurantData);
-    await restaurant.save();
-    return restaurant;
-  } catch (error) {
-    throw new Error("Error al crear el restaurante: " + error.message);
-  }
-};
-
 // get all restaurants
-export const getAll = async () => {
+export const getAllDao = async () => {
   try {
     const restaurants = await restaurantModel.find();
     return restaurants;
@@ -22,9 +11,9 @@ export const getAll = async () => {
 };
 
 // get a restaurant by ID
-export const getRestaurantById = async (id) => {
+export const getRestaurantByIdDao = async (id) => {
   try {
-    const restaurant = await restaurantModel.findById(id);
+    const restaurant = await restaurantModel.findById({ _id: id });
     if (!restaurant) {
       throw new Error("Restaurante no encontrado");
     }
@@ -33,6 +22,27 @@ export const getRestaurantById = async (id) => {
     throw new Error("Error al obtener el restaurante: " + error.message);
   }
 };
+
+// get restaurants by user ID
+export const getRestaurantsByOwnerDao = async (owner) => {
+  try {
+    const restaurants = await restaurantModel.find({ owner: owner });
+    return restaurants;
+  } catch (error) {
+    throw new Error("Error al obtener los restaurantes: " + error.message);
+  }
+};
+
+// create a new restaurant
+export const saveRestaurantDao = async (restaurantData) => {
+  try {
+    const restaurant = await restaurantModel.create(restaurantData);
+    return restaurant;
+  } catch (error) {
+    throw new Error("Error al crear el restaurante: " + error.message);
+  }
+};
+
 
 // update a restaurant by ID
 export const updateRestaurantById = async (id, updateData) => {
@@ -50,7 +60,7 @@ export const updateRestaurantById = async (id, updateData) => {
 };
 
 // delete a restaurant by ID
-export const deleteRestaurantById = async (id) => {
+export const deleteRestaurantByIdDao = async (id) => {
   try {
     const restaurant = await restaurantModel.findByIdAndDelete(id);
     if (!restaurant) {
@@ -59,15 +69,5 @@ export const deleteRestaurantById = async (id) => {
     return restaurant;
   } catch (error) {
     throw new Error("Error al eliminar el restaurante: " + error.message);
-  }
-};
-
-// get restaurants by user ID
-export const getRestaurantsByUserId = async (userId) => {
-  try {
-    const restaurants = await restaurantModel.find({ owner: userId });
-    return restaurants;
-  } catch (error) {
-    throw new Error("Error al obtener los restaurantes: " + error.message);
   }
 };

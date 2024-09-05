@@ -1,6 +1,9 @@
-//import { restaurantModel as Restaurant } from "../dao/mongobd/model/restaurant.model.js";
-
-import { getAll, saveRestaurant } from "#api/restaurants";
+import {
+  getAllDao,
+  getRestaurantByIdDao,
+  getRestaurantsByOwnerDao,
+  saveRestaurantDao,
+} from "../dao/mongobd/restaurant.dao.js";
 
 /*const restaurantDAO = new restaurantDAO();
 
@@ -22,13 +25,13 @@ function toRestaurantDTO(restaurantDoc) {
 //==========================
 // Get all restaurants
 //==========================
-export const getAllRestaurants = async () => {
+export const getAllRestaurantsService = async () => {
   try {
-    const restaurantDoc = await getAll();
+    const restaurantDoc = await getAllDao();
     if (!restaurantDoc) {
       throw new Error("Restaurant not found");
     }
-    return toRestaurantDTO(restaurantDoc);
+    return restaurantDoc;
   } catch (error) {
     throw new Error(error);
   }
@@ -37,25 +40,41 @@ export const getAllRestaurants = async () => {
 //==========================
 // Get restaurant by ID
 //==========================
-export const getRestaurantById = async (id) => {
+export const getRestaurantByIdService = async (id) => {
   try {
-    const restaurantDoc = await restaurantModel.findById(id);
+    const restaurantDoc = await getRestaurantByIdDao(id);
     if (!restaurantDoc) {
       throw new Error("Restaurant not found");
     }
-    return toRestaurantDTO(restaurantDoc);
+    return restaurantDoc;
   } catch (error) {
     throw new Error(error);
   }
 };
 
+//============================
+// Get restaurants by owner
+//============================
+export const getRestaurantsByOwnerService = async (owner) => {
+  try {
+    const restaurantDoc = await getRestaurantsByOwnerDao(Owner);
+    if (!restaurantDoc) {
+      throw new Error("Restaurant not found");
+    }
+    return restaurantDoc;
+  } catch (error) {
+    throw new Error(error);
+  }
+
+}
+
 //==========================
 // Create new restaurant
 //==========================
-export const createRestaurant = async (restaurantData) => {
+export const createRestaurantService = async (restaurantData) => {
   try {
-    const savedRestaurant = await saveRestaurant(newRestaurant);
-    return toRestaurantDTO(savedRestaurant);
+    const savedRestaurant = await saveRestaurantDao(newRestaurant);
+    return savedRestaurant;
   } catch (error) {
     throw new Error(error);
   }
@@ -64,7 +83,7 @@ export const createRestaurant = async (restaurantData) => {
 //==========================
 // Update restaurant by ID
 //==========================
-export const updateRestaurantById = async (id, updatedData) => {
+export const updateRestaurantByIdService = async (id, updatedData) => {
   try {
     const updatedRestaurant = await Restaurant.findByIdAndUpdate(
       id,
@@ -83,9 +102,9 @@ export const updateRestaurantById = async (id, updatedData) => {
 //==========================
 // Delete restaurant by ID
 //==========================
-export const deleteRestaurantById = async (id) => {
+export const deleteRestaurantByIdService = async (id) => {
   try {
-    const deletedRestaurant = await Restaurant.findByIdAndDelete(id);
+    const deletedRestaurant = await deleteRestaurantByIdDao(id);
     if (!deletedRestaurant) {
       throw new Error("Restaurant not found");
     }
