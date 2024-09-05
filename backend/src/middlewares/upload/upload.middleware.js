@@ -26,7 +26,6 @@ const upload = multer({ dest: 'uploads/' });
 export const setUpload = (req, res, next) => {
   try {
     upload.single('image')(req, res, (err) => {
-      console.log('req', req.file);
       if (err) {
         throw new UploadError("Upload error", "Error al subir el archivo");
       }

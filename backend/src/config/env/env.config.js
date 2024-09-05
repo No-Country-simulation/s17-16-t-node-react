@@ -34,7 +34,7 @@ export const JWT_EXPIRATION = process.env.TOKEN_EXPIRATION;
 //==================
 // Cloudinary
 //==================`
-export const CD_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+export const CD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 export const CD_API_KEY = process.env.CLOUDINARY_API_KEY;
 export const CD_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 export const CD_RESOURCE_EXT = process.env.CLOUDINARY_RESOURCE_TYPE_EXT;
@@ -45,4 +45,4 @@ export const CD_MAX_SIZE_IMAGE = process.env.CLOUDINARY_MAX_SIZE_IMAGE;
 // Imagen default
 //==================
 export const DEFAULT_AVATAR =
-  "https://res.cloudinary.com/restity/image/upload/v1725477947/User/test_test.png";
+  "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";

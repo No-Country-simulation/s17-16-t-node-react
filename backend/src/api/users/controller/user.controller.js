@@ -3,7 +3,7 @@
 //==========================
 import { errorProfiler, getModelFromRoute, isBodyParamsValidate, isQueryParamsValidate, isValidateFile, responseContentValidator, successProfiler } from "#utils/validations";
 import { getAllUserProfiles, getUserProfile, loginUser, registerUser, updateUserProfile} from "#api/users";
-import { deleteImage, uploadImage } from "#utils/cloudinary";
+import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
 import { DEFAULT_AVATAR } from "#src/config";
 
 //==========================
@@ -12,11 +12,24 @@ import { DEFAULT_AVATAR } from "#src/config";
 export const register = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
+    if (!req.file) {
+      body.avatar = DEFAULT_AVATAR;
+    } else {
     const folder = getModelFromRoute(req.baseUrl);
     const file = isValidateFile(req.file)
     const fieldName = `${body.name}_${body.lastName}`;
     body.avatar = await uploadImage(file, folder, fieldName);
-    const response = await registerUser(body);
+    await deleteTempFile(file.path);
+    }
+    let response;
+    try {
+       response = await registerUser(body);
+    } catch (error) {
+      if (body.avatar !== DEFAULT_AVATAR) {
+        await deleteImage(body.avatar);
+      };
+      throw error;
+    }
     const user = responseContentValidator(response);
     successProfiler(res, 201, "Register", { user });
   } catch (error) {
@@ -56,9 +69,9 @@ export const getProfile = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await getAllUserProfiles();
-    res.json(users);
+    successProfiler(res, 200, "getAllUsers", { users });
   } catch (error) {
-    res.status(500).json({ mensaje: error.message });
+    errorProfiler(error, res, "getAllUsers");
   }
 };
 
@@ -71,15 +84,16 @@ export const updateProfile = async (req, res) => {
     const body = await isBodyParamsValidate(req);
     const resp = await getUserProfile(id);
     let user = responseContentValidator(resp);
-    const folder = getModelFromRoute(req.baseUrl);
-    const file = isValidateFile(req.file)
-    const fieldName = `${body.name}_${body.lastName}`;
-    if (user.avatar !== DEFAULT_AVATAR) {
-      const delImg= await deleteImage(user.avatar);
-      console.log(`El borrado de imagen salio ${delImg}`);
-    };
+    if (req.file) {
+      const file = isValidateFile(req.file)
+      const folder = getModelFromRoute(req.baseUrl);
+      const fieldName = `${body.name}_${body.lastName}`;
+      if (user.avatar !== DEFAULT_AVATAR) {
+        await deleteImage(user.avatar);
+      };
+      user.avatar = await uploadImage(file, folder, fieldName);
+    }
     user = {...body};
-    user.avatar = await uploadImage(file, folder, fieldName);
     const response = await updateUserProfile(id, user);
     const uploadUser = responseContentValidator(response);
     successProfiler(res, 200, "uploadProfile", { uploadUser });
@@ -99,6 +113,6 @@ export const deleteProfile = async (req, res) => {
     const delUser = responseContentValidator(deleteUser);
     successProfiler(res, 200, "deleteProfile", { delUser });
   } catch (error) {
-    res.status(400).json({ mensaje: error.message });
+    errorProfiler(error, res, "deleteProfile");
   }
 };

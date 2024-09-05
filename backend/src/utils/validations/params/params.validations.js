@@ -87,7 +87,6 @@ const isKeyAndValueValidate = (queryParams, model) => {
 export const isBodyParamsValidate = async (req) => {
   const body = req.body;
   const model = getModelFromRoute(req.baseUrl);
-  console.log(model);
   if (Object.keys(body).length < 1) {
     throw new ParamError("Body error", "must have body");
   }
@@ -102,7 +101,7 @@ export const isBodyParamsValidate = async (req) => {
 //================
 export const isValidateFile = (file) => {
   if (!file) {
-    return DEFAULT_AVATAR;
+    return null;
   }
   validateMimeType(file);
   validateSize(file);
@@ -141,7 +140,6 @@ const validateName = (file) => {
   if (!file.originalname) {
     throw new ParamError("File error", "The file must have a name");
   }
-  file.fiels
 };
 
 const validatePath = (file) => {
