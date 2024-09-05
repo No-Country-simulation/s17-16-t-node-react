@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LuStore } from "react-icons/lu";
+import { LuApple, LuClipboard, LuLayoutGrid, LuStore, LuUsers } from "react-icons/lu";
+import { RxTable } from "react-icons/rx";
 
 import { Button } from "@/components/ui/button";
 
@@ -18,7 +19,7 @@ export function Navbar() {
         asChild
       >
         <Link className="gap-2" href="/d/kitchen">
-          <LuStore /> Cocina
+          <LuLayoutGrid /> Cocina
         </Link>
       </Button>
       <Button
@@ -27,7 +28,7 @@ export function Navbar() {
         asChild
       >
         <Link className="gap-2" href="/d/dining-area">
-          <LuStore /> Salón
+          <LuClipboard /> Salón
         </Link>
       </Button>
 
@@ -48,7 +49,7 @@ export function Navbar() {
         asChild
       >
         <Link className="gap-2" href="/d/personal">
-          <LuStore /> Personal
+          <LuUsers /> Personal
         </Link>
       </Button>
       <Button
@@ -57,7 +58,7 @@ export function Navbar() {
         asChild
       >
         <Link className="gap-2" href="/d/menu">
-          <LuStore /> Menú
+          <LuApple /> Menú
         </Link>
       </Button>
       <Button
@@ -66,7 +67,7 @@ export function Navbar() {
         asChild
       >
         <Link className="gap-2" href="/d/tables">
-          <LuStore /> Mesas
+          <RxTable /> Mesas
         </Link>
       </Button>
     </nav>
