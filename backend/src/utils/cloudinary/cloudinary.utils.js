@@ -44,12 +44,8 @@ export const uploadImage = async (file, folder, filedName) => {
 //=================
 export const deleteImage = async (photoUrl) => {
   try {
-    console.log('photoUrl:', photoUrl);
-    // Extraer el public_id completo incluyendo la carpeta
     const publicId = photoUrl.split('/').slice(-2).join('/').split('.')[0];
-    console.log('publicId:', publicId);
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log('Cloudinary response:', result); // Log para verificar la respuesta de Cloudinary
     if (result.result !== 'ok') throw new CloudinaryError("Error con el servidor Cloudinary");
     return true;
   } catch (error) {

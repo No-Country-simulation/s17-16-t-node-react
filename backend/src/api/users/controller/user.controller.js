@@ -75,14 +75,11 @@ export const updateProfile = async (req, res) => {
     const file = isValidateFile(req.file)
     const fieldName = `${body.name}_${body.lastName}`;
     if (user.avatar !== DEFAULT_AVATAR) {
-      console.log('avartar -> ', user.avatar);
-      const del = await deleteImage(user.avatar);
-      console.log('del', (del===true)?'ok':'fail');
+      const delImg= await deleteImage(user.avatar);
+      console.log(`El borrado de imagen salio ${delImg}`);
     };
-
     user = {...body};
     user.avatar = await uploadImage(file, folder, fieldName);
-    console.log('user2', user);
     const response = await updateUserProfile(id, user);
     const uploadUser = responseContentValidator(response);
     successProfiler(res, 200, "uploadProfile", { uploadUser });
