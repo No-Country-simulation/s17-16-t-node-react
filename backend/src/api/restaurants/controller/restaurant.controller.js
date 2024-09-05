@@ -12,6 +12,7 @@ import {
   getAllRestaurantsService,
   getRestaurantByIdService,
   updateRestaurantByIdService,
+  getRestaurantsByOwnerService,
 } from "#api/restaurants";
 import { uploadImage } from "#utils/cloudinary";
 
@@ -47,7 +48,7 @@ export const getRestaurantByIdController = async (req, res) => {
 //============================
 export const getRestaurantsByOwnerController = async (req, res) => {
   try {
-    const restaurants = await Restaurant.find({ owner: req.params.id });
+    const restaurants = await getRestaurantsByOwnerService({ owner: req.params.owner });
     res.status(200).json(restaurants);
   } catch (error) {
     res.status(500).json({ message: "Error fetching restaurants", error });
@@ -60,7 +61,7 @@ export const getRestaurantsByOwnerController = async (req, res) => {
 //==========================
 export const createRestaurantController = async (req, res) => {
   try {
-    const newRestaurantData = {
+    const restaurantData = {
       name: req.body.name,
       address: req.body.address,
       category: req.body.category,
@@ -68,9 +69,9 @@ export const createRestaurantController = async (req, res) => {
     };
     const folder = getModelFromRoute(req.baseUrl);
     const file = isValidateFile(req.file);
-    const fieldName = `${newRestaurantData.name}_${newRestaurantData.lastName}`;
-    newRestaurantData.logo = await uploadImage(file, folder, fieldName);
-    const response = await createRestaurantService(newRestaurantData);
+    const fieldName = `${restaurantData.name}_${restaurantData.lastName}`;
+    restaurantData.logo = await uploadImage(file, folder, fieldName);
+    const response = await createRestaurantService(restaurantData);
     const restaurant = responseContentValidator(response);
     successProfiler(res, 201, "createRestaurantController", { restaurant });
   } catch (error) {

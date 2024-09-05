@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { setUpload } from "#src/middlewares";
-import { createRestaurantController, deleteRestaurantByIdController, getAllRestaurantsController, getRestaurantByIdController, getRestaurantsByOwnerController, updateRestaurantByIdController } from "../controller/restaurant.controller.js";
+import { createRestaurantController, deleteRestaurantByIdController, getAllRestaurantsController, getRestaurantByIdController, getRestaurantsByOwnerController, updateRestaurantByIdController } from "#api/restaurants";
 
 export const restaurantRouter = Router();
 

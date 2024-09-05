@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Define validations for the restaurant model fields
-const restaurantSchema = z.object({
+const zodSchema = z.object({
   name: z
     .string()
     .min(3, { message: "Name must be at least 3 characters long." })
@@ -20,20 +20,16 @@ const restaurantSchema = z.object({
     .regex(/^[0-9a-fA-F]{24}$/, { message: "Owner must be a valid ObjectId." }),
   menus: z
     .array(
-      z
-        .string()
-        .regex(/^[0-9a-fA-F]{24}$/, {
-          message: "Menu must be a valid ObjectId.",
-        })
+      z.string().regex(/^[0-9a-fA-F]{24}$/, {
+        message: "Menu must be a valid ObjectId.",
+      })
     )
     .optional(),
   staff: z
     .array(
-      z
-        .string()
-        .regex(/^[0-9a-fA-F]{24}$/, {
-          message: "Staff must be a valid ObjectId.",
-        })
+      z.string().regex(/^[0-9a-fA-F]{24}$/, {
+        message: "Staff must be a valid ObjectId.",
+      })
     )
     .optional(),
   isActive: z.boolean().optional(),
@@ -42,9 +38,9 @@ const restaurantSchema = z.object({
 });
 
 // Function to validate a restaurant object
-export const validateRestaurant = (restaurant) => {
+export const validateZod = (zod) => {
   try {
-    restaurantSchema.parse(restaurant);
+    zodSchema.parse(zod);
   } catch (error) {
     throw new Error(
       `Validation error: ${error.errors.map((x) => x.message).join(", ")}`

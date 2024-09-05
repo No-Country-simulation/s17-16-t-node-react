@@ -3,24 +3,7 @@ import {
   getRestaurantByIdDao,
   getRestaurantsByOwnerDao,
   saveRestaurantDao,
-} from "../dao/mongobd/restaurant.dao.js";
-
-/*const restaurantDAO = new restaurantDAO();
-
-function toRestaurantDTO(restaurantDoc) {
-  return new RestaurantDTO({
-    name: restaurantDoc.name,
-    address: restaurantDoc.address,
-    category: restaurantDoc.category,
-    logo: restaurantDoc.logo,
-    owner: restaurantDoc.owner,
-    menus: restaurantDoc.menus,
-    staff: restaurantDoc.staff,
-    isActive: restaurantDoc.isActive,
-    createdAt: restaurantDoc.createdAt,
-    updatedAt: restaurantDoc.updatedAt,
-  });
-}*/
+} from "#api/restaurants";
 
 //==========================
 // Get all restaurants
@@ -73,14 +56,14 @@ export const getRestaurantsByOwnerService = async (owner) => {
 //==========================
 export const createRestaurantService = async (restaurantData) => {
   try {
-    const savedRestaurant = await saveRestaurantDao(newRestaurant);
+    const savedRestaurant = await saveRestaurantDao(restaurantData);
     return savedRestaurant;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-//==========================
+//==========================`
 // Update restaurant by ID
 //==========================
 export const updateRestaurantByIdService = async (id, updatedData) => {
