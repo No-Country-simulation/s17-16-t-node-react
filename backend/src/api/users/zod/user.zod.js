@@ -9,7 +9,7 @@ const zodSchema = z.object({
   phone: z.string().nullable().optional(),
   role: z.string().optional(),
   avatar: z.string().nullable().optional(),
-  isActive: z.boolean().optional(),
+  isActive: z.string().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

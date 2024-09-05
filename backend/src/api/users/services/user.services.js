@@ -52,24 +52,3 @@ export const deleteUserProfile = async (id) => {
 export const getAllUserProfiles = async () => {
     return await userDao.findAll();
 };
-
-export const updateUserProfileWithPhoto = async (id, updateData, file) => {
-    let update = { ...updateData };
-  if (file) {
-        try {
-            const result = await cloudinary.uploader.upload(file.path, {
-                folder: 'user_photos',
-                use_filename: true
-            });
-            update.foto = result.secure_url;
-        } catch (error) {
-            console.error('Error al subir la imagen a Cloudinary:', error);
-            throw new Error('Error al subir la imagen');
-        }
-    }
-
-    if (update.password) {
-        update.password = await bcrypt.hash(update.password, 10);
-    }
-    return await userDao.update(id, update);
-};

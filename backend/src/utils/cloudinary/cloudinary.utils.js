@@ -32,7 +32,6 @@ export const uploadImage = async (file, folder, filedName) => {
       ],
     };
     const result = await cloudinary.uploader.upload(file.path, options);
-    console.log("UCD -> ", result);
     if (!result) throw new CloudinaryError('Error con el servidor Cloudinary');
     return result.secure_url;
   } catch (error) {
@@ -41,16 +40,32 @@ export const uploadImage = async (file, folder, filedName) => {
 };
 
 //=================
-// delete Imagen
+// Delete Image
 //=================
 export const deleteImage = async (photoUrl) => {
   try {
-    const publicId = photoUrl.split('/').pop().split('.')[0];
+    console.log('photoUrl:', photoUrl);
+    // Extraer el public_id completo incluyendo la carpeta
+    const publicId = photoUrl.split('/').slice(-2).join('/').split('.')[0];
+    console.log('publicId:', publicId);
     const result = await cloudinary.uploader.destroy(publicId);
-    if (!result) throw new Error("Error con el servidor Cloudinary");
-    console.log("DCD -> ",result);
+    console.log('Cloudinary response:', result); // Log para verificar la respuesta de Cloudinary
+    if (result.result !== 'ok') throw new CloudinaryError("Error con el servidor Cloudinary");
     return true;
   } catch (error) {
-    throw new Error('Error al eliminar la foto');
+    throw new CloudinaryError("Error al eliminar la foto");
+  }
+};
+
+//=================
+// Delete Folder Content
+//=================
+export const deleteFolderContent = async (folderName) => {
+  try {
+    const result = await cloudinary.api.delete_resources_by_prefix(folderName + '/');
+    if (result.deleted_counts === 0) throw new Error("No se encontraron recursos para eliminar");
+    return true;
+  } catch (error) {
+    throw new CloudinaryError("Error al eliminar el contenido de la carpeta");
   }
 };
