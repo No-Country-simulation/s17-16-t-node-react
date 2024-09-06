@@ -176,6 +176,7 @@ export const getModelFromRoute = (routePath) => {
 const modelToZodValidationMap = {
   Role: "#api/roles",
   User: "#api/users",
+  Menu: "#api/menus",
 };
 
 //=======================================
