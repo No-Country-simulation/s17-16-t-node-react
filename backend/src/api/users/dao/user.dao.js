@@ -1,36 +1,56 @@
-import { User } from "#api/users";
+//===========
+// Imports
+//===========
+import { UserModel } from "#api/users";
 
-export class UserDao {
-  async create(userData) {
-    return await User.create(userData);
-  }
+//=============
+// Find all
+//=============
+export const findAllDao = async () => {
+  return await UserModel.find()
+};
 
-  async findById(id) {
-    return await User.findById(id)
-  }
+//============
+// Find one
+//============
+export const findOneDao= async (info) => {
+  return await UserModel.findOne(info)
+};
 
-  async update(id, updateData) {
-    return await User.findByIdAndUpdate(id, updateData, {
+//====================
+// Find user by id
+//====================
+export const findByIdDao = async (id) => {
+  return await UserModel.findById(id);
+};
+
+//=================
+// Create user
+//=================
+export const createUserDao = async (userData) => {
+  return await UserModel.create(userData);
+};
+
+//================
+// Update user
+//================
+export const updateUserDao = async (id, updateData) => {
+  return await UserModel.findByIdAndUpdate(id, updateData, { new: true });
+};
+
+//========================
+// Update with session
+//========================
+export const updateWithSession = async (id, updateData, session) => {
+  return await UserModel.findByIdAndUpdate(id, updateData, {
       new: true,
-    })
-  }
+      session,
+  });
+};
 
-  async delete(id) {
-    return await User.findByIdAndDelete(id)
-  }
-
-  async findAll() {
-    return await User.find()
-  }
-
-  async findOne(info){
-    return await User.findOne(info)
-  }
-
-  async updateWithSession(id, updateData, session) {
-    return await User.findByIdAndUpdate(id, updateData, {
-        new: true,
-        session
-    });
-  }
-}
+//=================
+// Delete user
+//=================
+export const deleteUserDao = async (id) => {
+  return await UserModel.findByIdAndDelete(id)
+};

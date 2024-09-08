@@ -39,6 +39,7 @@ const errorMapping = {
   RouterError: { statusCode: 409 },
   ZodError: { statusCode: 422, key: "Validation error" },
   MongooseError: { statusCode: 500, key: "Mongoose error" },
+  MongoServerError: { statusCode: 500, key: "Mongo server error" },
   CastError: { statusCode: 400, key: "Mongoose cast error" },
   ValidationError: { statusCode: 400, key: "Mongoose validation error" },
   TypeError: { statusCode: 500, key: "Type error" },
@@ -46,7 +47,7 @@ const errorMapping = {
   ReferenceError: { statusCode: 500, key: "Reference error" },
   ApiKeyError: { statusCode: 404 },
   AuthError: { statusCode: 401 },
-  UploadError: { statusCode: 500},
+  UploadError: { statusCode: 500, key: "Upload error" },
   CloudinaryError: { statusCode: 500, key: "Cloudinary error" },
 };
 
