@@ -5,6 +5,7 @@ import { errorProfiler, getModelFromRoute, isBodyParamsValidate, isQueryParamsVa
 import { getMenuService, createMenuService, updateMenuService, getAllMenusService,deleteMenuService} from "#api/menus";
 import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
 import { DEFAULT_AVATAR } from "#src/config";
+import { date } from "zod";
 
 //==========================
 // RegisterMenu
@@ -100,9 +101,6 @@ export const deleteMenuController = async (req, res) => {
     const resp = await deleteMenuService(_id, { isActive: false });
     const deleteMenu = responseContentValidator(resp);
     const delMenu = responseContentValidator(deleteMenu);
-    const avatarDir = req.body.avatar;
-    console.log(avatarDir)
-    deleteImage(avatarDir);
     successProfiler(res, 200, "deleteMenuController", { delMenu });
   } catch (error) {
     errorProfiler(error, res, "deleteMenuController");
