@@ -2,7 +2,7 @@
 // Imports
 //==========================
 import { errorProfiler, getModelFromRoute, isBodyParamsValidate, isQueryParamsValidate, isValidateFile, responseContentValidator, successProfiler } from "#utils/validations";
-import { getMenuService, createMenuService, updateMenuService, getAllMenusService} from "#api/menus";
+import { getMenuService, createMenuService, updateMenuService, getAllMenusService,deleteMenuService} from "#api/menus";
 import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
 import { DEFAULT_AVATAR } from "#src/config";
 
@@ -97,7 +97,7 @@ export const updateMenuController = async (req, res) => {
 export const deleteMenuController = async (req, res) => {
   try {
     const _id = isQueryParamsValidate(req);
-    const resp = await updateMenuService(_id, { isActive: false });
+    const resp = await deleteMenuService(_id, { isActive: false });
     const deleteMenu = responseContentValidator(resp);
     const delMenu = responseContentValidator(deleteMenu);
     successProfiler(res, 200, "deleteMenuController", { delMenu });
