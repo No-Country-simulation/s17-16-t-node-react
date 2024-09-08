@@ -43,8 +43,9 @@ export const crateMenuController = async (req, res) => {
 //===============
 export const getMenuController = async (req, res) => {
   try {
-    const response = await getMenuService (req.menu.id);
-    const user = responseContentValidator(response);
+    console.log(req)
+    const response = await getMenuService (req.query._id);
+    const menu = responseContentValidator(response);
     successProfiler(res, 200, "getMenuController", { menu });
   } catch (error) {
     errorProfiler(error, res, "getMenuController");
@@ -68,9 +69,9 @@ export const getAllMenusController = async (req, res) => {
 //==========================
 export const updateMenuController = async (req, res) => {
   try {
-    const id = isQueryParamsValidate(req);
+    const _id = isQueryParamsValidate(req);
     const body = await isBodyParamsValidate(req);
-    const resp = await getMenuService(id);
+    const resp = await getMenuService(_id);
     let menu = responseContentValidator(resp);
     if (req.file) {
       const file = isValidateFile(req.file)
@@ -82,7 +83,7 @@ export const updateMenuController = async (req, res) => {
       menu.avatar = await uploadImage(file, folder, fieldName);
     }
     menu = {...body};
-    const response = await updateMenu(id, menu);
+    const response = await updateMenu(_id, menu);
     const uploadMenu = responseContentValidator(response);
     successProfiler(res, 200, "uploadMenu", { uploadMenu });
   } catch (error) {
@@ -95,8 +96,8 @@ export const updateMenuController = async (req, res) => {
 //==========================
 export const deleteMenuController = async (req, res) => {
   try {
-    const id = isQueryParamsValidate(req);
-    const resp = await updateUserProfile(id, { isActive: false });
+    const _id = isQueryParamsValidate(req);
+    const resp = await updateUserProfile(_id, { isActive: false });
     const deleteMenu = responseContentValidator(resp);
     const delMenu = responseContentValidator(deleteMenu);
     successProfiler(res, 200, "deleteMenu", { delMenu });

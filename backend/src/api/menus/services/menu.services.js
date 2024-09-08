@@ -13,7 +13,6 @@ const menuDao = new MenuDao();
 // Register user
 //==========================
 export const createMenuService = async (menuData) => {
-   
     const newMenu = await menuDao.create({
       ...menuData
     });
@@ -21,17 +20,17 @@ export const createMenuService = async (menuData) => {
 };
 
 
-
-export const getMenuService = async (id) => {
-    return await menuDao.findById(id);
+export const getMenuService = async (_id) => {
+    
+    return await menuDao.findById(_id);
 };
 
-export const updateMenuService = async (id, updateData) => {
-    return await menuDao.update(id, updateData);
+export const updateMenuService = async (_id, updateData) => {
+    return await menuDao.update(_id, updateData);
 };
 
-export const deleteMenuService = async (id) => {
-    return await menuDao.delete(id);
+export const deleteMenuService = async (_id) => {
+    return await menuDao.delete(_id);
 };
 
 export const getAllMenusService = async () => {
