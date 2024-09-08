@@ -17,4 +17,4 @@ menuRoutes.get("/", setApiKey, getMenuController);
 
 menuRoutes.get("/all", setApiKey, getAllMenusController);
 menuRoutes.put("/menu", setApiKey, setAuthorize, setUpload, updateMenuController);
-menuRoutes.delete("/menu", setApiKey, setAuthorize, deleteMenuController);
+menuRoutes.delete("/delete", setApiKey, /*setAuthorize,*/ deleteMenuController);
