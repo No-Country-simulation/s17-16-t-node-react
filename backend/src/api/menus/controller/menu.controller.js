@@ -100,6 +100,9 @@ export const deleteMenuController = async (req, res) => {
     const resp = await deleteMenuService(_id, { isActive: false });
     const deleteMenu = responseContentValidator(resp);
     const delMenu = responseContentValidator(deleteMenu);
+    const avatarDir = req.body.avatar;
+    console.log(avatarDir)
+    deleteImage(avatarDir);
     successProfiler(res, 200, "deleteMenuController", { delMenu });
   } catch (error) {
     errorProfiler(error, res, "deleteMenuController");
