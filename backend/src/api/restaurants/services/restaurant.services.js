@@ -3,6 +3,8 @@ import {
   getRestaurantByIdDao,
   getRestaurantsByOwnerDao,
   saveRestaurantDao,
+  updateRestaurantByIdDao,
+  updateRestaurantStatusByIdDao,
 } from "#api/restaurants";
 
 //==========================
@@ -48,8 +50,7 @@ export const getRestaurantsByOwnerService = async (owner) => {
   } catch (error) {
     throw new Error(error);
   }
-
-}
+};
 
 //==========================
 // Create new restaurant
@@ -57,8 +58,10 @@ export const getRestaurantsByOwnerService = async (owner) => {
 export const createRestaurantService = async (restaurantData) => {
   try {
     const savedRestaurant = await saveRestaurantDao(restaurantData);
+
     return savedRestaurant;
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };
@@ -68,15 +71,13 @@ export const createRestaurantService = async (restaurantData) => {
 //==========================
 export const updateRestaurantByIdService = async (id, updatedData) => {
   try {
-    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
-      id,
-      updatedData,
-      { new: true }
-    );
+    const updatedRestaurant = await updateRestaurantByIdDao(id, updatedData, {
+      new: true,
+    });
     if (!updatedRestaurant) {
       throw new Error("Restaurant not found");
     }
-    return toRestaurantDTO(updatedRestaurant);
+    return updatedRestaurant;
   } catch (error) {
     throw new Error(error);
   }
@@ -85,14 +86,11 @@ export const updateRestaurantByIdService = async (id, updatedData) => {
 //==========================
 // Delete restaurant by ID
 //==========================
-export const deleteRestaurantByIdService = async (id) => {
+export const updateRestaurantStatusByIdService = async (id) => {
   try {
-    const deletedRestaurant = await deleteRestaurantByIdDao(id);
-    if (!deletedRestaurant) {
-      throw new Error("Restaurant not found");
-    }
-    return toRestaurantDTO(deletedRestaurant);
+    const restaurant = await updateRestaurantStatusByIdDao(id);
+    return restaurant;
   } catch (error) {
-    throw new Error(error);
+    throw new Error("Error updating restaurant status");
   }
 };

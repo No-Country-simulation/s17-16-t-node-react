@@ -1,7 +1,12 @@
 //=====================
 // Imports
 //=====================
-import { CD_MAX_FILE_SIZE, CD_RESOURCE_EXT, CD_RESOURCE_TYPE, DEFAULT_AVATAR } from "#src/config";
+import {
+  CD_MAX_FILE_SIZE,
+  CD_RESOURCE_EXT,
+  CD_RESOURCE_TYPE,
+  DEFAULT_AVATAR,
+} from "#src/config";
 import { validateKeysInMongooseModel } from "#utils/validations";
 
 //=====================
@@ -13,7 +18,7 @@ class ParamError extends Error {
     this.key = key;
     this.message = message;
   }
-};
+}
 
 //=========================
 // Validate query params
@@ -130,7 +135,10 @@ const validateSize = (file) => {
   const maxSize = parseInt(CD_MAX_FILE_SIZE, 10); // Max size from .env
   const minSize = 1; // 0B
   if (file.size > maxSize) {
-    throw new ParamError("File error", `The file size must be less than ${maxSize / (1024 * 1024)}MB`);
+    throw new ParamError(
+      "File error",
+      `The file size must be less than ${maxSize / (1024 * 1024)}MB`
+    );
   }
   if (file.size < minSize) {
     throw new ParamError("File error", "The file size must be greater than 0B");
@@ -141,7 +149,7 @@ const validateName = (file) => {
   if (!file.originalname) {
     throw new ParamError("File error", "The file must have a name");
   }
-  file.fiels
+  file.fiels;
 };
 
 const validatePath = (file) => {
@@ -178,6 +186,7 @@ export const getModelFromRoute = (routePath) => {
 const modelToZodValidationMap = {
   Role: "#api/roles",
   User: "#api/users",
+  Restaurant: "#api/restaurants",
 };
 
 //=======================================

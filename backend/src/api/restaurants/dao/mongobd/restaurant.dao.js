@@ -10,16 +10,26 @@ export const getAllDao = async () => {
   }
 };
 
+// create a new restaurant
+export const saveRestaurantDao = async (restaurantData) => {
+  try {
+    const restaurant = await restaurantModel.create(restaurantData);
+    return restaurant;
+  } catch (error) {
+    throw new Error("Error al crear el restaurante: " + error.message);
+  }
+};
+
 // get a restaurant by ID
 export const getRestaurantByIdDao = async (id) => {
   try {
     const restaurant = await restaurantModel.findById({ _id: id });
     if (!restaurant) {
-      throw new Error("Restaurante no encontrado");
+      throw new Error("Restaurant not found");
     }
     return restaurant;
   } catch (error) {
-    throw new Error("Error al obtener el restaurante: " + error.message);
+    throw new Error("Error retrieving restaurant: " + error.message);
   }
 };
 
@@ -33,25 +43,14 @@ export const getRestaurantsByOwnerDao = async (owner) => {
   }
 };
 
-// create a new restaurant
-export const saveRestaurantDao = async (restaurantData) => {
-  try {
-    const restaurant = await restaurantModel.create(restaurantData);
-    return restaurant;
-  } catch (error) {
-    throw new Error("Error al crear el restaurante: " + error.message);
-  }
-};
-
-
 // update a restaurant by ID
-export const updateRestaurantById = async (id, updateData) => {
+export const updateRestaurantByIdDao = async (id, updateData) => {
   try {
     const restaurant = await restaurantModel.findByIdAndUpdate(id, updateData, {
       new: true,
     });
     if (!restaurant) {
-      throw new Error("Restaurante no encontrado");
+      throw new Error("Restaurante no actualizado");
     }
     return restaurant;
   } catch (error) {
@@ -59,15 +58,16 @@ export const updateRestaurantById = async (id, updateData) => {
   }
 };
 
-// delete a restaurant by ID
-export const deleteRestaurantByIdDao = async (id) => {
+// update  restaurant status by ID
+export const updateRestaurantStatusByIdDao = async (id) => {
   try {
-    const restaurant = await restaurantModel.findByIdAndDelete(id);
-    if (!restaurant) {
-      throw new Error("Restaurante no encontrado");
-    }
+    const restaurant = await restaurantModel.findByIdAndUpdate(
+      id,
+      { isActive: false },
+      { new: true }
+    );
     return restaurant;
   } catch (error) {
-    throw new Error("Error al eliminar el restaurante: " + error.message);
+    throw new Error("Error updating restaurant status in database");
   }
 };

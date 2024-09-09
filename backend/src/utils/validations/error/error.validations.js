@@ -46,7 +46,7 @@ const errorMapping = {
   ReferenceError: { statusCode: 500, key: "Reference error" },
   ApiKeyError: { statusCode: 404 },
   AuthError: { statusCode: 401 },
-  UploadError: { statusCode: 500},
+  UploadError: { statusCode: 500 },
 };
 
 //==============================================
