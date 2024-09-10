@@ -11,8 +11,8 @@ const roleSchema = new Schema(
   {
     name: { type: String, required: true, unique: true, index: true },
     description: { type: String, required: true },
-    isActive: { type: Boolean, default: true },
     permissions: [{ type: String, required: true, ref: "Permission" }],
+    isActive: { type: Boolean, default: true },
     createdAt: {
       type: Date,
       default: () => new Date(),
