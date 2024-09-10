@@ -1,57 +1,123 @@
 //==========================
 // Imports
 //==========================
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { UserDao } from '#api/users';
-import { JWT_EXPIRATION, JWT_SECRET } from '#src/config';
+import jwt from "jsonwebtoken";
+import { compare, hash } from "bcrypt";
+import {
+  createUserDao,
+  deleteUserDao,
+  findAllDao,
+  findByIdDao,
+  findOneDao,
+  updateUserDao,
+  UserDTO,
+} from "#api/users";
+import { BC_SALT, JWT_EXPIRATION, JWT_SECRET } from "#src/config";
 
 //==========================
 // Const
 //==========================
-const userDao = new UserDao();
+const fieldsToShow = [
+  "id",
+  "avatar",
+  "dni",
+  "name",
+  "lastName",
+  "email",
+  "phone",
+  "role"
+];
 
 //==========================
-// Register user
+// Get all users
 //==========================
-export const registerUser = async (userData) => {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = await userDao.create({
+export const getAllUserService = async () => {
+  try {
+    const searchUsers = await findAllDao();
+    return searchUsers.map((user) => new UserDTO(user).toDTO(fieldsToShow));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+//==========================
+// Get User by id
+//==========================
+export const getUserByIdService = async (id) => {
+  try {
+    const searchUser = await findByIdDao(id);
+    const userDTO = new UserDTO(searchUser).toDTO(fieldsToShow);
+    return userDTO;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+//==========================
+// Create user
+//==========================
+export const createUserService = async (userData) => {
+  try {
+    const hashedPassword = await hash(userData.password, 10);
+    const saveUser = await createUserDao({
       ...userData,
       password: hashedPassword,
     });
-    return newUser;
+    const userDTO = new UserDTO(saveUser).toDTO(fieldsToShow);
+    return userDTO;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+//==========================
+// Update user
+//==========================
+export const updateUserService = async (id, updateData) => {
+  try {
+    if (updateData.password) {
+      updateData.password = await hash(updateData.password, BC_SALT);
+    }
+    console.log("updateData -> ", updateData);
+    const updateUser = await updateUserDao(id, updateData);
+    console.log("updateUser -> ", updateUser);
+    const userDTO = new UserDTO(updateUser).toDTO(fieldsToShow);
+    console.log("userDTO -> ", userDTO);
+    return userDTO;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+//==========================
+// Delete user by admin
+//==========================
+export const deleteUserAdminService = async (id) => {
+  try {
+    const deleteUser = await deleteUserDao(id);
+    const userDTO = new UserDTO(deleteUser).toDTO(fieldsToShow);
+    return userDTO;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 //==========================
 // Login user
 //==========================
-export const loginUser = async (email, password) => {
-    const user = await userDao.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        throw new Error('Credenciales inválidas');
+export const loginUserService = async (email, password) => {
+  try {
+    const user = await findOneDao({ email });
+    if (!user || !(await compare(password, user.password))) {
+      throw new Error("Credenciales inválidas");
     }
     const token = jwt.sign({ id: user.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRATION,
     });
-    return { user, token };
-};
-
-export const getUserProfile = async (id) => {
-    return await userDao.findById(id);
-};
-
-export const updateUserProfile = async (id, updateData) => {
-    if (updateData.password) {
-        updateData.password = await bcrypt.hash(updateData.password, 10);
-    }
-    return await userDao.update(id, updateData);
-};
-
-export const deleteUserProfile = async (id) => {
-    return await userDao.delete(id);
-};
-
-export const getAllUserProfiles = async () => {
-    return await userDao.findAll();
+    const userDTO = new UserDTO(user).toDTO(fieldsToShow);
+    console.log("userDTO -> ", userDTO);
+    return { userDTO, token };
+  } catch (error) {
+    throw new Error(error);
+  }
 };

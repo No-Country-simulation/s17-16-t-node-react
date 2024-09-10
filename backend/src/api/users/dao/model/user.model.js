@@ -1,30 +1,38 @@
-import { toLocalDate, toUTCDate } from '#utils/validations';
-import { model, Schema } from 'mongoose';
+//===========
+// Imports
+//===========
+import { model, Schema } from "mongoose";
+import { toLocalDate, toUTCDate } from "#utils/validations";
+import { DEFAULT_AVATAR } from "#src/config";
 
-// Modelo de Usuario (para el dueño del restaurante)
-const userSchema = new Schema({
-  avatar: { type: String, default: null },
-  name: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-    trim: true,
-    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "The email format is not valid"],
-  },
-  password: { type: String, required: true },
-  phone: { type: String, default: null },
-  role: { type: Schema.Types.ObjectId, ref: 'Role', default: null },
-  isActive: { type: Boolean, default: true },
-  createdAt: {
+//==========================
+// Schema Role
+//==========================
+const userSchema = new Schema(
+  {
+    avatar: { type: String, default: DEFAULT_AVATAR },
+    name: { type: String, required: true },
+    lastName: { type: String, required: true },
+    dni: { type: String, default: null },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "The email format is not valid"],
+    },
+    password: { type: String, required: true },
+    phone: { type: String, default: null },
+    role: { type: Schema.Types.ObjectId, ref: "Role", default: null },
+    isActive: { type: Boolean, default: true },
+    createdAt: {
       type: Date,
       default: () => new Date(),
       set: toUTCDate,
       get: toLocalDate,
     },
-  updatedAt: {
+    updatedAt: {
       type: Date,
       default: () => new Date(),
       set: toUTCDate,
@@ -34,4 +42,12 @@ const userSchema = new Schema({
   { timestamps: true }
 );
 
-export const User = model('User', userSchema);
+userSchema.set("toJSON", {
+  getters: true,
+});
+
+userSchema.set("toObject", {
+  getters: true,
+});
+
+export const UserModel = model("User", userSchema);

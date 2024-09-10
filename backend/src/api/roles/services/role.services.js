@@ -33,8 +33,6 @@ export const getRoleByValue = async (query) => {
   }
 };
 
-
-
 //==========================
 // Update role by value
 //==========================

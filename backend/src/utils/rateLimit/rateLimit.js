@@ -35,7 +35,6 @@ export const SetLimiter = rateLimit({
       const separador = NODE_ENV === "development" ? ":" : ".";
       const ip = req.ip.toString().split(`${separador}`)
       const key = ip[ip.length - 1];
-      console.log("key->", key);
       return key;
     }
   },

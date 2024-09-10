@@ -8,7 +8,7 @@ import {
   listRoles,
   updateRole,
 } from "#api/roles";
-import { setApiKey } from "#src/middlewares";
+import { setApiKey, setAuthorize } from "#src/middlewares";
 
 //==========================
 // Router for roles
@@ -16,6 +16,6 @@ import { setApiKey } from "#src/middlewares";
 export const roleRouter = Router();
 
 roleRouter.get("/", setApiKey, listRoles);
-roleRouter.post("/", setApiKey ,addRole);
-roleRouter.put("/", setApiKey, updateRole);
-roleRouter.delete("/", setApiKey, deleteRole);
+roleRouter.post("/", setApiKey, setAuthorize ,addRole);
+roleRouter.put("/", setApiKey, setAuthorize, updateRole);
+roleRouter.delete("/", setApiKey, setAuthorize, deleteRole);

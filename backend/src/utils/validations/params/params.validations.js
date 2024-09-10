@@ -7,7 +7,8 @@ import {
   CD_RESOURCE_TYPE,
   DEFAULT_AVATAR,
 } from "#src/config";
-import { validateKeysInMongooseModel } from "#utils/validations";
+import { deleteTempFile, uploadImage } from "#utils/cloudinary";
+import { getFieldName, validateKeysInMongooseModel } from "#utils/validations";
 
 //=====================
 // Class Param Error
@@ -91,11 +92,10 @@ const isKeyAndValueValidate = (queryParams, model) => {
 //==============================
 export const isBodyParamsValidate = async (req) => {
   const body = req.body;
-  const model = getModelFromRoute(req.baseUrl);
-  console.log(model);
   if (Object.keys(body).length < 1) {
     throw new ParamError("Body error", "must have body");
   }
+  const model = getModelFromRoute(req.baseUrl);
   const validateFields = validateKeysInMongooseModel(model, body);
   const validateZod = await getZodValidationSchema(model);
   validateZod(body);
@@ -107,7 +107,7 @@ export const isBodyParamsValidate = async (req) => {
 //================
 export const isValidateFile = (file) => {
   if (!file) {
-    return DEFAULT_AVATAR;
+    return null;
   }
   validateMimeType(file);
   validateSize(file);
@@ -116,7 +116,7 @@ export const isValidateFile = (file) => {
   return file;
 };
 const validateMimeType = (file) => {
-  const resourceType = CD_RESOURCE_TYPE; // "image"
+  const resourceType = CD_RESOURCE_TYPE;
   const allowedExtensions = CD_RESOURCE_EXT.replace(/[\[\]]/g, "").split(",");
   const allowedMimeTypes = allowedExtensions.map(
     (ext) => `${resourceType}/${ext}`
@@ -149,7 +149,6 @@ const validateName = (file) => {
   if (!file.originalname) {
     throw new ParamError("File error", "The file must have a name");
   }
-  file.fiels;
 };
 
 const validatePath = (file) => {
@@ -187,6 +186,7 @@ const modelToZodValidationMap = {
   Role: "#api/roles",
   User: "#api/users",
   Restaurant: "#api/restaurants",
+  Menu: "#api/menus",
 };
 
 //=======================================
@@ -202,4 +202,20 @@ const getZodValidationSchema = async (modelName) => {
   }
   const { validateZod } = await import(validationFilePath);
   return validateZod;
+};
+
+//===================
+// Upload img cloud
+//===================
+export const uploadImageToCloud = async (req, body) => {
+  const file = req.file;
+  console.log("file -> ", file);
+  if (!file) {
+    return DEFAULT_AVATAR;
+  }
+  const folder = getModelFromRoute(req.baseUrl);
+  const fieldName = getFieldName(body.name, body.id.slice(-5));
+  deleteTempFile(file.path);
+  const url = await uploadImage(file, folder, fieldName);
+  return url;
 };

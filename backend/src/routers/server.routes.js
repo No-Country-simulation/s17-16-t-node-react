@@ -10,6 +10,7 @@ import { invalidRouter } from "#api/invalid";
 import { roleRouter } from "#api/roles";
 import { controller, middleware } from "#src/config";
 import { restaurantRouter } from "#api/restaurants";
+import { menuRoutes } from "#api/menus";
 import { userRouter } from "#api/users";
 
 //==================
@@ -29,5 +30,6 @@ serverRouter.use("/docs", middleware, controller);
 serverRouter.use("/roles", roleRouter);
 serverRouter.use("/restaurants", restaurantRouter);
 serverRouter.use("/users", userRouter);
+serverRouter.use("/menus", menuRoutes);
 serverRouter.use("/", startRouter);
 serverRouter.use("*", invalidRouter);
