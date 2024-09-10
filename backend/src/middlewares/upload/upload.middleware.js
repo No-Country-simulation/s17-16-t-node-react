@@ -58,6 +58,6 @@ export const getFolderName = (baseUrl) => {
   console.log("ruta -> ", ruta);
   if (ruta === "User") return "avatar";
   if (ruta === "Restaurant") return "logo";
-  if (ruta === "Menu") return "foto";
+  if (ruta === "Menu") return "picture";
   return "image";
 };
