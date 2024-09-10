@@ -5,9 +5,12 @@ const pedidoSchema = new mongoose.Schema({
     restaurante: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurante', required: true },
     cliente: {
       nombre: { type: String, required: false },
+      numeroindentificacion: { type: String, required: false },
       telefono: { type: String, required: false },
       direccion: { type: String }
-    },
+  },
+    numeroMesa: { type: String },
+    mesero: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     items: [{
       menu: { type: mongoose.Schema.Types.ObjectId, ref: 'Menu' },
       cantidad: { type: Number, default: 1 },
@@ -19,7 +22,7 @@ const pedidoSchema = new mongoose.Schema({
     metodoPago: { type: String, enum: ['efectivo', 'tarjeta', 'online'], required: true },
     notas: { type: String }
   });
-  
+
   const Pedido = mongoose.model('Pedido', pedidoSchema);
-  
+
   export default Pedido;

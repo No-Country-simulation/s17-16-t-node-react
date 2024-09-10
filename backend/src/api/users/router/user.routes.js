@@ -1,21 +1,21 @@
 import { Router } from "express";
 
-import {
-  deleteProfile,
-  getAllUsers,
-  getProfile,
-  login,
-  register,
-  updateProfile,
-} from "#api/users";
 import { setApiKey, setAuthorize, setUpload } from "#src/middlewares";
+import {
+  createUserController,
+  deleteUserController,
+  getAllUsersController,
+  getUserByIdController,
+  login,
+  updateUserController,
+} from "#api/users";
 
 export const userRouter = Router();
 
-userRouter.post("/register", setApiKey, setUpload, register);
+userRouter.post("/register", setApiKey, setUpload, createUserController);
 userRouter.post("/login", setApiKey, login);
-userRouter.get("/profile", setApiKey, setAuthorize, getProfile);
+userRouter.get("/one", setApiKey, setAuthorize, getUserByIdController);
 
-userRouter.get("/all", setApiKey, getAllUsers);
-userRouter.put("/profile", setApiKey, setAuthorize, setUpload, updateProfile);
-userRouter.delete("/profile", setApiKey, setAuthorize, deleteProfile);
+userRouter.get("/list", setApiKey, getAllUsersController);
+userRouter.put("/", setApiKey, setAuthorize, setUpload, updateUserController);
+userRouter.delete("/profile", setApiKey, setAuthorize, deleteUserController);

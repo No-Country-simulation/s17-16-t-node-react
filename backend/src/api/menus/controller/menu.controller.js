@@ -4,7 +4,7 @@
 import { errorProfiler, getModelFromRoute, isBodyParamsValidate, isQueryParamsValidate, isValidateFile, responseContentValidator, successProfiler } from "#utils/validations";
 import { getMenuService, createMenuService, updateMenuService, getAllMenusService,deleteMenuService} from "#api/menus";
 import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
-import { DEFAULT_AVATAR } from "#src/config";
+import { DEFAULT_AVATAR, DEFAULT_PICTURE } from "#src/config";
 import { date } from "zod";
 
 //==========================
@@ -14,20 +14,17 @@ export const crateMenuController = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
     if (!req.file) {
-      body.avatar = DEFAULT_AVATAR;
+      body.picture = DEFAULT_PICTURE;
     } else {
-    const folder = getModelFromRoute(req.baseUrl);
-    const file = isValidateFile(req.file)
-    const fieldName = `${body.name}`;
-    body.avatar = await uploadImage(file, folder, fieldName);
+    body.picture = await uploadImageToCloud(req, body);
     await deleteTempFile(file.path);
     }
     let response;
     try {
        response = await createMenuService(body);
     } catch (error) {
-      if (body.avatar !== DEFAULT_AVATAR) {
-        await deleteImage(body.avatar);
+      if (body.picture !== DEFAULT_PICTURE) {
+        await deleteImage(body.picture);
       };
       throw error;
     }
@@ -75,20 +72,17 @@ export const updateMenuController = async (req, res) => {
     const resp = await getMenuService(_id);
     let menu = responseContentValidator(resp);
     if (req.file) {
-      const file = isValidateFile(req.file)
-      const folder = getModelFromRoute(req.baseUrl);
-      const fieldName = `${body.name}`;
-      if (menu.avatar !== DEFAULT_AVATAR) {
-        await deleteImage(menu.avatar);
+      if (menu.picture !== DEFAULT_PICTURE) {
+        await deleteImage(menu.picture);
       };
-      menu.avatar = await uploadImage(file, folder, fieldName);
+      menu.picture = await uploadImage(req, menu);
     }
     menu = {...body};
     const response = await updateMenu(_id, menu);
     const uploadMenu = responseContentValidator(response);
     successProfiler(res, 200, "uploadMenu", { uploadMenu });
   } catch (error) {
-    errorProfiler(error, res, "getMenu");
+    errorProfiler(error, res, "uploadMenu");
   }
 };
 
@@ -97,14 +91,11 @@ export const updateMenuController = async (req, res) => {
 //==========================
 export const deleteMenuController = async (req, res) => {
   try {
-    console.log(req.params)
     const _id = isQueryParamsValidate(req);
     const resp = await deleteMenuService(_id, { isActive: false });
     const deleteMenu = responseContentValidator(resp);
-    const delMenu = responseContentValidator(deleteMenu);
-    deleteImage(req.params._id)
-
-    successProfiler(res, 200, "deleteMenuController", { delMenu });
+  
+    successProfiler(res, 200, "deleteMenuController", { deleteMenu });
   } catch (error) {
     errorProfiler(error, res, "deleteMenuController");
   }

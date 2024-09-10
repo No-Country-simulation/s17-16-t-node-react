@@ -32,6 +32,11 @@ export const JWT_SECRET = process.env.TOKEN_SECRET;
 export const JWT_EXPIRATION = process.env.TOKEN_EXPIRATION;
 
 //==================
+// BCRYPT
+//==================
+export const BC_SALT = +(process.env.BCRYPT_SALT);
+
+//==================
 // Cloudinary
 //==================`
 export const CD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
@@ -41,8 +46,10 @@ export const CD_RESOURCE_EXT = process.env.CLOUDINARY_RESOURCE_TYPE_EXT;
 export const CD_RESOURCE_TYPE = process.env.CLOUDINARY_RESOURCE_TYPE;
 export const CD_MAX_FILE_SIZE = process.env.CLOUDINARY_MAX_FILE_SIZE;
 export const CD_MAX_SIZE_IMAGE = process.env.CLOUDINARY_MAX_SIZE_IMAGE;
+
 //==================
-// Imagen default
+// Images default
 //==================
-export const DEFAULT_AVATAR =
-  "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";
+export const DEFAULT_AVATAR = "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";
+export const DEFAULT_PICTURE = "https://res.cloudinary.com/restity/image/upload/v1726006988/generic_menu_picture_t2eu3f.jpg";
+export const DEFAULT_LOGO = "https://res.cloudinary.com/restity/image/upload/v1726007001/generic_restaurant_image_wubzrt.png";
