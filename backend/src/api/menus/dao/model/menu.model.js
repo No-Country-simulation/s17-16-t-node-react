@@ -5,7 +5,7 @@ import { toLocalDate, toUTCDate } from '#utils/validations';
 import mongoose from 'mongoose';
 
 const menuSchema = new mongoose.Schema({
-    avatar: { type: String, default: null },
+    avatar: { type: String, default: null },//picture
     name: { type: String, required: true },
     description: { type: String },
     price: { type: String, required: true },
