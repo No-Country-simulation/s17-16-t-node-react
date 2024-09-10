@@ -177,6 +177,7 @@ export const getModelFromRoute = (routePath) => {
 const modelToZodValidationMap = {
   Role: "#api/roles",
   User: "#api/users",
+  Menu: "#api/menus",
 };
 
 //=======================================
@@ -197,14 +198,14 @@ const getZodValidationSchema = async (modelName) => {
 //===================
 // Upload img cloud
 //===================
-export const uploadImageToCloud = async (req, user) => {
+export const uploadImageToCloud = async (req, body) => {
   const file = req.file;
   console.log('file -> ', file);
   if (!file) {
     return DEFAULT_AVATAR;
   }
   const folder = getModelFromRoute(req.baseUrl);
-  const fieldName = getFieldName(user.name, user.lastName, user.id.slice(-5));
+  const fieldName = getFieldName(body.name, body.id.slice(-5));
   deleteTempFile(file.path);
   const url = await uploadImage(file, folder, fieldName);
   return url;

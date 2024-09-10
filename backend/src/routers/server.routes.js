@@ -9,6 +9,7 @@ import { startRouter } from "#api/start";
 import { invalidRouter } from "#api/invalid";
 import { roleRouter } from "#api/roles";
 import { controller, middleware } from "#src/config";
+import { menuRoutes } from "#api/menus";
 import { userRouter } from "#api/users";
 
 //==================
@@ -27,5 +28,6 @@ serverRouter.use(favicon(join(root, "assets/ico/favicon.ico")));
 serverRouter.use("/docs", middleware, controller);
 serverRouter.use("/roles", roleRouter);
 serverRouter.use("/users", userRouter);
+serverRouter.use("/menus", menuRoutes);
 serverRouter.use("/", startRouter);
 serverRouter.use("*", invalidRouter);

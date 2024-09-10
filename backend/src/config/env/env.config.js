@@ -48,9 +48,8 @@ export const CD_MAX_FILE_SIZE = process.env.CLOUDINARY_MAX_FILE_SIZE;
 export const CD_MAX_SIZE_IMAGE = process.env.CLOUDINARY_MAX_SIZE_IMAGE;
 
 //==================
-// Imagen default
+// Images default
 //==================
-export const DEFAULT_AVATAR =
-  "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";
-export const DEFAULT_ITEMS = '';
-export const DEFAULT_LOGO = '';
+export const DEFAULT_AVATAR = "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";
+export const DEFAULT_PICTURE = "https://res.cloudinary.com/restity/image/upload/v1726006988/generic_menu_picture_t2eu3f.jpg";
+export const DEFAULT_LOGO = "https://res.cloudinary.com/restity/image/upload/v1726007001/generic_restaurant_image_wubzrt.png";
