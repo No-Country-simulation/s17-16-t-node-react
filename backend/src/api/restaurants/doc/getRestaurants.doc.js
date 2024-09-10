@@ -1,13 +1,13 @@
 /**
  *  @swagger
  * paths:
- *  /rols:
+ *  /restaurants:
  *    get:
  *      tags:
- *        - Rol Routes
- *      summary: All rols.
- *      description: All rols.
- *      operationId: getRols
+ *        - Restaurant Routes
+ *      summary: Get All restaurants.
+ *      description: A list of all restaurants.
+ *      operationId: getRestaurants
  *      responses:
  *        200:
  *          description: Success

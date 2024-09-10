@@ -1,22 +1,20 @@
 /**
- * @swagger
+ *  @swagger
  * paths:
- *  /cars/{:id}:
- *    put:
+ *  /users:
+ *    post:
  *      tags:
- *        - Car Routes
- *      summary: Edit Car.
- *      description: Edit Car.
- *      operationId: updateCar
- *      parameters:
- *        - $ref: '#/components/parameters/id'
+ *        - User Routes
+ *      summary: Create User.
+ *      description: Create User
+ *      operationId: addUser
  *      requestBody:
- *       description: Edit Car.
+ *       description: Create User.
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/body/carEdit'
+ *             $ref: '#/components/schemas/userEntity'
  *      responses:
  *        200:
  *          description: Success

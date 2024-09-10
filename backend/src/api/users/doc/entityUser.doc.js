@@ -3,7 +3,7 @@
  * components:
  *  schemas:
  *    carEntity:
- *      description: Car entity
+ *      description: User entity
  *      type: object
  *      required:
  *        - user

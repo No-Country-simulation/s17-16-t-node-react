@@ -1,13 +1,13 @@
 /**
- * @swagger
+ *  @swagger
  * paths:
- *  /rols/{:id}:
- *    delete:
+ *  /users/{:id}:
+ *    get:
  *      tags:
- *        - Rol Routes
- *      summary: Delete Car.
- *      description: Delete Car.
- *      operationId: deleteCar
+ *        - User Routes
+ *      summary: User By Id.
+ *      description: User By Id
+ *      operationId: getUserById
  *      parameters:
  *        - $ref: '#/components/parameters/id'
  *      responses:
@@ -37,5 +37,4 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
- *        - bearerAuth: []
  */

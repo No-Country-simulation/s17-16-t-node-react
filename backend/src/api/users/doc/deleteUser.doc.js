@@ -1,20 +1,15 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /cars:
- *    post:
+ *  /users/{:id}:
+ *    delete:
  *      tags:
- *        - Car Routes
- *      summary: Create Car.
- *      description: Create Carr
- *      operationId: addCar
- *      requestBody:
- *       description: Create Car.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/carEntity'
+ *        - User Routes
+ *      summary: Delete User.
+ *      description: Delete User.
+ *      operationId: deleteUser
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
  *      responses:
  *        200:
  *          description: Success
