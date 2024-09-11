@@ -9,7 +9,7 @@ import { v2 as cloudinary } from "cloudinary";
 //===============================
 // Cloudinary configuration
 //===============================
-dotenv.config();
+
 setCloudinary();
 
 //===========================

@@ -6,7 +6,7 @@ import {
   getAllUserService,
   getUserByIdService,
   loginUserService,
-  updateUserService
+  updateUserService,
 } from "#api/users";
 import { DEFAULT_AVATAR } from "#src/config";
 import { deleteImage, deleteTempFile } from "#utils/cloudinary";
@@ -16,7 +16,7 @@ import {
   isQueryParamsValidate,
   responseContentValidator,
   successProfiler,
-  uploadImageToCloud
+  uploadImageToCloud,
 } from "#utils/validations";
 
 //==========================

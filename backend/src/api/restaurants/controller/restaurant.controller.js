@@ -6,6 +6,7 @@ import {
   isValidateFile,
   responseContentValidator,
   successProfiler,
+  uploadImageToCloud,
 } from "#utils/validations";
 import {
   createRestaurantService,
@@ -16,6 +17,7 @@ import {
   updateRestaurantStatusByIdService,
 } from "#api/restaurants";
 import { uploadImage } from "#utils/cloudinary";
+import { DEFAULT_LOGO } from "#src/config";
 
 //==========================
 // Get all restaurants
@@ -36,17 +38,22 @@ export const createRestaurantController = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
     const restaurantData = {
+      logo: DEFAULT_LOGO,
       name: body.name,
       address: body.address,
       category: body.category,
       owner: body.owner,
     };
-    const folder = getModelFromRoute(req.baseUrl);
-    const file = isValidateFile(req.file);
-    const fieldName = `${restaurantData.name}`;
-    restaurantData.logo = await uploadImage(file, folder, fieldName);
+
     const response = await createRestaurantService(restaurantData);
-    const restaurant = responseContentValidator(response);
+    const restaurantValidate = responseContentValidator(response);
+
+    restaurantValidate.logo = await uploadImageToCloud(req, restaurantValidate);
+    const updatedRestaurant = await updateRestaurantByIdService(
+      restaurantValidate.id,
+      restaurantValidate
+    );
+    const restaurant = responseContentValidator(updatedRestaurant);
     console.log(restaurant);
     successProfiler(res, 201, "createRestaurantController", { restaurant });
   } catch (error) {
@@ -59,38 +66,27 @@ export const createRestaurantController = async (req, res) => {
 //==========================
 export const updateRestaurantByIdController = async (req, res) => {
   try {
-    let updatedRestaurantData = { ...req.body };
+    const body = req.body;
+    const id = req.params.id;
+    let updatedRestaurantData = await getRestaurantByIdService(id);
+    console.log("Updated restaurant data1:", updatedRestaurantData);
+    console.log("body:", body);
 
     /*
     if (req.user.role !== "admin") {
       console.log("User is not admin, deleting owner field");
       delete updatedRestaurantData.owner;
     }*/
+    updatedRestaurantData.logo = await uploadImageToCloud(
+      req,
+      updatedRestaurantData
+    );
+    console.log("Image uploaded, secure URL:", updatedRestaurantData.logo);
+    //updatedRestaurantData = { ...updatedRestaurantData, ...body };
+    updatedRestaurantData = Object.assign({}, updatedRestaurantData, body);
+    console.log("Updated restaurant data2:", updatedRestaurantData);
 
-    if (req.file) {
-      console.log("File received:", req.file);
-
-      const folder = getModelFromRoute(req.baseUrl);
-      console.log("Folder determined from route:", folder);
-
-      const file = req.file;
-      const fieldName = `${updatedRestaurantData.name || req.params.id}`;
-      console.log("Field name for image upload:", fieldName);
-
-      try {
-        updatedRestaurantData.logo = await uploadImage(file, folder, fieldName);
-        console.log("Image uploaded, secure URL:", updatedRestaurantData.logo);
-      } catch (uploadError) {
-        console.error("Error uploading image:", uploadError);
-        return res
-          .status(500)
-          .json({ message: "Error uploading image", error: uploadError });
-      }
-    } else {
-      console.log("No file uploaded");
-    }
-
-    // Muestra los datos que se intentarán actualizar en la base de datos
+    // Show Muestra los datos que se intentarán actualizar en la base de datos
     console.log("Updated restaurant data:", updatedRestaurantData);
 
     const updatedRestaurant = await updateRestaurantByIdService(
@@ -98,16 +94,10 @@ export const updateRestaurantByIdController = async (req, res) => {
       updatedRestaurantData
     );
 
-    if (!updatedRestaurant) {
-      console.error("Restaurant not found");
-      return res.status(404).json({ message: "Restaurant not found" });
-    }
-
-    console.log("Restaurant successfully updated:", updatedRestaurant);
-    res.status(200).json(updatedRestaurant);
+    const restaurant = responseContentValidator(updatedRestaurant);
+    successProfiler(res, 201, "updateUserController", { restaurant });
   } catch (error) {
-    console.error("Error updating restaurant:", error); // Imprime el error si ocurre
-    res.status(500).json({ message: "Error updating restaurant", error });
+    errorProfiler(error, res, "updateUserController");
   }
 };
 
@@ -126,9 +116,9 @@ export const getRestaurantByIdController = async (req, res) => {
     if (!restaurant) {
       return res.status(404).json({ message: "Restaurant not found" });
     }
-    res.status(200).json(restaurant);
+    successProfiler(res, 200, "getRestaurantByIdController", { restaurant });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching restaurant", error });
+    errorProfiler(error, res, "getRestaurantByIdController");
   }
 };
 
@@ -140,9 +130,11 @@ export const getRestaurantsByOwnerController = async (req, res) => {
     const restaurants = await getRestaurantsByOwnerService({
       owner: req.params.owner,
     });
-    res.status(200).json(restaurants);
+    successProfiler(res, 200, "getRestaurantsByOwnerController", {
+      restaurants,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching restaurants", error });
+    errorProfiler(error, res, "getRestaurantsByOwnerController");
   }
 };
 
