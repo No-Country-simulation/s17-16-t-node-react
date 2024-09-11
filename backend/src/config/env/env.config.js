@@ -45,7 +45,7 @@ export const CD_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 export const CD_RESOURCE_EXT = process.env.CLOUDINARY_RESOURCE_TYPE_EXT;
 export const CD_RESOURCE_TYPE = process.env.CLOUDINARY_RESOURCE_TYPE;
 export const CD_MAX_FILE_SIZE = process.env.CLOUDINARY_MAX_FILE_SIZE;
-export const CD_MAX_SIZE_IMAGE = process.env.CLOUDINARY_MAX_SIZE_IMAGE;
+export const CD_SIZE_IMAGE = process.env.CLOUDINARY_SIZE_IMAGE;
 
 //==================
 // Images default

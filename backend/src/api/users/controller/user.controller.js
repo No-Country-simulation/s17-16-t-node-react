@@ -6,7 +6,7 @@ import {
   getAllUserService,
   getUserByIdService,
   loginUserService,
-  updateUserService
+  updateUserService,
 } from "#api/users";
 import { DEFAULT_AVATAR } from "#src/config";
 import { deleteImage, deleteTempFile } from "#utils/cloudinary";
@@ -16,7 +16,7 @@ import {
   isQueryParamsValidate,
   responseContentValidator,
   successProfiler,
-  uploadImageToCloud
+  uploadImageToCloud,
 } from "#utils/validations";
 
 //==========================
@@ -55,7 +55,21 @@ export const createUserController = async (req, res) => {
     const response = await createUserService(body);
     const user = responseContentValidator(response);
     //validamos y subimos img
-    user.avatar = await uploadImageToCloud(req, user);
+    const tempImg = await uploadImageToCloud(
+      req,
+      user.id,
+      user.name,
+      user.avatar
+    );
+    console.warn("tempImg -> ", tempImg);
+    console.warn("user.avatar -> ", user.avatar);
+    if (tempImg !== DEFAULT_AVATAR) {
+      console.info("update Image ok");
+      user.avatar = tempImg;
+    } else {
+      console.warn("Imagen por defecto");
+    }
+    console.warn("user.avatar update -> ", user.avatar);
     // actualizado el logo del usuario
     const updateUserLogo = await updateUserService(user.id, user);
     const newUser = responseContentValidator(updateUserLogo);
@@ -90,10 +104,29 @@ export const updateUserController = async (req, res) => {
     const body = await isBodyParamsValidate(req);
     const response = await getUserByIdService(id);
     let updateUser = responseContentValidator(response);
-    if (updateUser.avatar !== DEFAULT_AVATAR && updateUser.avatar !== " ") {
-      deleteImage(updateUser.avatar);
+    const tempImg = await uploadImageToCloud(
+      req,
+      updateUser.id,
+      updateUser.name,
+      updateUser.avatar
+    );
+    console.warn("tempImg -> ", tempImg);
+    console.warn("updateUser.avatar -> ", updateUser.avatar);
+    if (tempImg !== DEFAULT_AVATAR) {
+      console.log("body -> ", body);
+      if (updateUser.avatar !== tempImg) {
+        if (!body) {
+          console.info("update Image ok");
+        }
+        if (updateUser.avatar !== tempImg && body.length > 0){
+          console.info("deleteImage ok");
+          await deleteImage(updateUser.avatar);
+        }
+        updateUser = { ...updateUser, avatar: tempImg };
+      } else {
+        console.warn("Imagen ya existe");
+      }
     }
-    updateUser.avatar = await uploadImageToCloud(req, updateUser);
     updateUser = { ...updateUser, ...body };
     const updateUserLogo = await updateUserService(updateUser.id, updateUser);
     const user = responseContentValidator(updateUserLogo);

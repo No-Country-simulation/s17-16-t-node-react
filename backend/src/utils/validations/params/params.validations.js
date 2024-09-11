@@ -1,9 +1,15 @@
 //=====================
 // Imports
 //=====================
-import { CD_MAX_FILE_SIZE, CD_RESOURCE_EXT, CD_RESOURCE_TYPE, DEFAULT_AVATAR } from "#src/config";
-import { deleteTempFile, uploadImage } from "#utils/cloudinary";
-import { getFieldName, validateKeysInMongooseModel } from "#utils/validations";
+import {
+  CD_MAX_FILE_SIZE,
+  CD_RESOURCE_EXT,
+  CD_RESOURCE_TYPE,
+  DEFAULT_AVATAR,
+} from "#src/config";
+import { setFileName, uploadImage } from "#utils/cloudinary";
+import { validateKeysInMongooseModel } from "#utils/validations";
+import { URL } from "url";
 
 //=====================
 // Class Param Error
@@ -14,7 +20,7 @@ class ParamError extends Error {
     this.key = key;
     this.message = message;
   }
-};
+}
 
 //=========================
 // Validate query params
@@ -87,7 +93,7 @@ const isKeyAndValueValidate = (queryParams, model) => {
 //==============================
 export const isBodyParamsValidate = async (req) => {
   const body = req.body;
-  if (Object.keys(body).length < 1) {
+  if (Object.keys(body).length < 1 && !req.file) {
     throw new ParamError("Body error", "must have body");
   }
   const model = getModelFromRoute(req.baseUrl);
@@ -98,8 +104,8 @@ export const isBodyParamsValidate = async (req) => {
 };
 
 //=================
-// validate File
-//================
+// Validate File
+//=================
 export const isValidateFile = (file) => {
   if (!file) {
     return null;
@@ -110,9 +116,13 @@ export const isValidateFile = (file) => {
   validatePath(file);
   return file;
 };
+
+//======================
+// Validate Mime Type
+//======================
 const validateMimeType = (file) => {
   const resourceType = CD_RESOURCE_TYPE;
-  const allowedExtensions = CD_RESOURCE_EXT.replace(/[\[\]]/g, "").split(",");
+  const allowedExtensions = CD_RESOURCE_EXT.replace(/[[\]]/g, "").split(",");
   const allowedMimeTypes = allowedExtensions.map(
     (ext) => `${resourceType}/${ext}`
   );
@@ -126,23 +136,35 @@ const validateMimeType = (file) => {
   }
 };
 
+//======================
+// Validate File Size
+//======================
 const validateSize = (file) => {
-  const maxSize = parseInt(CD_MAX_FILE_SIZE, 10); // Max size from .env
+  const maxSize = parseInt(CD_MAX_FILE_SIZE, 10);
   const minSize = 1; // 0B
   if (file.size > maxSize) {
-    throw new ParamError("File error", `The file size must be less than ${maxSize / (1024 * 1024)}MB`);
+    throw new ParamError(
+      "File error",
+      `The file size must be less than ${maxSize / (1024 * 1024)}MB`
+    );
   }
   if (file.size < minSize) {
     throw new ParamError("File error", "The file size must be greater than 0B");
   }
 };
 
+//======================
+// Validate File Name
+//======================
 const validateName = (file) => {
   if (!file.originalname) {
     throw new ParamError("File error", "The file must have a name");
   }
 };
 
+//======================
+// Validate File Path
+//======================
 const validatePath = (file) => {
   if (!file.path) {
     throw new ParamError("File error", "The file must have a path");
@@ -157,18 +179,6 @@ export const responseContentValidator = (response) => {
     throw new ParamError("Content error", "Search value not found");
   }
   return response;
-};
-
-//==============================
-// Get model from route
-//==============================
-export const getModelFromRoute = (routePath) => {
-  const parts = routePath.split("/");
-  let modelName = parts[parts.length - 1];
-  if (modelName.endsWith("s")) {
-    modelName = modelName.slice(0, -1);
-  }
-  return modelName.charAt(0).toUpperCase() + modelName.slice(1);
 };
 
 //=========================================
@@ -198,15 +208,78 @@ const getZodValidationSchema = async (modelName) => {
 //===================
 // Upload img cloud
 //===================
-export const uploadImageToCloud = async (req, body) => {
-  const file = req.file;
-  console.log('file -> ', file);
-  if (!file) {
+export const uploadImageToCloud = async (req, id, name, image) => {
+  const file = isValidateFile(req.file);
+  const fieldName = getFieldName(name, id.slice(-5));
+  const newName = getFieldName(req.body.name, id.slice(-5));
+  const folder = getModelFromRoute(req.baseUrl);
+  console.log("fieldName -> ", fieldName);
+  console.log("newName -> ", newName);
+  console.log("folder -> ", folder);
+  if (fieldName !== newName && !file) {
+    return await setFileName(fieldName, newName, folder);
+    console.warn("Actualizando name");
+  }
+  if (fieldName === newName && !file) {
+    console.warn("Default image");
     return DEFAULT_AVATAR;
   }
-  const folder = getModelFromRoute(req.baseUrl);
-  const fieldName = getFieldName(body.name, body.id.slice(-5));
-  deleteTempFile(file.path);
-  const url = await uploadImage(file, folder, fieldName);
-  return url;
+  if (fieldName !== newName && file) {
+    return await uploadImage(file, folder, fieldName);
+    console.warn("Upload image");
+  }
+  return image;
+};
+
+//==================
+// Get field name
+//==================
+export const getFieldName = (...args) => {
+  if (args.length === 0) {
+    return 'default';
+  }
+  const formattedName = args
+    .filter(arg => arg) // Filtrar valores nulos o indefinidos
+    .join(' ')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '_');
+  return formattedName;
+}
+
+//======================
+// validate fieldName
+//======================
+const isValidateFieldName = (ruta, fieldName) => {
+  const url = new URL(ruta);
+  const nameImage = url.pathname
+    .split("/")
+    .pop()
+    .replace(/\.[^/.]+$/, "");
+  return fieldName.includes(nameImage);
+};
+
+
+//======================
+// Get Folder Name
+//======================
+export const getFolderName = (routePath) => {
+  const ruta = getModelFromRoute(routePath);
+  console.log("ruta -> ", ruta);
+  if (ruta === "User") return "avatar";
+  if (ruta === "Restaurant") return "logo";
+  if (ruta === "Menu") return "picture";
+  return "image";
+};
+
+//==============================
+// Get model from route
+//==============================
+export const getModelFromRoute = (routePath) => {
+  const parts = routePath.split("/");
+  let modelName = parts[parts.length - 1];
+  if (modelName.endsWith("s")) {
+    modelName = modelName.slice(0, -1);
+  }
+  return modelName.charAt(0).toUpperCase() + modelName.slice(1);
 };

@@ -62,18 +62,3 @@ const getSystemRegion = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
 
-//==================
-// Get field name
-//==================
-export const getFieldName = (...args) => {
-  if (args.length === 0) {
-    return 'default';
-  }
-  const formattedName = args
-    .filter(arg => arg) // Filtrar valores nulos o indefinidos
-    .join(' ')
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '_');
-  return formattedName;
-}

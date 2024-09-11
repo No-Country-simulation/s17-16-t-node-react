@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 // Define validations for the Usuario model fields
 const zodSchema = z.object({
-  name: z.string().min(3, { message: 'Name is required.' }),
-  lastName: z.string().min(3, { message: 'Last name is required.' }),
-  email: z.string().email({ message: 'The email format is not valid.' }),
-  password: z.string().min(1, { message: 'Password is required.' }),
+  name: z.string().min(3).max(150).optional(),
+  lastName: z.string().min(3).max(150).optional(),
+  email: z.string().email().optional(),
+  password: z.string().min(3).max(10).optional(),
   phone: z.string().nullable().optional(),
   role: z.string().optional(),
   avatar: z.string().nullable().optional(),

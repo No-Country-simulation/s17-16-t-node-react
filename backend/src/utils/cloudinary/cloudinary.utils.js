@@ -1,10 +1,10 @@
 //==================
 // Imports
 //==================
+import { CD_SIZE_IMAGE, setCloudinary } from '#src/config';
+import { v2 as cloudinary } from 'cloudinary';
 import { access, constants, readdir, unlink } from 'fs';
 import { join } from 'path';
-import { CD_MAX_SIZE_IMAGE, setCloudinary } from '#src/config';
-import { v2 as cloudinary } from 'cloudinary';
 
 //===============================
 // Configuración de Cloudinary
@@ -31,19 +31,14 @@ export const uploadImage = async (file, folder, filedName) => {
       folder: folder,
       public_id: filedName,
       transformation: [
-        { width: CD_MAX_SIZE_IMAGE, height: CD_MAX_SIZE_IMAGE, crop: "limit" },
+        { width: CD_SIZE_IMAGE, height: CD_SIZE_IMAGE, crop: "limit" },
       ],
     };
-    const result = await cloudinary.uploader
-      .upload(file.path, options)
-      .catch((error) => {
-        throw error;
-
-      });
-    if (!result) throw error('Error con el servidor Cloudinary');
+    const result = await cloudinary.uploader.upload(file.path, options);
+    if (!result) throw new CloudinaryError('UploadError', 'Error con el servidor Cloudinary');
     return result.secure_url;
   } catch (error) {
-    throw error('Error al subir la foto');
+    throw new CloudinaryError('UploadError', 'Error al subir la foto');
   } finally {
     deleteTempFile(file.path, false);
   }
@@ -54,23 +49,24 @@ export const uploadImage = async (file, folder, filedName) => {
 //=================
 export const deleteImage = async (imageUrl) => {
   try {
-    const publicId = imageUrl.split('/').slice(-2).join('/').split('.')[0];
+    const publicId = getPublicIdFromUrl(imageUrl);
     const result = await cloudinary.uploader.destroy(publicId);
-    if (result.result !== 'ok') throw error("Error con el servidor Cloudinary");
+    if (result.result !== 'ok') throw new CloudinaryError('DeleteError', 'Error con el servidor Cloudinary');
   } catch (error) {
-    throw new CloudinaryError("Error al eliminar la foto");
+    throw new CloudinaryError('DeleteError', 'Error al eliminar la foto');
   }
 };
+
 
 //=====================================
 // Delete Folder Content Cloudinary
 //=====================================
 export const deleteFolderContentCloudinary = async (folderName) => {
   try {
-    const result = await cloudinary.api.delete_resources_by_prefix(folderName + '/');
-    if (result.deleted_counts === 0) throw new CloudinaryError("No se encontraron recursos para eliminar");
+    const result = await cloudinary.api.delete_resources_by_prefix(`${folderName}/`);
+    if (result.deleted_counts === 0) throw new CloudinaryError('DeleteError', 'No se encontraron recursos para eliminar');
   } catch (error) {
-    throw new CloudinaryError("Error al eliminar el contenido de la carpeta");
+    throw new CloudinaryError('DeleteError', 'Error al eliminar el contenido de la carpeta');
   }
 };
 
@@ -78,21 +74,17 @@ export const deleteFolderContentCloudinary = async (folderName) => {
 // Delete Temp File
 //======================
 export const deleteTempFile = (filePath, ext) => {
-  try {
-    access(filePath, constants.F_OK, (err) => {
-      if (err) {
-        handleError("El archivo temporal no existe", ext);
-      } else {
-        unlink(filePath, (err) => {
-          if (err) {
-            handleError("Error al eliminar el archivo temporal", ext);
-          }
-        });
-      }
-    });
-  } catch (error) {
-    handleError("Error al intentar eliminar el archivo temporal", ext);
-  }
+  access(filePath, constants.F_OK, (err) => {
+    if (err) {
+      handleError('El archivo temporal no existe', ext);
+    } else {
+      unlink(filePath, (err) => {
+        if (err) {
+          handleError('Error al eliminar el archivo temporal', ext);
+        }
+      });
+    }
+  });
 };
 
 //======================
@@ -100,16 +92,114 @@ export const deleteTempFile = (filePath, ext) => {
 //======================
 const handleError = (message, ext) => {
   if (ext) {
-    throw new CloudinaryError(message);
+    throw new CloudinaryError("ErrorTempFile",message);
   } else {
-    console.error(message);
+    console.error("ErrorTempFile", message);
   }
+};
+
+//=================
+// Set File Name
+//=================
+export const setFileName = async (fieldName, newName, folder) => {
+  validateParameters(fieldName);
+  validateParameters(newName);
+  validateParameters(folder);
+  const currentPublicId = setPublicId(folder, fieldName);
+  console.log("currentPublicId -> ", currentPublicId);
+  const newPublicId = setPublicId(folder, newName);
+  console.log("newPublicId -> ", newPublicId);
+  const result = await setNameImage(currentPublicId, newPublicId);
+  return result.secure_url;
+};
+
+//==========================
+// Validate Parameters
+//==========================
+const validateParameters = (value) => {
+ if (!value) {
+    throw new CloudinaryError(`${value}Error`, `Parámetro "${value}" inválido para renombrar la imagen`);
+  }
+};
+
+//==========================
+// Build Public Id
+//==========================
+const setPublicId = (folder, name) => {
+  return `${folder}/${name}`;
+};
+
+//==========================
+// Rename Image
+//==========================
+const setNameImage = async (currentPublicId, newPublicId) => {
+  console.log("currentPublicId SN -> ", currentPublicId);
+  console.log("newPublicId SN-> ", newPublicId);
+  const result = await cloudinary.uploader.rename(currentPublicId, newPublicId);
+  if (!result) {
+    throw new CloudinaryError('RenameError', `Error al renombrar la imagen: ${result}`);
+  }
+  return result.secure_url;
+};
+
+
+//==========================
+// Get Utility Functions
+//==========================
+const getPublicIdFromUrl = (url) => {
+  return url.split('/').slice(-2).join('/').split('.')[0];
 };
 
 //==========================
 // Delete Folder Content
 //==========================
 export const deleteFolderContent = async (folderPath) => {
+  try {
+    const files = await readDirAsync(folderPath);
+    await Promise.all(files.map(file => deleteFileAsync(join(folderPath, file))));
+  } catch (error) {
+    throw new CloudinaryError('DeleteError', 'Error al eliminar el contenido de la carpeta');
+  }
+};
+//==========================
+// Read dir async
+//==========================
+const readDirAsync = (path) => {
+  return new Promise((resolve, reject) => {
+    readdir(path, (err, files) => {
+      if (err) {
+        return reject(
+          new CloudinaryError("ReadError", "Error al leer la carpeta temporal")
+        );
+      }
+      resolve(files);
+    });
+  });
+};
+
+//==========================
+// Delete Folder Content
+//==========================
+const deleteFileAsync = (filePath) => {
+  return new Promise((resolve, reject) => {
+    unlink(filePath, (err) => {
+      if (err) {
+        return reject(
+          new CloudinaryError(
+            "DeleteError",
+            "Error al eliminar el archivo temporal"
+          )
+        );
+      }
+      resolve();
+    });
+  });
+};
+
+//==========================
+// Delete Folder Content
+//==========================
+export const deleteFolderContent2 = async (folderPath) => {
   try {
     readdir(folderPath, (err, files) => {
       if (err) {
