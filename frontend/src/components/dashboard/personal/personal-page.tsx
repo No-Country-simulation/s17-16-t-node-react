@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getStaff } from "@/services/staff";
 import { RxPlus } from "react-icons/rx";
 
-import { personalList } from "@/lib/personalMock";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -15,10 +15,25 @@ export function PersonalPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formContent, setFormContent] = useState<null | IPersonal>(null);
 
+  const [personalList, setPersonalList] = useState<IPersonal[]>([]);
+
   const handleFormState = (state: boolean) => {
     setFormContent(null);
     setIsFormOpen(state);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getStaff();
+        setPersonalList(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, []);
 
   return (
     <>
