@@ -1,13 +1,23 @@
 /**
  *  @swagger
  * paths:
- *  /cars:
- *    get:
+ *  /users/login:
+ *    post:
  *      tags:
- *        - Car Routes
- *      summary: All Cars.
- *      description: All Cars.
- *      operationId: getCars
+ *        - User Routes
+ *      summary: Create User.
+ *      description: Create User.
+ *      operationId: addUser
+ *      requestBody:
+ *       description: Create User.
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/uploadImage'
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/carEntity'
  *      responses:
  *        200:
  *          description: Success
@@ -35,4 +45,5 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
+ *        - bearerAuth: []
  */

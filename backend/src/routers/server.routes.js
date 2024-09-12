@@ -11,6 +11,7 @@ import { roleRouter } from "#api/roles";
 import { controller, middleware } from "#src/config";
 import { menuRoutes } from "#api/menus";
 import { userRouter } from "#api/users";
+import { statusRouter } from "#api/status";
 
 //==================
 // Const
@@ -29,5 +30,6 @@ serverRouter.use("/docs", middleware, controller);
 serverRouter.use("/roles", roleRouter);
 serverRouter.use("/users", userRouter);
 serverRouter.use("/menus", menuRoutes);
+serverRouter.use("/status", statusRouter);
 serverRouter.use("/", startRouter);
 serverRouter.use("*", invalidRouter);

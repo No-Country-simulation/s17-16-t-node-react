@@ -1,20 +1,23 @@
 /**
  *  @swagger
  * paths:
- *  /cars:
+ *  /users:
  *    post:
  *      tags:
- *        - Car Routes
- *      summary: Create Car.
- *      description: Create Carr
- *      operationId: addCar
+ *        - User Routes
+ *      summary: Create User.
+ *      description: Create User.
+ *      operationId: addUser
  *      requestBody:
- *       description: Create Car.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/carEntity'
+ *        description: Create User.
+ *        required: true
+ *        content:
+ *          multipart/form-data:
+ *            schema:
+ *              $ref: '#/components/schemas/uploadImage'
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/carEntity'
  *      responses:
  *        200:
  *          description: Success

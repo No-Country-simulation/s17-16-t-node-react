@@ -1,22 +1,22 @@
 /**
  * @swagger
  * paths:
- *  /cars/{:id}:
+ *  /status:
  *    put:
  *      tags:
- *        - Car Routes
- *      summary: Edit Car.
- *      description: Edit Car.
- *      operationId: updateCar
+ *        - Status Routes
+ *      summary: Edit status.
+ *      description: Edit status.
+ *      operationId: updateStatus
  *      parameters:
  *        - $ref: '#/components/parameters/id'
  *      requestBody:
- *       description: Edit Car.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/body/carEdit'
+ *        description: Edit status.
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/body/status'
  *      responses:
  *        200:
  *          description: Success

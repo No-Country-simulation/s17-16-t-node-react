@@ -14,55 +14,55 @@ import { createRole, getRoleByValue, updateRoleBy } from "#api/roles";
 //==========================
 // Get role by value
 //==========================
-export const listRoles = async (req, res) => {
+export const listStatus = async (req, res) => {
   try {
     const query = isQueryParamsValidate(req);
     const response = await getRoleByValue(query);
-    const roles = responseContentValidator(response);
-    successProfiler(res, 200, "getRoles", { roles });
+    const status = responseContentValidator(response);
+    successProfiler(res, 200, "listStatus", { status });
   } catch (error) {
-    errorProfiler(error, res, "getRoles");
+    errorProfiler(error, res, "listStatus");
   }
 };
 
 //===================
 // Create role
 //===================
-export const addRole = async (req, res) => {
+export const addStatus = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
     const response = await createRole(body);
-    const role = responseContentValidator(response);
-    successProfiler(res, 201, "createRole", { role });
+    const status = responseContentValidator(response);
+    successProfiler(res, 201, "addStatus", { status });
   } catch (error) {
-    errorProfiler(error, res, "createRole");
+    errorProfiler(error, res, "addStatus");
   }
 };
 
 //============================
 // Update role by value
 //============================
-export const updateRole = async (req, res) => {
+export const updateStatus = async (req, res) => {
   try {
     const query = isQueryParamsValidate(req);
     const body =  await isBodyParamsValidate(req);
     const response = await updateRoleBy(query, body);
-    const role = responseContentValidator(response);
-    successProfiler(res, 202, "updateRole", { role });
+    const status = responseContentValidator(response);
+    successProfiler(res, 202, "updateStatus", { status });
   } catch (error) {
-    errorProfiler(error, res, "updateRole");
+    errorProfiler(error, res, "updateStatus");
   }
 };
 
 //=============================
 // Delete role by value
 //=============================
-export const deleteRole = async (req, res) => {
+export const deleteStatus = async (req, res) => {
   try {
     const query = isQueryParamsValidate(req);
     const response = await updateRoleBy(query, { isActive: false });
-    const role = responseContentValidator(response);
-    successProfiler(res, 202, "deleteRole", { role });
+    const status = responseContentValidator(response);
+    successProfiler(res, 202, "deleteRole", { status });
   } catch (error) {
     errorProfiler(error, res, "deleteRole");
   }
@@ -71,7 +71,7 @@ export const deleteRole = async (req, res) => {
 //===============================
 // Delete role with validation
 //===============================
-export const deleteRoleWithValidation = async (req, res) => {
+export const deleteStatusWithValidation = async (req, res) => {
   try {
     const loggedInUser = await fetchLoggedInUser();
     const userDetails = await fetchUserDetails(loggedInUser.id);
@@ -80,14 +80,14 @@ export const deleteRoleWithValidation = async (req, res) => {
       !userDetails.permissions.includes("delete")
     ) {
       throw new Error({
-        message: "No tienes permisos para eliminar este rol.",
+        message: "No tienes permisos para eliminar este estado.",
       });
     }
     const query = isQueryParamsValidate(req);
     const response = await Role.deleteOne(query);
-    const role = responseContentValidator(response);
-    successProfiler(res, 202, "deleteRoleWithValidation", { role });
+    const status = responseContentValidator(response);
+    successProfiler(res, 202, "deleteStatusWithValidation", { status });
   } catch (error) {
-    errorProfiler(error, res, "deleteRoleWithValidation");
+    errorProfiler(error, res, "deleteStatusWithValidation");
   }
 };

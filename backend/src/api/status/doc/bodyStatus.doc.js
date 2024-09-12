@@ -2,15 +2,15 @@
  * @swagger
  * components:
  *  body:
- *    role:
- *      name: Role body.
- *      description: the Role Entity.
+ *    status:
+ *      name: Status body.
+ *      description: the Status Entity.
  *      type: object
  *      properties:
  *        name:
  *          type: string
- *          example: User
+ *          example: User.
  *        description:
  *          type: string
- *          example: User del sistema.
+ *          example: Usuario del sistema.
 */
