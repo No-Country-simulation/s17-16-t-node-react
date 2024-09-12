@@ -89,6 +89,7 @@ export const RestaurantPage = () => {
       try {
         const res = await getRestaurant();
         setRestaurantData(res.data);
+        setPreview(res.data.avatar);
       } catch (error) {
         console.log("datos", error);
       }
@@ -98,12 +99,13 @@ export const RestaurantPage = () => {
   }, []);
 
   useEffect(() => {
-    if (restaurantData)
+    if (restaurantData) {
       form.reset({
-        avatar: restaurantData.avatar,
+        avatar: undefined,
         name: restaurantData.name,
         address: restaurantData.address,
       });
+    }
   }, [restaurantData]);
 
   return (

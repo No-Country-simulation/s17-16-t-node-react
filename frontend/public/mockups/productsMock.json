@@ -1,0 +1,42 @@
+[
+  {
+    "code": "001",
+    "photo": "/images/asado.jpg",
+    "name": "Asado",
+    "description": "Corte de carne de res cocinado a la parrilla, acompañado de chimichurri y ensalada de papas.",
+    "price": "15.00",
+    "category": "one",
+    "stock": 10,
+    "available": 8
+  },
+  {
+    "code": "002",
+    "photo": "/images/spaghetti.jpg",
+    "name": "Spaghetti Bolognese",
+    "description": "Pasta spaghetti con salsa de tomate, carne molida, y especias italianas con buen sabor",
+    "price": "25.00",
+    "category": "two",
+    "stock": 20,
+    "available": 10
+  },
+  {
+    "code": "003",
+    "photo": "/images/asado.jpg",
+    "name": "Asado2",
+    "description": "Corte de carne de res cocinado a la parrilla, acompañado de chimichurri y ensalada de papas.",
+    "price": "15.00",
+    "category": "one",
+    "stock": 5,
+    "available": 5
+  },
+  {
+    "code": "004",
+    "photo": "/images/asado.jpg",
+    "name": "Asado4",
+    "description": "Corte de carne de res cocinado a la parrilla, acompañado de chimichurri y ensalada de papas.",
+    "price": "15.00",
+    "category": "one",
+    "stock": 15,
+    "available": 0
+  }
+]
