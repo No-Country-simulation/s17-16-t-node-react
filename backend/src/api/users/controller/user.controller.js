@@ -94,7 +94,6 @@ export const updateUserController = async (req, res) => {
     const body = await isBodyParamsValidate(req);
     const response = await getUserByIdService(id);
     let updateUser = responseContentValidator(response);
-    console.log('body -> ', body);
     const updateUserImgBase = await
     updateUserService(updateUser.id, body);
     const userUpdate = responseContentValidator(updateUserImgBase);
@@ -105,10 +104,8 @@ export const updateUserController = async (req, res) => {
       userUpdate.avatar
     );
     userUpdate.avatar = setUrlImage(tempImg, updateUser.avatar);
-    console.warn("updateUser.avatar.actl -> ", userUpdate.avatar);
     const userActImg = await updateUserService(userUpdate.id, { avatar: userUpdate.avatar });
     const user = responseContentValidator(userActImg);
-    console.log("user -> ", user);
     successProfiler(res, 201, "updateUserController", { user });
   } catch (error) {
     if (req.file) {

@@ -53,13 +53,11 @@ export const uploadImage = async (file, folder, filedName) => {
 //=================
 export const deleteImage = async (imageUrl) => {
   try {
-    console.warn("imageUrl D ->", imageUrl);
     const publicId = getPublicIdFromUrl(imageUrl);
     const result = await cloudinary.api.delete_resources([`${publicId}`], {
       type: "upload",
       resource_type: "image",
     });
-    // uploader.destroy(publicId);
     if (!result)
       throw new CloudinaryError(
         "DeleteError",
@@ -156,7 +154,6 @@ const getPublicId = (folder, name) => {
 // Set Public Id Image
 //==========================
 const setImagePublicId = async (currentPublicId, newPublicId) => {
-  console.warn("Actualizando el identificador publico de la imagen...");
   const response = await cloudinary.uploader.rename(
     currentPublicId,
     newPublicId,
@@ -180,7 +177,6 @@ const setImagePublicId = async (currentPublicId, newPublicId) => {
 const setImageName = async (url) => {
   const publicId = getPublicIdFromUrl(url);
   const name = publicId.split("/")[1];
-  console.warn("Actualizando el nombre de la imagen...");
   const response = await cloudinary.api.update(publicId, {
     resource_type: "image",
     type: "upload",

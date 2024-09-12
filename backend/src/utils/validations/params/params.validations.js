@@ -212,9 +212,7 @@ const getZodValidationSchema = async (modelName) => {
 export const uploadImageToCloud = async (req, id, name, image) => {
   try {
     const method = req.method;
-    console.log("method -> ", method);
     const file = isValidateFile(req.file);
-    console.log("file -> ", file);
     const folder = getModelFromRoute(req.baseUrl);
     const fieldName = getFieldName(name, id.slice(-5));
     if (method === "POST") {
@@ -233,7 +231,6 @@ export const uploadImageToCloud = async (req, id, name, image) => {
 //=====================
 const handlePostMethod = (file, folder, fieldName) => {
   if (!file) return DEFAULT_AVATAR;
-  console.warn("Subiendo imagen...");
   return uploadImage(file, folder, fieldName);
 };
 
@@ -245,10 +242,7 @@ const handlePutMethod = async ({ req, id, file, folder, fieldName, image }) => {
   if (!name) {
     name = fieldName.split("_").slice(0, -1).join("_");
   }
-  console.log("name -> ", name);
   const newName = getFieldName(name, id.slice(-5));
-  console.log("newName -> ", newName);
-  console.log("fieldName -> ", fieldName);
   if (!file) {
     if (fieldName !== newName) {
       console.warn("actualizando nombre...");
@@ -298,7 +292,6 @@ const isValidateFieldName = (ruta, fieldName) => {
 //======================
 export const getFolderName = (routePath) => {
   const ruta = getModelFromRoute(routePath);
-  console.log("ruta -> ", ruta);
   if (ruta === "User") return "avatar";
   if (ruta === "Restaurant") return "logo";
   if (ruta === "Menu") return "picture";
@@ -322,10 +315,10 @@ export const getModelFromRoute = (routePath) => {
 //====================
 export const setUrlImage = (tempImg, image) => {
   if (tempImg !== DEFAULT_AVATAR) {
-    console.warn("update Image...");
+    console.warn("Actualizando Image...");
     return tempImg;
   } else {
-    console.warn("Imagen por defecto");
+    console.warn("Imagen actualizada.");
     return image;
   }
 };
