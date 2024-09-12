@@ -32,7 +32,7 @@ export function PersonalPage() {
       }
     };
 
-    getData();
+    void getData();
   }, []);
 
   return (

@@ -20,10 +20,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
+import type { IRestaurant } from "./restaurant.types";
+
 export const RestaurantPage = () => {
   const [preview, setPreview] = useState<string | undefined>(undefined);
 
-  const [restaurantData, setRestaurantData] = useState(null);
+  const [restaurantData, setRestaurantData] = useState<null | IRestaurant>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -95,7 +97,7 @@ export const RestaurantPage = () => {
       }
     };
 
-    getData();
+    void getData();
   }, []);
 
   useEffect(() => {
