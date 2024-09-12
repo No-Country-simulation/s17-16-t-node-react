@@ -5,19 +5,16 @@
  *    post:
  *      tags:
  *        - User Routes
- *      summary: Create User.
- *      description: Create User.
- *      operationId: addUser
+ *      summary: Login User.
+ *      description: Login User.
+ *      operationId: login
  *      requestBody:
- *       description: Create User.
+ *       description: Login User.
  *       required: true
  *       content:
- *         multipart/form-data:
- *           schema:
- *             $ref: '#/components/schemas/uploadImage'
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/carEntity'
+ *             $ref: '#/components/body/userLogin'
  *      responses:
  *        200:
  *          description: Success

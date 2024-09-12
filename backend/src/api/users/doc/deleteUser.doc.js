@@ -1,10 +1,11 @@
 /**
  * @swagger
  * paths:
- *  /users:
+ *  /users/delete:
  *    delete:
  *      tags:
  *        - User Routes
+ *      summary: Delete User
  *      description: Delete User.
  *      operationId: deleteUser
  *      parameters:

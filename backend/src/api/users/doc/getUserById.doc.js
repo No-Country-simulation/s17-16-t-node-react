@@ -1,7 +1,7 @@
 /**
  * @swagger
  * paths:
- *  /users:
+ *  /users/one:
  *    get:
  *      tags:
  *        - User Routes

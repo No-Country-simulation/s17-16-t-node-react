@@ -1,23 +1,23 @@
 /**
  *  @swagger
  * paths:
- *  /users:
+ *  /users/register:
  *    post:
  *      tags:
  *        - User Routes
- *      summary: Create User.
- *      description: Create User.
+ *      summary: Register User.
+ *      description: Register User.
  *      operationId: addUser
  *      requestBody:
- *        description: Create User.
+ *        description: Register User.
  *        required: true
  *        content:
  *          multipart/form-data:
  *            schema:
- *              $ref: '#/components/schemas/uploadImage'
+ *              $ref: '#/components/schemas/uploadAvatar'
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/carEntity'
+ *              $ref: '#/components/body/userEdit'
  *      responses:
  *        200:
  *          description: Success

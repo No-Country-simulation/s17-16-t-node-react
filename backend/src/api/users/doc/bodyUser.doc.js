@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *  body:
- *    login:
+ *    userLogin:
  *      name: user body.
  *      description: the user Entity.
  *      type: object

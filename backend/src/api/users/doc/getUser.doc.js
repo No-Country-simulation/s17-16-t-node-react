@@ -1,10 +1,10 @@
 /**
  * @swagger
  * paths:
- *  /users:
+ *  /users/list:
  *    get:
  *      tags:
- *        - user Routes
+ *        - User Routes
  *      summary: All users.
  *      description: All users.
  *      operationId: getUsers
