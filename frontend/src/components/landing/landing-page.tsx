@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { LuBadgeCheck, LuHeadphones, LuMonitorCheck } from "react-icons/lu";
 import { RxCheck, RxChevronRight } from "react-icons/rx";
 
@@ -97,9 +98,11 @@ export const Landing = () => {
             </div>
           </div>
         </article>
-        <Button className="rounded-[0.875rem] px-8 py-2">
-          Comienza ahora
-          <RxChevronRight className="ml-2" size={16} />
+        <Button asChild className="rounded-[0.875rem] px-8 py-2">
+          <Link href="/register">
+            Comienza ahora
+            <RxChevronRight className="ml-2" size={16} />
+          </Link>
         </Button>
       </section>
 

@@ -3,30 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/services";
+import { registerUser } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { loginSchema, type LoginRequest } from "@/types/auth";
+import { registerSchema, type RegisterRequest } from "@/types/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 
-export function LoginPage() {
+export function RegisterPage() {
   const router = useRouter();
 
-  const form = useForm<LoginRequest>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterRequest>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: "",
       password: "",
+      name: "",
+      lastName: "",
     },
   });
 
-  async function onSubmit(values: LoginRequest) {
-    await loginUser(values);
-    router.push("/d");
+  async function onSubmit(values: RegisterRequest) {
+    await registerUser(values);
+    router.push("/login");
   }
 
   return (
@@ -44,7 +46,7 @@ export function LoginPage() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-2xl font-semibold">Iniciar sesión</h1>
+            <h1 className="text-2xl font-semibold">Crea tu cuenta</h1>
           </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
@@ -82,14 +84,14 @@ export function LoginPage() {
                 )}
               />
               <Button type="submit" className="w-full rounded-[0.875rem]">
-                Ingresar
+                Registrarse
               </Button>
             </form>
           </Form>
           <div className="mt-4 text-center font-medium text-muted-foreground">
-            ¿No tienes cuenta?{" "}
-            <Link href="/register" className="text-primary underline">
-              Regístrate
+            ¿Tienes cuenta?{" "}
+            <Link href="/login" className="text-primary underline">
+              Iniciar sesión
             </Link>
           </div>
         </div>
