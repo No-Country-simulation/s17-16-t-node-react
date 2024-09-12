@@ -15,6 +15,7 @@ import {
   isBodyParamsValidate,
   isQueryParamsValidate,
   responseContentValidator,
+  setUrlImage,
   successProfiler,
   uploadImageToCloud,
 } from "#utils/validations";
@@ -45,43 +46,6 @@ export const getUserByIdController = async (req, res) => {
   }
 };
 
-//================
-// Create User
-//================
-export const createUserController = async (req, res) => {
-  try {
-    //validad y guarda body
-    const body = await isBodyParamsValidate(req);
-    const response = await createUserService(body);
-    const user = responseContentValidator(response);
-    //validamos y subimos img
-    const tempImg = await uploadImageToCloud(
-      req,
-      user.id,
-      user.name,
-      user.avatar
-    );
-    console.warn("tempImg -> ", tempImg);
-    console.warn("user.avatar -> ", user.avatar);
-    if (tempImg !== DEFAULT_AVATAR) {
-      console.info("update Image ok");
-      user.avatar = tempImg;
-    } else {
-      console.warn("Imagen por defecto");
-    }
-    console.warn("user.avatar update -> ", user.avatar);
-    // actualizado el logo del usuario
-    const updateUserLogo = await updateUserService(user.id, user);
-    const newUser = responseContentValidator(updateUserLogo);
-    successProfiler(res, 201, "createUserController", { newUser });
-  } catch (error) {
-    if (req.file) {
-      deleteTempFile(req.file.path, false);
-    }
-    errorProfiler(error, res, "createUserController");
-  }
-};
-
 //=========
 // Login
 //=========
@@ -95,6 +59,32 @@ export const login = async (req, res) => {
   }
 };
 
+//================
+// Create User
+//================
+export const createUserController = async (req, res) => {
+  try {
+    const body = await isBodyParamsValidate(req);
+    const response = await createUserService(body);
+    const user = responseContentValidator(response);
+    const tempImg = await uploadImageToCloud(
+      req,
+      user.id,
+      user.name,
+      user.avatar
+    );
+    user.avatar = setUrlImage(tempImg, user.avatar);
+    const updateUserLogo = await updateUserService(user.id, user);
+    const newUser = responseContentValidator(updateUserLogo);
+    successProfiler(res, 201, "createUserController", { newUser });
+  } catch (error) {
+    if (req.file) {
+      deleteTempFile(req.file.path, false);
+    }
+    errorProfiler(error, res, "createUserController");
+  }
+};
+
 //==========================
 // Upload Profile
 //==========================
@@ -104,32 +94,21 @@ export const updateUserController = async (req, res) => {
     const body = await isBodyParamsValidate(req);
     const response = await getUserByIdService(id);
     let updateUser = responseContentValidator(response);
+    console.log('body -> ', body);
+    const updateUserImgBase = await
+    updateUserService(updateUser.id, body);
+    const userUpdate = responseContentValidator(updateUserImgBase);
     const tempImg = await uploadImageToCloud(
       req,
-      updateUser.id,
+      userUpdate.id,
       updateUser.name,
-      updateUser.avatar
+      userUpdate.avatar
     );
-    console.warn("tempImg -> ", tempImg);
-    console.warn("updateUser.avatar -> ", updateUser.avatar);
-    if (tempImg !== DEFAULT_AVATAR) {
-      console.log("body -> ", body);
-      if (updateUser.avatar !== tempImg) {
-        if (!body) {
-          console.info("update Image ok");
-        }
-        if (updateUser.avatar !== tempImg && body.length > 0){
-          console.info("deleteImage ok");
-          await deleteImage(updateUser.avatar);
-        }
-        updateUser = { ...updateUser, avatar: tempImg };
-      } else {
-        console.warn("Imagen ya existe");
-      }
-    }
-    updateUser = { ...updateUser, ...body };
-    const updateUserLogo = await updateUserService(updateUser.id, updateUser);
-    const user = responseContentValidator(updateUserLogo);
+    userUpdate.avatar = setUrlImage(tempImg, updateUser.avatar);
+    console.warn("updateUser.avatar.actl -> ", userUpdate.avatar);
+    const userActImg = await updateUserService(userUpdate.id, { avatar: userUpdate.avatar });
+    const user = responseContentValidator(userActImg);
+    console.log("user -> ", user);
     successProfiler(res, 201, "updateUserController", { user });
   } catch (error) {
     if (req.file) {

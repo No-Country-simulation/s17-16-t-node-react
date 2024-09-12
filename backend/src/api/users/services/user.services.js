@@ -78,11 +78,8 @@ export const updateUserService = async (id, updateData) => {
     if (updateData.password) {
       updateData.password = await hash(updateData.password, BC_SALT);
     }
-    console.log("updateData -> ", updateData);
     const updateUser = await updateUserDao(id, updateData);
-    console.log("updateUser -> ", updateUser);
     const userDTO = new UserDTO(updateUser).toDTO(fieldsToShow);
-    console.log("userDTO -> ", userDTO);
     return userDTO;
   } catch (error) {
     throw new Error(error);

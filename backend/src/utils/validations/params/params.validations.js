@@ -7,7 +7,7 @@ import {
   CD_RESOURCE_TYPE,
   DEFAULT_AVATAR,
 } from "#src/config";
-import { setFileName, uploadImage } from "#utils/cloudinary";
+import { deleteImage, setFileNameImage, uploadImage } from "#utils/cloudinary";
 import { validateKeysInMongooseModel } from "#utils/validations";
 import { URL } from "url";
 
@@ -93,7 +93,8 @@ const isKeyAndValueValidate = (queryParams, model) => {
 //==============================
 export const isBodyParamsValidate = async (req) => {
   const body = req.body;
-  if (Object.keys(body).length < 1 && !req.file) {
+  const method = req.method;
+  if (Object.keys(body).length < 1 && method === "POST") {
     throw new ParamError("Body error", "must have body");
   }
   const model = getModelFromRoute(req.baseUrl);
@@ -209,26 +210,59 @@ const getZodValidationSchema = async (modelName) => {
 // Upload img cloud
 //===================
 export const uploadImageToCloud = async (req, id, name, image) => {
-  const file = isValidateFile(req.file);
-  const fieldName = getFieldName(name, id.slice(-5));
-  const newName = getFieldName(req.body.name, id.slice(-5));
-  const folder = getModelFromRoute(req.baseUrl);
-  console.log("fieldName -> ", fieldName);
-  console.log("newName -> ", newName);
-  console.log("folder -> ", folder);
-  if (fieldName !== newName && !file) {
-    return await setFileName(fieldName, newName, folder);
-    console.warn("Actualizando name");
+  try {
+    const method = req.method;
+    console.log("method -> ", method);
+    const file = isValidateFile(req.file);
+    console.log("file -> ", file);
+    const folder = getModelFromRoute(req.baseUrl);
+    const fieldName = getFieldName(name, id.slice(-5));
+    if (method === "POST") {
+      return handlePostMethod(file, folder, fieldName);
+    }
+    if (method === "PUT") {
+      return await handlePutMethod({ req, id, file, folder, fieldName, image });
+    }
+  } catch (error) {
+    throw new Error(error);
   }
-  if (fieldName === newName && !file) {
-    console.warn("Default image");
+};
+
+//=====================
+// Handle post method
+//=====================
+const handlePostMethod = (file, folder, fieldName) => {
+  if (!file) return DEFAULT_AVATAR;
+  console.warn("Subiendo imagen...");
+  return uploadImage(file, folder, fieldName);
+};
+
+//======================
+// Handle put method
+//======================
+const handlePutMethod = async ({ req, id, file, folder, fieldName, image }) => {
+  let name = req.body.name;
+  if (!name) {
+    name = fieldName.split("_").slice(0, -1).join("_");
+  }
+  console.log("name -> ", name);
+  const newName = getFieldName(name, id.slice(-5));
+  console.log("newName -> ", newName);
+  console.log("fieldName -> ", fieldName);
+  if (!file) {
+    if (fieldName !== newName) {
+      console.warn("actualizando nombre...");
+      return await setFileNameImage(fieldName, newName, folder);
+    }
     return DEFAULT_AVATAR;
   }
-  if (fieldName !== newName && file) {
-    return await uploadImage(file, folder, fieldName);
-    console.warn("Upload image");
+  console.warn("Subiendo imagen...");
+  const imgUp = await uploadImage(file, folder, newName);
+  if (fieldName !== newName) {
+    console.warn("borrando imagen...");
+    await deleteImage(image);
   }
-  return image;
+  return imgUp;
 };
 
 //==================
@@ -236,16 +270,16 @@ export const uploadImageToCloud = async (req, id, name, image) => {
 //==================
 export const getFieldName = (...args) => {
   if (args.length === 0) {
-    return 'default';
+    return "default";
   }
   const formattedName = args
-    .filter(arg => arg) // Filtrar valores nulos o indefinidos
-    .join(' ')
+    .filter((arg) => arg) // Filtrar valores nulos o indefinidos
+    .join(" ")
     .trim()
     .toLowerCase()
-    .replace(/\s+/g, '_');
+    .replace(/\s+/g, "_");
   return formattedName;
-}
+};
 
 //======================
 // validate fieldName
@@ -258,7 +292,6 @@ const isValidateFieldName = (ruta, fieldName) => {
     .replace(/\.[^/.]+$/, "");
   return fieldName.includes(nameImage);
 };
-
 
 //======================
 // Get Folder Name
@@ -282,4 +315,17 @@ export const getModelFromRoute = (routePath) => {
     modelName = modelName.slice(0, -1);
   }
   return modelName.charAt(0).toUpperCase() + modelName.slice(1);
+};
+
+//====================
+// Set Url Image
+//====================
+export const setUrlImage = (tempImg, image) => {
+  if (tempImg !== DEFAULT_AVATAR) {
+    console.warn("update Image...");
+    return tempImg;
+  } else {
+    console.warn("Imagen por defecto");
+    return image;
+  }
 };
