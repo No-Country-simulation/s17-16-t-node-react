@@ -30,7 +30,6 @@ export const SetLimiter = rateLimit({
   statusCode: 429,
   standardHeaders: true,
   keyGenerator: async (req) => {
-    console.log("ip req->", req.ip);
     if (req.ip) {
       const separador = NODE_ENV === "development" ? ":" : ".";
       const ip = req.ip.toString().split(`${separador}`)

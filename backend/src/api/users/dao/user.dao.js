@@ -7,7 +7,7 @@ import { UserModel } from "#api/users";
 // Find all
 //=============
 export const findAllDao = async () => {
-  return await UserModel.find()
+  return await UserModel.find({isActive: true})
 };
 
 //============

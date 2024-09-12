@@ -112,7 +112,6 @@ export const loginUserService = async (email, password) => {
       expiresIn: JWT_EXPIRATION,
     });
     const userDTO = new UserDTO(user).toDTO(fieldsToShow);
-    console.log("userDTO -> ", userDTO);
     return { userDTO, token };
   } catch (error) {
     throw new Error(error);
