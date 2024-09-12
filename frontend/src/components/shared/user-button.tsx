@@ -1,5 +1,9 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { LuUserCircle } from "react-icons/lu";
 
+import { deleteCookie } from "@/lib/cookieUtils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,6 +15,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function UserButton() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    deleteCookie("token");
+
+    router.push("/login");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +37,7 @@ export function UserButton() {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
