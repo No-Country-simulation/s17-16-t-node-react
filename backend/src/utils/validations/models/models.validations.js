@@ -61,3 +61,4 @@ export const toLocalDate = (utcDate) => {
 const getSystemRegion = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
+
