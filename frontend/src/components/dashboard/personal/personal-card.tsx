@@ -16,7 +16,9 @@ export const PersonalCard = ({ personal, setIsFormOpen, setFormContent }: Props)
   return (
     <article className="rounded-2xl p-4 shadow-card-shadow">
       <header className="mb-3 flex items-center justify-between">
-        <h4 className="text-lg">{personal.name}</h4>
+        <h4 className="text-lg">
+          {personal.name} {personal.lastName}
+        </h4>
         <PersonalButton
           setIsFormOpen={setIsFormOpen}
           personal={personal}
