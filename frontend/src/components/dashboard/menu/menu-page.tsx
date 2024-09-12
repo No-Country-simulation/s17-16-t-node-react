@@ -36,7 +36,7 @@ export const MenuPage = () => {
       }
     };
 
-    getData();
+    void getData();
   }, []);
 
   return (
