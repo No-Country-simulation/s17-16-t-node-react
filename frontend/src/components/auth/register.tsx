@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { registerUser } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { registerSchema, type RegisterRequest } from "@/types/auth";
 import { Button } from "@/components/ui/button";
@@ -27,15 +28,22 @@ export function RegisterPage() {
   });
 
   async function onSubmit(values: RegisterRequest) {
-    await registerUser(values);
-    router.push("/login");
+    registerUser(values)
+      .then(() => {
+        toast.success("Gracias por registrarte. Ahora puedes iniciar sesión");
+        router.push("/login");
+      })
+      .catch(() => {
+        form.reset();
+        toast.error("Vuelve a intentarlo");
+      });
   }
 
   return (
     <div className="h-screen w-full lg:grid lg:grid-cols-2">
       <div className="relative hidden h-full w-full lg:block">
         <Image
-          src="/images/bg-log.jpg"
+          src="/images/bg-reg.jpg"
           alt="Image"
           width={1400}
           height={800}
@@ -50,6 +58,38 @@ export function RegisterPage() {
           </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Ingresa tu nombre"
+                        className="rounded-[0.875rem] bg-[#EFEFEF]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Ingresa tu apellido"
+                        className="rounded-[0.875rem] bg-[#EFEFEF]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="email"

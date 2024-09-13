@@ -9,31 +9,38 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const url = new URL(request.url);
 
+  const isLoginPage = url.pathname === "/login";
+  const isRegisterPage = url.pathname === "/register";
+
   if (token) {
     try {
       const decoded = jwtDecode<JwtPayload>(token);
       const expirationDate = new Date(decoded.exp * 1000);
 
       if (expirationDate < new Date()) {
-        return NextResponse.redirect(new URL("/login", request.url));
+        if (!isLoginPage) {
+          return NextResponse.redirect(new URL("/login", request.url));
+        }
       }
 
-      if (url.pathname === "/login" || url.pathname === "/register") {
+      if (isLoginPage || isRegisterPage) {
         return NextResponse.redirect(new URL("/d", request.url));
       }
 
       return NextResponse.next();
     } catch (error) {
       console.error("Error decoding token", error);
-      return NextResponse.redirect(new URL("/login", request.url));
+      if (!isLoginPage) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
     }
-  }
+  } else {
+    if (isLoginPage || isRegisterPage) {
+      return NextResponse.next();
+    }
 
-  if (url.pathname === "/login" || url.pathname === "/register") {
-    return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {
