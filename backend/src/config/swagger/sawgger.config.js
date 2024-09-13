@@ -1,21 +1,21 @@
-import swaggerJsDoc from 'swagger-jsdoc';
-import { config } from 'dotenv';
-import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
-import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from "swagger-jsdoc";
+import { config } from "dotenv";
+import { SwaggerTheme, SwaggerThemeNameEnum } from "swagger-themes";
+import swaggerUI from "swagger-ui-express";
 
 config();
 
-const env = process.env.NODE_ENV ?? 'development';
+const env = process.env.NODE_ENV ?? "development";
 const port = process.env.PORT ?? 3000;
-const hostDev = process.env.HOST_DEV ?? 'localhost';
-const hostProd = process.env.HOST_PROD_BACK ?? 'restifyApi2.vercel.app';
+const hostDev = process.env.HOST_DEV ?? "localhost";
+const hostProd = process.env.HOST_PROD_BACK ?? "restifyApi2.vercel.app";
 const theme = new SwaggerTheme();
 const darkStyle = theme.getBuffer(SwaggerThemeNameEnum.DARK);
 const serverUrl =
-  env?.trim() === 'production'
+  env?.trim() === "production"
     ? `https://${hostProd}/{basePath}/{versionApi}`
     : `http://${hostDev}:${port}/{basePath}/{versionApi}`;
-const apisRoot =`./**/doc/*.doc.js`;
+const apisRoot = `./**/doc/*.doc.js`;
 const swaggerConfig = {
   failOnErrors: true,
   definition: {
@@ -61,8 +61,8 @@ const swaggerConfig = {
         },
       },
     ],
-    consumes: ["application/json"],
-    produces: ["application/json"],
+    consumes: ["application/json", "multipart/form-data"],
+    produces: ["application/json", "multipart/form-data"],
   },
   apis: [apisRoot],
 };

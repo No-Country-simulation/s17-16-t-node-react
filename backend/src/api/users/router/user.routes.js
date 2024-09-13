@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { setApiKey, setAuthorize, setUpload } from "#src/middlewares";
 import {
   createUserController,
@@ -12,10 +11,16 @@ import {
 
 export const userRouter = Router();
 
-userRouter.post("/register", setApiKey, setUpload, createUserController);
 userRouter.post("/login", setApiKey, login);
+userRouter.post("/register", setApiKey, setUpload, createUserController);
+userRouter.post(
+  "/add",
+  setApiKey,
+  setAuthorize,
+  setUpload,
+  createUserController
+);
 userRouter.get("/one", setApiKey, setAuthorize, getUserByIdController);
-
 userRouter.get("/list", setApiKey, getAllUsersController);
-userRouter.put("/", setApiKey, setAuthorize, setUpload, updateUserController);
-userRouter.delete("/profile", setApiKey, setAuthorize, deleteUserController);
+userRouter.put("/upload", setApiKey, setAuthorize, setUpload, updateUserController);
+userRouter.delete("/delete", setApiKey, setAuthorize, deleteUserController);

@@ -8,26 +8,6 @@
  *      type: string
  *      default: ""
  *      description: Id .
- *    id2:
- *      name: id
- *      in: query
- *      description: ID of the object to fetch
- *      required: false
- *      schema:
- *        type: array
- *        items:
- *          type: string
- *      style: form
- *      explode: true
- *    id3:
- *      name: freeForm
- *      schema:
- *        type: object
- *        additionalProperties:
- *          type: integer
- *      style: form
- *      default: ""
- *      description: Id .
  *    email:
  *      name: email
  *      in: query
@@ -47,6 +27,12 @@
  *      type: string
  *      default: ""
  *      description: Description.
+ *    permissions:
+ *      name: description
+ *      in: query
+ *      type: string
+ *      default: ""
+ *      description: Permissions.
  *    isActive:
  *      name: isActive
  *      in: query
@@ -59,8 +45,8 @@
  *      default: true
  *      description: >
  *        isActive order:
- *         * `true` - Role active.
- *         * `false` - Role in active
+ *         * `true` - active.
+ *         * `false` - inactive.
  *    userId:
  *      name: userId
  *      in: query

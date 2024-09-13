@@ -7,7 +7,13 @@
  *      description: the Role Entity.
  *      type: object
  *      properties:
+ *        name:
+ *          type: string
+ *          example: Nombre del rol.
  *        description:
  *          type: string
- *          example: user
+ *          example: Descripción del rol.
+ *        permissions:
+ *          type: string
+ *          example: Id del premiso asignado al usuario.
 */

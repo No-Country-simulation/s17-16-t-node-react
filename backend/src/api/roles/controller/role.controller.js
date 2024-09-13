@@ -1,7 +1,6 @@
 //==========================
 // Imports
 //==========================
-import axios from "axios";
 import {
   errorProfiler,
   successProfiler,
@@ -89,32 +88,5 @@ export const deleteRoleWithValidation = async (req, res) => {
     successProfiler(res, 202, "deleteRoleWithValidation", { role });
   } catch (error) {
     errorProfiler(error, res, "deleteRoleWithValidation");
-  }
-};
-
-//==========================
-// Get User Logged In
-//==========================
-const fetchLoggedInUser = async () => {
-  try {
-    const response = await axios.get("/ruta/para/obtener/usuario/logueado");
-    return response.data;
-  } catch (error) {
-    throw new Error("Error obteniendo el usuario logueado");
-  }
-};
-
-//==========================
-// Get User info
-//==========================
-// Función para obtener los detalles del usuario
-const fetchUserDetails = async (userId) => {
-  try {
-    const response = await axios.get(
-      `/ruta/para/obtener/detalles/usuario/${userId}`
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error("Error obteniendo los detalles del usuario");
   }
 };

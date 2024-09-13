@@ -1,11 +1,10 @@
-//=====================
+//=============
 // Imports
-//=====================
+//=============
 import {
   CD_MAX_FILE_SIZE,
   CD_RESOURCE_EXT,
   CD_RESOURCE_TYPE,
-  DEFAULT_AVATAR,
 } from "#src/config";
 import { deleteImage, setFileNameImage, uploadImage } from "#utils/cloudinary";
 import { validateKeysInMongooseModel } from "#utils/validations";
@@ -21,6 +20,22 @@ class ParamError extends Error {
     this.message = message;
   }
 }
+
+//==========
+// Const
+//==========
+const routeToVariableMap = {
+  User: "DEFAULT_AVATAR",
+  Menu: "DEFAULT_PICTURE",
+  Restaurant: "DEFAULT_LOGO",
+  Payment: "DEFAULT_ICON",
+};
+const folderNameMap = {
+  User: "avatar",
+  Restaurant: "logo",
+  Menu: "picture",
+  Payment: "icon",
+};
 
 //=========================
 // Validate query params
@@ -182,29 +197,7 @@ export const responseContentValidator = (response) => {
   return response;
 };
 
-//=========================================
-// Map model name to zod validation file
-//=========================================
-const modelToZodValidationMap = {
-  Role: "#api/roles",
-  User: "#api/users",
-  Menu: "#api/menus",
-};
-
-//=======================================
-// Get zod validation schema for model
-//=======================================
-const getZodValidationSchema = async (modelName) => {
-  const validationFilePath = modelToZodValidationMap[modelName];
-  if (!validationFilePath) {
-    throw new ParamError(
-      "Validation error",
-      `No validation schema found for model: ${modelName}`
-    );
-  }
-  const { validateZod } = await import(validationFilePath);
-  return validateZod;
-};
+//aqui
 
 //===================
 // Upload img cloud
@@ -216,7 +209,7 @@ export const uploadImageToCloud = async (req, id, name, image) => {
     const folder = getModelFromRoute(req.baseUrl);
     const fieldName = getFieldName(name, id.slice(-5));
     if (method === "POST") {
-      return handlePostMethod(file, folder, fieldName);
+      return handlePostMethod(file, folder, fieldName, req.baseUrl);
     }
     if (method === "PUT") {
       return await handlePutMethod({ req, id, file, folder, fieldName, image });
@@ -229,8 +222,8 @@ export const uploadImageToCloud = async (req, id, name, image) => {
 //=====================
 // Handle post method
 //=====================
-const handlePostMethod = (file, folder, fieldName) => {
-  if (!file) return DEFAULT_AVATAR;
+const handlePostMethod = async (file, folder, fieldName, route) => {
+  if (!file) return await getDefaultImage(route);
   return uploadImage(file, folder, fieldName);
 };
 
@@ -248,7 +241,7 @@ const handlePutMethod = async ({ req, id, file, folder, fieldName, image }) => {
       console.warn("actualizando nombre...");
       return await setFileNameImage(fieldName, newName, folder);
     }
-    return DEFAULT_AVATAR;
+    return await getDefaultImage(req.baseUrl);
   }
   console.warn("Subiendo imagen...");
   const imgUp = await uploadImage(file, folder, newName);
@@ -292,10 +285,7 @@ const isValidateFieldName = (ruta, fieldName) => {
 //======================
 export const getFolderName = (routePath) => {
   const ruta = getModelFromRoute(routePath);
-  if (ruta === "User") return "avatar";
-  if (ruta === "Restaurant") return "logo";
-  if (ruta === "Menu") return "picture";
-  return "image";
+  return folderNameMap[ruta] || "image";
 };
 
 //==============================
@@ -313,12 +303,47 @@ export const getModelFromRoute = (routePath) => {
 //====================
 // Set Url Image
 //====================
-export const setUrlImage = (tempImg, image) => {
-  if (tempImg !== DEFAULT_AVATAR) {
+export const setUrlImage = async (tempImg, image, route) => {
+  const defaultImage = await getDefaultImage(route);
+  if (tempImg !== defaultImage) {
     console.warn("Actualizando Image...");
     return tempImg;
   } else {
     console.warn("Imagen actualizada.");
     return image;
   }
+};
+
+//==============================
+// Get default image
+//==============================
+const getDefaultImage = async (route) => {
+  const modelName = getModelFromRoute(route);
+  const variableName = routeToVariableMap[modelName];
+  if (!variableName) {
+    throw new ParamError(
+      "Validation error",
+      `No se encontró una variable para el modelo: ${modelName}`
+    );
+  }
+  const config = await import("#src/config");
+  return config[variableName];
+};
+//=======================================
+// Get zod validation schema for model
+//=======================================
+const getZodValidationSchema = async (modelName) => {
+  const validationFilePath = `#api/${modelName.toLowerCase()}s`;
+  console.log("VFP->",validationFilePath);
+  const modelZodName = `validate${modelName}`;
+  console.log("VZN->",modelZodName);
+  const module = await import(validationFilePath);
+  const validateZod = module[modelZodName];
+  if (!validateZod) {
+    throw new ParamError(
+      "Validation error",
+      `No validation schema found for model: ${modelName}`
+    );
+  }
+  return validateZod;
 };

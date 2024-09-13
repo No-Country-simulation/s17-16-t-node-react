@@ -1,36 +1,42 @@
-import { Menu } from "#api/menus"; 
+//==========
+// Import
+//==========
+import { MenuModel } from "#api/menus";
 
+//==================
+// Class Menu DAO
+//==================
 export class MenuDao {
   async create(menuData) {
-    return await Menu.create(menuData);
+    return await MenuModel.create(menuData);
   }
 
   async findById(id) {
-    return await Menu.findById(id)
+    return await MenuModel.findById({ ...id, isActive: true });
   }
 
   async update(id, updateData) {
-    return await Menu.findByIdAndUpdate(id, updateData, {
+    return await MenuModel.findByIdAndUpdate(id, updateData, {
       new: true,
-    })
+    });
   }
 
   async delete(id) {
-    return await Menu.findByIdAndDelete(id)
+    return await MenuModel.findByIdAndDelete(id);
   }
 
   async findAll() {
-    return await Menu.find()
+    return await MenuModel.find({ isActive: true });
   }
 
-  async findOne(info){
-    return await Menu.findOne(info)
+  async findOne(info) {
+    return await MenuModel.findOne({...info, isActive: true });
   }
 
   async updateWithSession(id, updateData, session) {
-    return await Menu.findByIdAndUpdate(id, updateData, {
-        new: true,
-        session
+    return await MenuModel.findByIdAndUpdate(id, updateData, {
+      new: true,
+      session,
     });
   }
 }
