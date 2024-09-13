@@ -2,29 +2,38 @@
  * @swagger
  * components:
  *  schemas:
- *    roleEntity:
- *      description: Role entity.
+ *    MenuEntity:
+ *      description: Menu entity.
  *      type: object
  *      required:
  *        - name
- *        - description
+ *        - price
+ *        - restaurant
  *      properties:
  *        id:
  *          type: string
  *          format: cuid
  *          example: 123e4567-e89b-12d3-a456-426655440000
+ *        picture:
+ *          type: string
+ *          example: Imagen del plato.
  *        name:
  *          type: string
- *          example: Nombre del rol.
+ *          example: Nombre del plato.
  *        description:
  *          type: string
- *          example: Descripción del rol.
- *        permissions:
+ *          example: Descripción del plato.
+ *        price:
  *          type: string
- *          example: Id del premiso asignado al usuario.
+ *          example: Precio del plato.
+ *        category:
+ *          type: string
+ *          example: Categoría del plato.
+ *        restaurant:
+ *          type: string
+ *          example: Restaurante de donde es el plato.
  *        isActive:
  *          type: boolean
- *          default: true
  *          example: true
  *        createdAt:
  *          type: string

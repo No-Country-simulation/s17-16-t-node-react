@@ -1,13 +1,22 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /cars:
- *    get:
+ *  /status:
+ *    put:
  *      tags:
- *        - Car Routes
- *      summary: All Cars.
- *      description: All Cars.
- *      operationId: getCars
+ *        - Statu Routes
+ *      summary: Edit status.
+ *      description: Edit status.
+ *      operationId: updateStatus
+ *      parameters:
+ *        - $ref: '#/components/parameters/id'
+ *      requestBody:
+ *        description: Edit status.
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/body/status'
  *      responses:
  *        200:
  *          description: Success
@@ -35,4 +44,5 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
+ *        - bearerAuth: []
  */

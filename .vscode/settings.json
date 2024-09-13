@@ -22,7 +22,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["cloudinary", "onrender"],
+  "cSpell.words": ["cloudinary", "onrender", "statu"],
   "files.exclude": {},
   "codescene.previewCodeHealthGate": true,
   "codescene.enableAutoRefactor": true

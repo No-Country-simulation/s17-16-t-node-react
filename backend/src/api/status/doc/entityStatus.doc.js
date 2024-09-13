@@ -2,12 +2,12 @@
  * @swagger
  * components:
  *  schemas:
- *    roleEntity:
- *      description: Role entity.
+ *    statuEntity:
+ *      description: Status entity
  *      type: object
  *      required:
  *        - name
- *        - description
+ *        - Description
  *      properties:
  *        id:
  *          type: string
@@ -15,16 +15,12 @@
  *          example: 123e4567-e89b-12d3-a456-426655440000
  *        name:
  *          type: string
- *          example: Nombre del rol.
+ *          example: Nombre del usuario.
  *        description:
  *          type: string
- *          example: Descripción del rol.
- *        permissions:
- *          type: string
- *          example: Id del premiso asignado al usuario.
+ *          example: User
  *        isActive:
  *          type: boolean
- *          default: true
  *          example: true
  *        createdAt:
  *          type: string

@@ -3,11 +3,11 @@
 //===========
 import { UserModel } from "#api/users";
 
-//=============
-// Find all
-//=============
-export const findAllDao = async () => {
-  return await UserModel.find({isActive: true})
+//=================
+// Create user
+//=================
+export const createUserDao = async (userData) => {
+  return await UserModel.create(userData);
 };
 
 //============
@@ -17,19 +17,21 @@ export const findOneDao= async (info) => {
   return await UserModel.findOne(info)
 };
 
+//=============
+// Find all
+//=============
+export const findAllDao = async () => {
+  return await UserModel.find({isActive: true})
+};
+
+
 //====================
 // Find user by id
 //====================
 export const findByIdDao = async (id) => {
-  return await UserModel.findById(id);
+  return await UserModel.findById(id, {isActive: true});
 };
 
-//=================
-// Create user
-//=================
-export const createUserDao = async (userData) => {
-  return await UserModel.create(userData);
-};
 
 //================
 // Update user

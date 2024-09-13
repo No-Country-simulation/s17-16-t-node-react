@@ -1,13 +1,13 @@
 /**
  * @swagger
  * paths:
- *  /cars/{:id}:
+ *  /menus/delete:
  *    delete:
  *      tags:
- *        - Car Routes
- *      summary: Delete Car.
- *      description: Delete Car.
- *      operationId: deleteCar
+ *        - Menu Routes
+ *      summary: Delete Menu.
+ *      description: Delete Menu.
+ *      operationId: deleteMenu
  *      parameters:
  *        - $ref: '#/components/parameters/id'
  *      responses:

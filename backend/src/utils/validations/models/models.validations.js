@@ -1,3 +1,6 @@
+//===========
+// Imports
+//===========
 import { format } from "date-fns-tz";
 import { model } from "mongoose";
 
@@ -28,7 +31,6 @@ export const validateKeysInMongooseModel = (modelName, validateObject) => {
   return validKeys;
 };
 
-
 //=====================
 // Load Model Fields
 //=====================
@@ -42,7 +44,7 @@ const loadModelFields = (modelName) => {
 //==========================
 export const toUTCDate = (v) => {
   const date = v instanceof Date ? v : new Date(v);
-  return date.toISOString(); // Convertir a formato ISO 8601 (UTC)
+  return date.toISOString();
 };
 
 //==========================
@@ -61,4 +63,3 @@ export const toLocalDate = (utcDate) => {
 const getSystemRegion = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
-

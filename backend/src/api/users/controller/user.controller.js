@@ -8,8 +8,7 @@ import {
   loginUserService,
   updateUserService,
 } from "#api/users";
-import { DEFAULT_AVATAR } from "#src/config";
-import { deleteImage, deleteTempFile } from "#utils/cloudinary";
+import { deleteTempFile } from "#utils/cloudinary";
 import {
   errorProfiler,
   isBodyParamsValidate,
@@ -19,32 +18,6 @@ import {
   successProfiler,
   uploadImageToCloud,
 } from "#utils/validations";
-
-//==========================
-// Get All users
-//==========================
-export const getAllUsersController = async (req, res) => {
-  try {
-    const users = await getAllUserService();
-    successProfiler(res, 200, "getAllUsersController", { users });
-  } catch (error) {
-    errorProfiler(error, res, "getAllUsersController");
-  }
-};
-
-//===================
-// Get User by Id
-//===================
-export const getUserByIdController = async (req, res) => {
-  try {
-    const id = isQueryParamsValidate(req);
-    const response = await getUserByIdService(id);
-    const user = responseContentValidator(response);
-    successProfiler(res, 200, "getUserByIdController", { user });
-  } catch (error) {
-    errorProfiler(error, res, "getUserByIdController");
-  }
-};
 
 //=========
 // Login
@@ -65,18 +38,20 @@ export const login = async (req, res) => {
 export const createUserController = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
-    const response = await createUserService(body);
-    const user = responseContentValidator(response);
+    const saveUser = await createUserService(body);
+    const userSave = responseContentValidator(saveUser);
     const tempImg = await uploadImageToCloud(
       req,
-      user.id,
-      user.name,
-      user.avatar
+      userSave.id,
+      userSave.name,
+      userSave.avatar
     );
-    user.avatar = setUrlImage(tempImg, user.avatar);
-    const updateUserLogo = await updateUserService(user.id, user);
-    const newUser = responseContentValidator(updateUserLogo);
-    successProfiler(res, 201, "createUserController", { newUser });
+    userSave.avatar = await setUrlImage(tempImg, userSave.avatar, req.baseUrl);
+    const updateUser = await updateUserService(userSave.id, {
+      avatar: userSave.avatar,
+    });
+    const user = responseContentValidator(updateUser);
+    successProfiler(res, 201, "createUserController", { user });
   } catch (error) {
     if (req.file) {
       deleteTempFile(req.file.path, false);
@@ -85,27 +60,54 @@ export const createUserController = async (req, res) => {
   }
 };
 
+//===================
+// Get User by Id
+//===================
+export const getUserByIdController = async (req, res) => {
+  try {
+    const id = isQueryParamsValidate(req);
+    const response = await getUserByIdService(id);
+    const user = responseContentValidator(response);
+    successProfiler(res, 200, "getUserByIdController", { user });
+  } catch (error) {
+    errorProfiler(error, res, "getUserByIdController");
+  }
+};
+
 //==========================
-// Upload Profile
+// Get All users
 //==========================
+export const getAllUsersController = async (req, res) => {
+  try {
+    const users = await getAllUserService();
+    successProfiler(res, 200, "getAllUsersController", { users });
+  } catch (error) {
+    errorProfiler(error, res, "getAllUsersController");
+  }
+};
+
+//================
+// Upload User
+//================
 export const updateUserController = async (req, res) => {
   try {
     const id = isQueryParamsValidate(req);
     const body = await isBodyParamsValidate(req);
-    const response = await getUserByIdService(id);
-    let updateUser = responseContentValidator(response);
-    const updateUserImgBase = await
-    updateUserService(updateUser.id, body);
-    const userUpdate = responseContentValidator(updateUserImgBase);
+    const searchUserId = await getUserByIdService(id);
+    const searchUser = responseContentValidator(searchUserId);
+    const updateResp = await updateUserService(searchUser.id, body);
+    const userUpdate = responseContentValidator(updateResp);
     const tempImg = await uploadImageToCloud(
       req,
       userUpdate.id,
-      updateUser.name,
+      searchUser.name,
       userUpdate.avatar
     );
-    userUpdate.avatar = setUrlImage(tempImg, updateUser.avatar);
-    const userActImg = await updateUserService(userUpdate.id, { avatar: userUpdate.avatar });
-    const user = responseContentValidator(userActImg);
+    searchUser.avatar = await setUrlImage(tempImg, searchUser.avatar, req.baseUrl);
+    const updateUser = await updateUserService(userUpdate.id, {
+      avatar: userUpdate.avatar,
+    });
+    const user = responseContentValidator(updateUser);
     successProfiler(res, 201, "updateUserController", { user });
   } catch (error) {
     if (req.file) {
@@ -115,15 +117,15 @@ export const updateUserController = async (req, res) => {
   }
 };
 
-//==========================
-// Delete Profile
-//==========================
+//===============
+// Delete User
+//===============
 export const deleteUserController = async (req, res) => {
   try {
     const id = isQueryParamsValidate(req);
     const resp = await updateUserService(id, { isActive: false });
-    const delUser = responseContentValidator(resp);
-    successProfiler(res, 200, "deleteUserController", { delUser });
+    const user = responseContentValidator(resp);
+    successProfiler(res, 200, "deleteUserController", { user });
   } catch (error) {
     errorProfiler(error, res, "deleteUserController");
   }

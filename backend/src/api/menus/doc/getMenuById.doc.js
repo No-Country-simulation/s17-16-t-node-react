@@ -1,13 +1,13 @@
 /**
- *  @swagger
+ * @swagger
  * paths:
- *  /cars/{:id}:
+ *  /menus/one:
  *    get:
  *      tags:
- *        - Car Routes
- *      summary: Cars By Id.
- *      description: Cars By Id
- *      operationId: getCarById
+ *        - Menu Routes
+ *      summary: Menus By Id.
+ *      description: Menus By Id
+ *      operationId: getMenusById
  *      parameters:
  *        - $ref: '#/components/parameters/id'
  *      responses:

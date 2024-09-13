@@ -9,8 +9,11 @@
  *      properties:
  *        name:
  *          type: string
- *          example: User
+ *          example: Nombre del rol.
  *        description:
  *          type: string
- *          example: User del sistema.
+ *          example: Descripción del rol.
+ *        permissions:
+ *          type: string
+ *          example: Id del premiso asignado al usuario.
 */

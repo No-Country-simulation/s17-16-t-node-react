@@ -1,7 +1,7 @@
 //==========================
 // Imports
 //==========================
-import { RoleDTO, getRoleBy, saveRole, upgradeRole} from "#api/roles";
+import { deleteStatusAdmin, getStatusBy, saveStatus, StatusDTO, upgradeStatus } from "#api/status";
 
 //==========================
 // Costume fields
@@ -11,49 +11,46 @@ const fieldsToShow = ["id", "name", "description"];
 //===============
 // Create role
 //===============
-export const createRole = async (role) => {
+export const createStatus = async (role) => {
   try {
-    const savedRole = await saveRole(role);
-    const roleDTO = new RoleDTO(savedRole).toDTO(fieldsToShow);
-    return roleDTO;
+    const savedStatus = await saveStatus(role);
+    return new StatusDTO(savedStatus).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
 };
 
 //==========================
-// Get role by value
+// Get Status by value
 //==========================
-export const getRoleByValue = async (query) => {
+export const getStatusByValue = async (query) => {
   try {
-    const response = await getRoleBy(query);
-    return response.map((role) => new RoleDTO(role).toDTO(fieldsToShow));
+    const response = await getStatusBy(query);
+    return response.map((role) => new StatusDTO(role).toDTO(fieldsToShow));
   } catch (error) {
     throw new Error(error);
   }
 };
 
 //==========================
-// Update role by value
+// Update status by value
 //==========================
-export const updateRoleBy = async (id, updatedRole) => {
+export const updateStatusBy = async (id, updatedStatus) => {
   try {
-    const updated = await upgradeRole(id, updatedRole);
-    const roleDTO = new RoleDTO(updated).toDTO(fieldsToShow);
-    return roleDTO;
+    const updated = await upgradeStatus(id, updatedStatus);
+    return new StatusDTO(updated).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
 };
 
 //==========================
-// Delete role by value
+// Delete status by value
 //==========================
-export const deleteRoleBy = async (query) => {
+export const deleteStatusBy = async (query) => {
   try {
-    const deletedRole = await deleteRole(query);
-    const roleDTO = new RoleDTO(deletedRole).toDTO(fieldsToShow);
-    return roleDTO;
+    const deletedStatus = await deleteStatusAdmin(query);
+    return new StatusDTO(deletedStatus).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }

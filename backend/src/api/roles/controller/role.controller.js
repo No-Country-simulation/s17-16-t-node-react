@@ -1,7 +1,6 @@
 //==========================
 // Imports
 //==========================
-import axios from "axios";
 import {
   errorProfiler,
   successProfiler,

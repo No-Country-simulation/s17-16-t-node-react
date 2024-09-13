@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Define validations for the Usuario model fields
-const zodSchema = z.object({
+const userSchema = z.object({
   name: z.string().min(3).max(150).optional(),
   lastName: z.string().min(3).max(150).optional(),
   email: z.string().email().optional(),
@@ -15,9 +15,9 @@ const zodSchema = z.object({
 });
 
 // Function to validate a Usuario object
-export const validateZod = (zod) => {
+export const validateUser = (user) => {
   try {
-    zodSchema.parse(zod);
+    userSchema.parse(user);
   } catch (error) {
     throw new Error(`Validation error: ${error.errors.map(x => x.message).join(', ')}`);
   }

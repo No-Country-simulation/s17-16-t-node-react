@@ -17,9 +17,6 @@
  *          multipart/form-data:
  *            schema:
  *              $ref: '#/components/schemas/uploadAvatar'
- *          application/json:
- *            schema:
- *              $ref: '#/components/body/userEdit'
  *      responses:
  *        200:
  *          description: Success

@@ -1,22 +1,22 @@
 /**
  * @swagger
  * paths:
- *  /status:
+ *  /menus/upload:
  *    put:
  *      tags:
- *        - Status Routes
- *      summary: Edit status.
- *      description: Edit status.
- *      operationId: updateStatus
+ *        - Menu Routes
+ *      summary: Edit Menu.
+ *      description: Edit Menu.
+ *      operationId: updateMenu
  *      parameters:
  *        - $ref: '#/components/parameters/id'
  *      requestBody:
- *        description: Edit status.
+ *        description: Edit Menu.
  *        required: true
  *        content:
- *          application/json:
+ *          multipart/form-data:
  *            schema:
- *              $ref: '#/components/body/status'
+ *              $ref: '#/components/schemas/uploadPicture'
  *      responses:
  *        200:
  *          description: Success

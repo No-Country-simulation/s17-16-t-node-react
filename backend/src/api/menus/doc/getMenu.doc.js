@@ -1,22 +1,13 @@
 /**
  * @swagger
  * paths:
- *  /cars/{:id}:
- *    put:
+ *  /menus/all:
+ *    get:
  *      tags:
- *        - Car Routes
- *      summary: Edit Car.
- *      description: Edit Car.
- *      operationId: updateCar
- *      parameters:
- *        - $ref: '#/components/parameters/id'
- *      requestBody:
- *       description: Edit Car.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/body/carEdit'
+ *        - Menu Routes
+ *      summary: All Menus.
+ *      description: All Menus.
+ *      operationId: getMenus
  *      responses:
  *        200:
  *          description: Success
@@ -44,5 +35,4 @@
  *                  $ref: '#/components/responses/notServer'
  *      security:
  *        - apiKeyAuth: []
- *        - bearerAuth: []
  */

@@ -1,32 +1,34 @@
 //==========================
 // Import
 //==========================
-import { StatusModel } from "#api/status";
+import { StatuModel } from "#api/status";
 
 //==========================
-// Get role by
-//==========================
-export const getStatusBy = async (query) => {
-  return await StatusModel.find(query);
-};
-
-//==========================
-// Save role
+// Save status
 //==========================
 export const saveStatus = async (roleData) => {
-  return await StatusModel.create(roleData);
+  return await StatuModel.create(roleData);
 };
 
 //==========================
-// Update role
+// Get status by
+//==========================
+export const getStatusBy = async (query) => {
+  return await StatuModel.find(query);
+};
+
+//==========================
+// Update status
 //==========================
 export const upgradeStatus = async (id, updatedRole) => {
-  return await StatusModel.findByIdAndUpdate(id, updatedRole, { new: true, session });
+  return await StatuModel.findByIdAndUpdate(id, updatedRole, {
+    new: true,
+  });
 };
 
 //==========================
-// Delete role
+// Delete status
 //==========================
-const deleteStatusAdmin = async (id) => {
-  return await StatusModel.findByIdAndDelete(id);
+export const deleteStatusAdmin = async (id) => {
+  return await StatuModel.findByIdAndDelete(id);
 };

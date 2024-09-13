@@ -53,3 +53,4 @@ export const CD_SIZE_IMAGE = process.env.CLOUDINARY_SIZE_IMAGE;
 export const DEFAULT_AVATAR = "https://res.cloudinary.com/restity/image/upload/v1725508323/User/default_default.png";
 export const DEFAULT_PICTURE = "https://res.cloudinary.com/restity/image/upload/v1726006988/generic_menu_picture_t2eu3f.jpg";
 export const DEFAULT_LOGO = "https://res.cloudinary.com/restity/image/upload/v1726007001/generic_restaurant_image_wubzrt.png";
+export const DEFAULT_ICON = "https://res.cloudinary.com/restity/image/upload/v1726007001/generic_restaurant_image_wubzrt.png";

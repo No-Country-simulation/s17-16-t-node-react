@@ -12,6 +12,7 @@
  *        - $ref: '#/components/parameters/id'
  *        - $ref: '#/components/parameters/name'
  *        - $ref: '#/components/parameters/description'
+ *        - $ref: '#/components/parameters/permissions'
  *        - $ref: '#/components/parameters/isActive'
  *      responses:
  *        200:

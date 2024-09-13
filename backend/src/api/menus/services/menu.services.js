@@ -1,39 +1,51 @@
 //==========================
 // Imports
 //==========================
-
-import { MenuDao } from '#api/menus';
-import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
+import { MenuDao, MenuDTO } from "#api/menus";
 
 //==========================
 // Const
 //==========================
 const menuDao = new MenuDao();
+const fieldsToShow = [
+  "id",
+  "picture",
+  "name",
+  "description",
+  "category",
+  "restaurant",
+];
 
 //==========================
-// Register user
+// create Menu
 //==========================
 export const createMenuService = async (menuData) => {
-    const newMenu = await menuDao.create({
-      ...menuData
-    });
-    return newMenu;
+  const newMenu = await menuDao.create({ ...menuData });
+  return new MenuDTO(newMenu).toDTO(fieldsToShow);
 };
 
-
-export const getMenuService = async (_id) => {
-    
-    return await menuDao.findById(_id);
+//============
+// Find one
+//============
+export const getMenuService = async (id) => {
+  const searchMenu = await menuDao.findById(id);
+  return new MenuDTO(searchMenu).toDTO(fieldsToShow);
 };
 
-export const updateMenuService = async (_id, updateData) => {
-    return await menuDao.update(_id, updateData);
-};
-
-export const deleteMenuService = async (_id) => {   
-    return await menuDao.delete(_id);
-};
-
+//=============
+// Find all
+//=============
 export const getAllMenusService = async () => {
-    return await menuDao.findAll();
+  const searchMenu = await menuDao.findAll();
+  return searchMenu.map((menu) => new MenuDTO(menu).toDTO(fieldsToShow));
+};
+
+export const updateMenuService = async (id, updateData) => {
+  const searchMenu = await menuDao.update(id, updateData);
+  return new MenuDTO(searchMenu).toDTO(fieldsToShow);
+};
+
+export const deleteMenuService = async (_id) => {
+  const deleteMenu = await menuDao.delete(id);
+  return new MenuDTO(deleteMenu).toDTO(fieldsToShow);
 };

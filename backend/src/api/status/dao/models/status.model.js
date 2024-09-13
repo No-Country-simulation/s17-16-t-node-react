@@ -7,7 +7,7 @@ import { toLocalDate, toUTCDate } from "#utils/validations";
 //==========================
 // Schema Role
 //==========================
-const statusSchema = new Schema(
+const statuSchema = new Schema(
   {
     name: { type: String, required: true, unique: true, index: true },
     description: { type: String, required: true },
@@ -28,12 +28,12 @@ const statusSchema = new Schema(
   { timestamps: true }
 );
 
-statusSchema.set("toJSON", {
+statuSchema.set("toJSON", {
   getters: true,
 });
 
-statusSchema.set("toObject", {
+statuSchema.set("toObject", {
   getters: true,
 });
 
-export const StatusModel = model("Status", statusSchema);
+export const StatuModel = model("Statu", statuSchema);

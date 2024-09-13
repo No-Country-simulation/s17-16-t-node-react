@@ -1,7 +1,7 @@
 /**
  * @swagger
  *  tags:
- *   name: Status Routes
- *   description: Status routes
- *   summary: Status routes api
+ *   name: Statu Routes
+ *   description: Statu routes
+ *   summary: Statu routes api
  */

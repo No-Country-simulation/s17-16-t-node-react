@@ -4,7 +4,7 @@
  *  /status:
  *    delete:
  *      tags:
- *        - Status Routes
+ *        - Statu Routes
  *      summary: Delete status.
  *      description: Delete status.
  *      operationId: deleteStatus.

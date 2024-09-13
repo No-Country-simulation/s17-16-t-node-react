@@ -19,6 +19,15 @@
  *        endPoint:
  *          type: string
  *          example: getRouter
+ *        limit:
+ *          type: string
+ *          example: You have 1500 requests every 15 minutes
+ *        remaining:
+ *          type: string
+ *          example: You have 1480 remaining requests
+ *        rest:
+ *          type: string
+ *          example: 4 minute and 46 seconds to reset
  *        data:
  *          type: object
  *          example: { }
@@ -37,6 +46,15 @@
  *        endPoint:
  *          type: string
  *          example: getRouter
+ *        limit:
+ *          type: string
+ *          example: You have 1500 requests every 15 minutes
+ *        remaining:
+ *          type: string
+ *          example: You have 1480 remaining requests
+ *        rest:
+ *          type: string
+ *          example: 4 minute and 46 seconds to reset
  *        data:
  *          type: object
  *          example: { }
@@ -55,6 +73,15 @@
  *        endPoint:
  *          type: string
  *          example: getRouter
+ *        limit:
+ *          type: string
+ *          example: You have 1500 requests every 15 minutes
+ *        remaining:
+ *          type: string
+ *          example: You have 1480 remaining requests
+ *        rest:
+ *          type: string
+ *          example: 4 minute and 46 seconds to reset
  *        data:
  *          type: object
  *          example: { }

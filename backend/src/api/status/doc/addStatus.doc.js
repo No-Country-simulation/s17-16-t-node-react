@@ -4,7 +4,7 @@
  *  /status:
  *    post:
  *      tags:
- *        - Status Routes
+ *        - Statu Routes
  *      summary: Create Status.
  *      description: Create Status.
  *      operationId: addStatus
@@ -16,7 +16,7 @@
  *            schema:
  *              $ref: '#/components/body/status'
  *      responses:
- *        200:
+ *        201:
  *          description: Success
  *          content:
  *            application/json:

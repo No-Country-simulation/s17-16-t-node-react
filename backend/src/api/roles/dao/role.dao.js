@@ -1,6 +1,6 @@
-//==========================
+//=============
 // Import
-//==========================
+//=============
 import { RoleModel } from "#api/roles";
 
 //==========================
@@ -21,7 +21,7 @@ export const saveRole = async (roleData) => {
 // Update role
 //==========================
 export const upgradeRole = async (id, updatedRole) => {
-  return await RoleModel.findByIdAndUpdate(id, updatedRole, { new: true, session });
+  return await RoleModel.findByIdAndUpdate(id, updatedRole, { new: true });
 };
 
 //==========================

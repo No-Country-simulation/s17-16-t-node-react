@@ -1,48 +1,53 @@
-//==========================
+//============
 // Imports
-//==========================
-import { errorProfiler, getModelFromRoute, isBodyParamsValidate, isQueryParamsValidate, isValidateFile, responseContentValidator, successProfiler } from "#utils/validations";
-import { getMenuService, createMenuService, updateMenuService, getAllMenusService,deleteMenuService} from "#api/menus";
-import { deleteImage, deleteTempFile, uploadImage } from "#utils/cloudinary";
-import { DEFAULT_AVATAR, DEFAULT_PICTURE } from "#src/config";
-import { date } from "zod";
+//============
+import {
+  createMenuService,
+  getAllMenusService,
+  getMenuService,
+  updateMenuService
+} from "#api/menus";
+import { deleteTempFile } from "#utils/cloudinary";
+import {
+  errorProfiler,
+  isBodyParamsValidate,
+  isQueryParamsValidate,
+  responseContentValidator,
+  setUrlImage,
+  successProfiler,
+  uploadImageToCloud,
+} from "#utils/validations";
 
-//==========================
-// RegisterMenu
-//==========================
+//==============
+// CrearMenu
+//==============
 export const crateMenuController = async (req, res) => {
   try {
     const body = await isBodyParamsValidate(req);
-    if (!req.file) {
-      body.picture = DEFAULT_PICTURE;
-    } else {
-    body.picture = await uploadImageToCloud(req, body);
-    await deleteTempFile(file.path);
-    }
-    let response;
-    try {
-       response = await createMenuService(body);
-    } catch (error) {
-      if (body.picture !== DEFAULT_PICTURE) {
-        await deleteImage(body.picture);
-      };
-      throw error;
-    }
-    const menu = responseContentValidator(response);
+    const saveMenu = await createMenuService(body);
+    const menuSave = responseContentValidator(saveMenu);
+    const tempImg = await uploadImageToCloud(
+      req,
+      menuSave.id,
+      menuSave.name,
+      menuSave.picture
+    );
+    menuSave.picture =  await setUrlImage(tempImg, menuSave.picture, req.baseUrl);
+    const menuPicture = await updateMenuService(menuSave.id, { picture: menuSave.picture });
+    const menu = responseContentValidator(menuPicture);
     successProfiler(res, 201, "crateMenuController", { menu });
   } catch (error) {
     errorProfiler(error, res, "crateMenuController");
   }
 };
 
-
 //===============
 // Get Menu
 //===============
 export const getMenuController = async (req, res) => {
   try {
-    console.log(req)
-    const response = await getMenuService (req.query._id);
+    const id = isQueryParamsValidate(req);
+    const response = await getMenuService(id);
     const menu = responseContentValidator(response);
     successProfiler(res, 200, "getMenuController", { menu });
   } catch (error) {
@@ -50,9 +55,9 @@ export const getMenuController = async (req, res) => {
   }
 };
 
-//==========================
+//=================
 // Get All Menus
-//==========================
+//=================
 export const getAllMenusController = async (req, res) => {
   try {
     const menus = await getAllMenusService();
@@ -62,40 +67,46 @@ export const getAllMenusController = async (req, res) => {
   }
 };
 
-//==========================
+//===============
 // Upload Menu
-//==========================
+//===============
 export const updateMenuController = async (req, res) => {
   try {
-    const _id = isQueryParamsValidate(req);
+    const id = isQueryParamsValidate(req);
     const body = await isBodyParamsValidate(req);
-    const resp = await getMenuService(_id);
-    let menu = responseContentValidator(resp);
-    if (req.file) {
-      if (menu.picture !== DEFAULT_PICTURE) {
-        await deleteImage(menu.picture);
-      };
-      menu.picture = await uploadImage(req, menu);
-    }
-    menu = {...body};
-    const response = await updateMenu(_id, menu);
-    const uploadMenu = responseContentValidator(response);
-    successProfiler(res, 200, "uploadMenu", { uploadMenu });
+    const searchMenuId = await getMenuService(id);
+    const searchMenu = responseContentValidator(searchMenuId);
+    const updateResp = await updateMenuService(searchMenu.id, body);
+    const menuUpdate = responseContentValidator(updateResp);
+    const tempImg = await uploadImageToCloud(
+      req,
+      menuUpdate.id,
+      searchMenu.name,
+      menuUpdate.picture
+    );
+    searchMenu.picture = setUrlImage(tempImg, searchMenu.picture, req.baseUrl);
+    const updateMenu = await updateMenuService(menuUpdate.id, {
+      picture: menuUpdate.picture,
+    });
+    const menu = responseContentValidator(updateMenu);
+    successProfiler(res, 200, "uploadMenu", { menu });
   } catch (error) {
+    if (req.file) {
+      deleteTempFile(req.file.path, false);
+    }
     errorProfiler(error, res, "uploadMenu");
   }
 };
 
-//==========================
+//===============
 // Delete Menu
-//==========================
+//===============
 export const deleteMenuController = async (req, res) => {
   try {
-    const _id = isQueryParamsValidate(req);
-    const resp = await deleteMenuService(_id, { isActive: false });
-    const deleteMenu = responseContentValidator(resp);
-  
-    successProfiler(res, 200, "deleteMenuController", { deleteMenu });
+    const id = isQueryParamsValidate(req);
+    const resp = await  await updateMenuService(id, { isActive: false });
+    const menu = responseContentValidator(resp);
+    successProfiler(res, 200, "deleteMenuController", { menu });
   } catch (error) {
     errorProfiler(error, res, "deleteMenuController");
   }

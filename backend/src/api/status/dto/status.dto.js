@@ -1,18 +1,17 @@
-//=================
-// Class RoleDTO
-//=================
-export class RoleDTO {
+//====================
+// Class StatusDTO
+//====================
+export class StatusDTO {
   //===============
   // Constructor
   //================
-  constructor(role) {
-    this.id = role.id;
-    this.name = role.name;
-    this.description = role.description;
-    this.isActive = role.isActive;
-    this.permissions = role.permissions;
-    this.createdAt = role.createdAt;
-    this.updatedAt = role.updatedAt;
+  constructor(statu) {
+    this.id = statu.id;
+    this.name = statu.name;
+    this.description = statu.description;
+    this.isActive = statu.isActive;
+    this.createdAt = statu.createdAt;
+    this.updatedAt = statu.updatedAt;
   }
 
   //===========
@@ -32,10 +31,6 @@ export class RoleDTO {
 
   setIsActive(isActive) {
     this.isActive = isActive;
-  }
-
-  setPermissions(permissions) {
-    this.permissions = permissions;
   }
 
   setCreatedAt(createdAt) {
@@ -62,10 +57,6 @@ export class RoleDTO {
 
   getIsActive() {
     return this.isActive;
-  }
-
-  getPermissions() {
-    return this.permissions;
   }
 
   getCreatedAt() {

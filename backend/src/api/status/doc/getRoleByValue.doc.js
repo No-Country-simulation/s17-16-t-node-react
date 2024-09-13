@@ -4,7 +4,7 @@
  *  /status:
  *    get:
  *      tags:
- *        - Status Routes
+ *        - Statu Routes
  *      summary: Search status by value.
  *      description: Search status by value.
  *      operationId: getStatusByValue

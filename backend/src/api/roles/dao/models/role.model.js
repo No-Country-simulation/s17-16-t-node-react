@@ -4,9 +4,9 @@
 import { model, Schema } from "mongoose";
 import { toLocalDate, toUTCDate } from "#utils/validations";
 
-//==========================
+//===============
 // Schema Role
-//==========================
+//===============
 const roleSchema = new Schema(
   {
     name: { type: String, required: true, unique: true, index: true },

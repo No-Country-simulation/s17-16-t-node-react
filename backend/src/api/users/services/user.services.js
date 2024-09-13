@@ -29,12 +29,16 @@ const fieldsToShow = [
 ];
 
 //==========================
-// Get all users
+// Create user
 //==========================
-export const getAllUserService = async () => {
+export const createUserService = async (userData) => {
   try {
-    const searchUsers = await findAllDao();
-    return searchUsers.map((user) => new UserDTO(user).toDTO(fieldsToShow));
+    const hashedPassword = await hash(userData.password, 10);
+    const saveUser = await createUserDao({
+      ...userData,
+      password: hashedPassword,
+    });
+    return new UserDTO(saveUser).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
@@ -46,25 +50,19 @@ export const getAllUserService = async () => {
 export const getUserByIdService = async (id) => {
   try {
     const searchUser = await findByIdDao(id);
-    const userDTO = new UserDTO(searchUser).toDTO(fieldsToShow);
-    return userDTO;
+    return new UserDTO(searchUser).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }
 };
 
 //==========================
-// Create user
+// Get all users
 //==========================
-export const createUserService = async (userData) => {
+export const getAllUserService = async () => {
   try {
-    const hashedPassword = await hash(userData.password, 10);
-    const saveUser = await createUserDao({
-      ...userData,
-      password: hashedPassword,
-    });
-    const userDTO = new UserDTO(saveUser).toDTO(fieldsToShow);
-    return userDTO;
+    const searchUsers = await findAllDao();
+    return searchUsers.map((user) => new UserDTO(user).toDTO(fieldsToShow));
   } catch (error) {
     throw new Error(error);
   }
@@ -79,8 +77,7 @@ export const updateUserService = async (id, updateData) => {
       updateData.password = await hash(updateData.password, BC_SALT);
     }
     const updateUser = await updateUserDao(id, updateData);
-    const userDTO = new UserDTO(updateUser).toDTO(fieldsToShow);
-    return userDTO;
+    return new UserDTO(updateUser).toDTO(fieldsToShow);
   } catch (error) {
     throw new Error(error);
   }

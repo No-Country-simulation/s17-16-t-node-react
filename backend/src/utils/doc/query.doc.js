@@ -27,6 +27,12 @@
  *      type: string
  *      default: ""
  *      description: Description.
+ *    permissions:
+ *      name: description
+ *      in: query
+ *      type: string
+ *      default: ""
+ *      description: Permissions.
  *    isActive:
  *      name: isActive
  *      in: query

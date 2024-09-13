@@ -1,32 +1,40 @@
-//Menu model
-import { toLocalDate, toUTCDate } from '#utils/validations';
-//import { model, Schema } from 'mongoose';
+//===========
+// Imports
+//===========
+import { model, Schema } from "mongoose";
+import { DEFAULT_PICTURE } from "#src/config";
+import { toLocalDate, toUTCDate } from "#utils/validations";
 
-import mongoose from 'mongoose';
-
-const menuSchema = new mongoose.Schema({
-    picture: { type: String, default: null },
+//===============
+// Schema Menu
+//===============
+const menuSchema = new Schema(
+  {
+    picture: { type: String, default: DEFAULT_PICTURE },
     name: { type: String, required: true },
     description: { type: String },
     price: { type: String, required: true },
     category: { type: String },
-    available: { type: Boolean, default: true },
-    restaurant: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', required: true },
-    createdAt: {
-        type: Date,
-        default: () => new Date(),
-        set: toUTCDate,
-        get: toLocalDate,
-      },
-    updatedAt: {
-        type: Date,
-        default: () => new Date(),
-        set: toUTCDate,
-        get: toLocalDate,
-      },
+    restaurant: {
+      type: Schema.Types.ObjectId,
+      ref: "Restaurant",
+      required: true,
     },
-    { timestamps: true }
-  );
-  
- export const Menu = mongoose.model('Menu', menuSchema);
-  
+    isActive: { type: Boolean, default: true },
+    createdAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
+    updatedAt: {
+      type: Date,
+      default: () => new Date(),
+      set: toUTCDate,
+      get: toLocalDate,
+    },
+  },
+  { timestamps: true }
+);
+
+export const MenuModel = model("Menu", menuSchema);

@@ -9,8 +9,8 @@
  *      properties:
  *        name:
  *          type: string
- *          example: User.
+ *          example: Nombre del status.
  *        description:
  *          type: string
- *          example: Usuario del sistema.
+ *          example: Descripción del status.
 */
