@@ -3,17 +3,19 @@ import axios, { type AxiosInstance } from "axios";
 
 import { getCookie } from "@/lib/cookieUtils";
 
-const axiosInstance: AxiosInstance = axios.create({
+const api: AxiosInstance = axios.create({
   baseURL: env.NEXT_PUBLIC_API_BASE_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
+    apikey: env.NEXT_PUBLIC_API_KEY,
   },
 });
 
-axiosInstance.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     const token = getCookie("token");
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,4 +26,4 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-export default axiosInstance;
+export default api;

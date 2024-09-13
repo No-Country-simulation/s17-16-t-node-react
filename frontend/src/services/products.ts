@@ -2,7 +2,7 @@ import axios from "axios";
 
 import type { IProduct } from "@/components/dashboard/menu/menu.types";
 
-import axiosInstance from "./axios";
+import api from "./axios-instance";
 
-// export const getProducts = async () => axiosInstance.get("/products");
+// export const getProducts = async () => api.get("/products");
 export const getProducts = async () => axios.get<IProduct[]>("/mockups/productsMock.json");

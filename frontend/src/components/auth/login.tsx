@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { loginSchema, type LoginRequest } from "@/types/auth";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form"
 
 export function LoginPage() {
   const router = useRouter();
-
   const form = useForm<LoginRequest>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -25,8 +25,15 @@ export function LoginPage() {
   });
 
   async function onSubmit(values: LoginRequest) {
-    await loginUser(values);
-    router.push("/d");
+    loginUser(values)
+      .then((response) => {
+        toast.success(`Bienvenido ${response.data.user?.name}`);
+        router.push("/d");
+      })
+      .catch(() => {
+        form.reset();
+        toast.error("Credenciales incorrectas");
+      });
   }
 
   return (

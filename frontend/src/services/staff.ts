@@ -2,7 +2,7 @@ import axios from "axios";
 
 import type { IPersonal } from "@/components/dashboard/personal/personal.types";
 
-import axiosInstance from "./axios";
+import api from "./axios-instance";
 
-// export const getStaff = () => axiosInstance.get("/restaurant");
+// export const getStaff = () => api.get("/restaurant");
 export const getStaff = async () => axios.get<IPersonal[]>("/mockups/personalMock.json");
