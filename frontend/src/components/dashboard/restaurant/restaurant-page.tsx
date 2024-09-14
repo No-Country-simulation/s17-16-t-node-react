@@ -40,7 +40,10 @@ export const RestaurantPage = () => {
 
   const formSchema = z.object({
     avatar: z
-      .instanceof(File)
+      .unknown()
+      .transform((value) => {
+        return value as File | null | undefined;
+      })
       .refine((file) => file?.type && ALLOWED_FILE_TYPES.includes(file.type), {
         message: "El archivo debe ser una imagen JPEG o PNG.",
       })
@@ -72,10 +75,8 @@ export const RestaurantPage = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      // Update preview
       const objectUrl = URL.createObjectURL(file);
       setPreview(objectUrl);
-      // Update form value
       form.setValue("avatar", file);
     } else {
       setPreview(undefined);
