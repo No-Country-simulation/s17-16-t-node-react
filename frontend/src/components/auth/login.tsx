@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/services";
+import { useGlobalStore } from "@/store/globalStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -24,11 +25,16 @@ export function LoginPage() {
     },
   });
 
+  const { setUser } = useGlobalStore((state) => ({
+    setUser: state.setUser,
+  }));
+
   async function onSubmit(values: LoginRequest) {
     loginUser(values)
       .then((response) => {
         toast.success(`Bienvenido ${response.data.user?.name}`);
         router.push("/d");
+        setUser(response.data.user);
       })
       .catch(() => {
         form.reset();

@@ -3,10 +3,9 @@ import Image from "next/image";
 import { LiaEditSolid } from "react-icons/lia";
 import { LuTrash } from "react-icons/lu";
 
+import type { IProduct } from "@/types/menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-import type { IProduct } from "./menu.types";
 
 interface Props {
   product: IProduct;

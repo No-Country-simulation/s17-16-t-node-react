@@ -1,0 +1,58 @@
+[
+  {
+    "id": "111",
+    "tableNumber": "01",
+    "description": "descripción de pedido 1",
+    "total": "55.00",
+    "products": [
+      {
+        "id": "987",
+        "code": "001",
+        "photo": "/images/asado.jpg",
+        "name": "Asado",
+        "description": "Corte de carne de res cocinado a la parrilla, acompañado de chimichurri y ensalada de papas.",
+        "price": "15.00",
+        "category": "one",
+        "quantity": 2
+      },
+      {
+        "id": "887",
+        "code": "002",
+        "photo": "/images/spaghetti.jpg",
+        "name": "Spaghetti Bolognese",
+        "description": "Pasta spaghetti con salsa de tomate, carne molida, y especias italianas con buen sabor",
+        "price": "25.00",
+        "category": "two",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "222",
+    "tableNumber": "02",
+    "description": "descripción de pedido 2",
+    "total": "40.00",
+    "products": [
+      {
+        "id": "957",
+        "code": "001",
+        "photo": "/images/asado.jpg",
+        "name": "Asado",
+        "description": "Corte de carne de res cocinado a la parrilla, acompañado de chimichurri y ensalada de papas.",
+        "price": "15.00",
+        "category": "one",
+        "quantity": 1
+      },
+      {
+        "id": "8987",
+        "code": "002",
+        "photo": "/images/spaghetti.jpg",
+        "name": "Spaghetti Bolognese",
+        "description": "Pasta spaghetti con salsa de tomate, carne molida, y especias italianas con buen sabor",
+        "price": "25.00",
+        "category": "two",
+        "quantity": 1
+      }
+    ]
+  }
+]

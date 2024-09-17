@@ -23,12 +23,23 @@ export function Navbar() {
         </Link>
       </Button>
       <Button
-        variant={pathname === "/d/dining-area" ? "default" : "ghost"}
+        variant={pathname.includes("/d/dining-area") ? "default" : "ghost"}
         className="justify-start rounded-[0.875rem]"
         asChild
       >
         <Link className="gap-2" href="/d/dining-area">
           <LuClipboard /> Salón
+        </Link>
+      </Button>
+
+      <Button
+        variant={pathname === "/d/orders" ? "default" : "ghost"}
+        className="justify-start rounded-[0.875rem]"
+        asChild
+      >
+        <Link className="gap-2" href="/d/orders">
+          <LuClipboard />
+          Pedidos
         </Link>
       </Button>
 
