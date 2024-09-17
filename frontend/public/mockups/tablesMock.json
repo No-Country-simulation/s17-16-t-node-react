@@ -1,0 +1,29 @@
+[
+  {
+    "id": "111111",
+    "tableNumber": "1",
+    "chairs": "4",
+    "available": true
+  },
+
+  {
+    "id": "55555",
+    "tableNumber": "2",
+    "chairs": "8",
+    "available": false
+  },
+
+  {
+    "id": "888888",
+    "tableNumber": "3",
+    "chairs": "2",
+    "available": true
+  },
+
+  {
+    "id": "87778",
+    "tableNumber": "4",
+    "chairs": "6",
+    "available": false
+  }
+]

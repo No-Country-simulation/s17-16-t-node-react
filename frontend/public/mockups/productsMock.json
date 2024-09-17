@@ -1,5 +1,6 @@
 [
   {
+    "id": 768,
     "code": "001",
     "photo": "/images/asado.jpg",
     "name": "Asado",
@@ -10,6 +11,7 @@
     "available": 8
   },
   {
+    "id": 708,
     "code": "002",
     "photo": "/images/spaghetti.jpg",
     "name": "Spaghetti Bolognese",
@@ -20,6 +22,7 @@
     "available": 10
   },
   {
+    "id": 718,
     "code": "003",
     "photo": "/images/asado.jpg",
     "name": "Asado2",
@@ -30,6 +33,7 @@
     "available": 5
   },
   {
+    "id": 518,
     "code": "004",
     "photo": "/images/asado.jpg",
     "name": "Asado4",

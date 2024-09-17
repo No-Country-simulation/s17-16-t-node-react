@@ -1,66 +1,75 @@
 "use client";
 
-import { useState } from "react";
-import { useGlobalStore } from "@/store/globalStore";
+import { useEffect, useState } from "react";
+import { getTables } from "@/services/orders";
 import { RxPlus } from "react-icons/rx";
 
-import type { IProduct } from "@/types/menu";
+import type { Table } from "@/types/tables";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Alert } from "@/components/shared/alert";
 
-import { MenuCard } from "./menu-card";
-import { MenuFilters } from "./menu-filters";
-import { MenuForm } from "./menu-form";
+import { TableCard } from "./table-card";
+import { TablesForm } from "./tables-form";
 
-export const MenuPage = () => {
+export function TablesPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formContent, setFormContent] = useState<null | IProduct>(null);
+  const [formContent, setFormContent] = useState<null | Table>(null);
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  const [tables, setTables] = useState<Table[]>([]);
 
   const handleFormState = (state: boolean) => {
     setFormContent(null);
     setIsFormOpen(state);
   };
 
-  const { menu } = useGlobalStore((state) => ({
-    menu: state.menu,
-  }));
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getTables();
+        setTables(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    void getData();
+  }, []);
 
   return (
     <>
       <Alert
-        title="¿Seguro que deseas eliminar este producto?"
-        description="Esta acción eliminará el producto de forma permanente."
+        title="¿Seguro que deseas eliminar esta mesa?"
+        description="Esta acción eliminará la mesa de forma permanente."
         confirm="Eliminar"
         cancel="Cancelar"
         isAlertOpen={isAlertOpen}
         setIsAlertOpen={setIsAlertOpen}
       />
-      <MenuForm
+      <TablesForm
         isFormOpen={isFormOpen}
         handleFormState={handleFormState}
         formContent={formContent}
       />
-      <div className="flex items-center justify-between pb-6">
-        <h3>Carta</h3>
+      <div className="flex items-center justify-between">
+        <h3>Salón</h3>
         <Button className="cursor-pointer rounded-[0.875rem]" onClick={() => setIsFormOpen(true)}>
           <div className="flex gap-2">
             <RxPlus size={16} />
-            Añadir producto
+            Añadir mesa
             <span className="sr-only">Toggle product form</span>
           </div>
         </Button>
       </div>
       <Separator />
-      <MenuFilters />
-      {menu.length < 1 ? (
-        <section className="flex min-h-full items-center justify-center pt-6 text-center">
+      {tables.length < 1 ? (
+        <section className="flex min-h-full items-center justify-center text-center">
           <div>
-            <h4 className="mb-2">No hay productos disponible</h4>
+            <h4 className="mb-2">No hay mesas disponibles</h4>
             <p className="mb-4 text-sm text-muted-foreground">
-              No tienes ningún producto, añade uno a continuación
+              No tienes ningúna mesa, añade una a continuación
             </p>
             <Button
               className="cursor-pointer rounded-[0.875rem]"
@@ -68,24 +77,25 @@ export const MenuPage = () => {
             >
               <div className="flex gap-2">
                 <RxPlus size={16} />
-                Añadir producto
+                Añadir mesa
+                <span className="sr-only">Toggle product form</span>
               </div>
             </Button>
           </div>
         </section>
       ) : (
-        <section className="flex flex-col gap-4 pt-6">
-          {menu.map((p) => (
-            <MenuCard
-              key={p.id}
-              setIsAlertOpen={setIsAlertOpen}
+        <section className="grid grid-cols-[repeat(auto-fit,minmax(100px,150px))] gap-4">
+          {tables.map((t) => (
+            <TableCard
+              key={t.id}
+              table={t}
               setFormContent={setFormContent}
+              setIsAlertOpen={setIsAlertOpen}
               setIsFormOpen={setIsFormOpen}
-              product={p}
             />
           ))}
         </section>
       )}
     </>
   );
-};
+}

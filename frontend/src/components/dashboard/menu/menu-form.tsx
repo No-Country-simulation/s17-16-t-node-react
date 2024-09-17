@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
+import { useGlobalStore } from "@/store/globalStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import type { IProduct } from "@/types/menu";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -17,8 +19,6 @@ import {
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
-import type { IProduct } from "./menu.types";
-
 interface Props {
   isFormOpen: boolean;
   handleFormState: (open: boolean) => void;
@@ -26,6 +26,10 @@ interface Props {
 }
 
 export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) => {
+  const { addMenu } = useGlobalStore((state) => ({
+    addMenu: state.addMenu,
+  }));
+
   const formSchema = z.object({
     name: z.string(),
     description: z.string(),
@@ -49,6 +53,15 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    const newData = {
+      ...values,
+      id: Date.now(),
+      stock: parseInt(values.stock),
+      photo: "/images/asado.jpg",
+      available: 3,
+    };
+    addMenu(newData);
+    form.reset();
   }
 
   const { reset } = form;
