@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuApple, LuClipboard, LuLayoutGrid, LuStore, LuUsers } from "react-icons/lu";
-import { RxTable } from "react-icons/rx";
 
 import { Button } from "@/components/ui/button";
 

@@ -10,8 +10,7 @@ import { LuTrash } from "react-icons/lu";
 import { toast } from "sonner";
 
 import type { IProduct } from "@/types/menu";
-import type { Order, OrderProduct, OrderStatus } from "@/types/orders";
-import { Badge } from "@/components/ui/badge";
+import type { Order, OrderStatus } from "@/types/orders";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -30,10 +29,11 @@ interface Props {
 }
 
 export const TableOrder = ({ tableNumber }: Props) => {
-  const { menu, addOrder, orders, updateOrder } = useGlobalStore((state) => ({
+  const { menu, addOrder, orders, updateOrder, deleteOrder } = useGlobalStore((state) => ({
     menu: state.menu,
     addOrder: state.addOrder,
     updateOrder: state.updateOrder,
+    deleteOrder: state.deleteOrder,
     orders: state.orders,
   }));
 
@@ -48,7 +48,8 @@ export const TableOrder = ({ tableNumber }: Props) => {
           tableNumber: tableNumber,
           products: [],
           total: 0,
-          status: "Listo",
+          status: "Esperando",
+          waiter: "Miguel",
         },
   );
 
@@ -70,12 +71,17 @@ export const TableOrder = ({ tableNumber }: Props) => {
       products: order.products,
       total: total,
       status: order.status,
+      waiter: order.waiter,
     };
     // console.log(orderDetails);
 
     if (tableOrder) {
       updateOrder(order);
-      toast.success(`Pedido actualizado`);
+      if (order.status === "Terminado") {
+        toast.success(`Pedido Terminado`);
+      } else {
+        toast.success(`Pedido actualizado`);
+      }
     } else {
       addOrder(orderDetails);
       toast.success(`Pedido añadido`);
@@ -88,6 +94,7 @@ export const TableOrder = ({ tableNumber }: Props) => {
       tableNumber: tableNumber,
       products: [],
       status: "Esperando",
+      waiter: "Miguel",
     });
 
     router.push("/d/dining-area");
@@ -205,6 +212,11 @@ export const TableOrder = ({ tableNumber }: Props) => {
                         <SelectItem value="Esperando">Esperando</SelectItem>
                       </>
                     )}
+                    {tableOrder.status === "Preparando" && (
+                      <>
+                        <SelectItem value="Preparando">Preparando</SelectItem>
+                      </>
+                    )}
                     {tableOrder.status === "Listo" && (
                       <>
                         <SelectItem value="Listo">Listo</SelectItem>
@@ -282,8 +294,20 @@ export const TableOrder = ({ tableNumber }: Props) => {
           ))}
         </section>
         <section className="w-full overflow-auto rounded-[1rem] p-4 shadow-card-shadow">
-          <div>
-            <h4 className="mb-6 text-center">Pedido</h4>
+          <div className="relative">
+            <h4 className="mb-8 text-center">Pedido</h4>
+            {tableOrder && order.status === "Esperando" && (
+              <Button
+                onClick={() => {
+                  deleteOrder(order.id);
+                  router.push("/d/dining-area");
+                }}
+                variant={"destructive"}
+                className="absolute right-0 top-0"
+              >
+                Cancelar Pedido
+              </Button>
+            )}
             {order.products.length > 0 ? (
               order.products.map((product) => (
                 <div key={product.id} className="mb-4">
@@ -368,7 +392,7 @@ export const TableOrder = ({ tableNumber }: Props) => {
             </div>
             <div className={`mt-8 text-center`}>
               <Button onClick={handleSubmitOrder} className="">
-                {tableOrder ? "Guardar Cambios" : "Enviar Pedido"}
+                {tableOrder ? "Actualizar Pedido" : "Enviar Pedido"}
               </Button>
             </div>
           </section>

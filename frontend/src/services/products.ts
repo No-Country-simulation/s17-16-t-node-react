@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { IProduct } from "@/components/dashboard/menu/menu.types";
+import type { IProduct } from "@/types/menu";
 
 import api from "./axios-instance";
 

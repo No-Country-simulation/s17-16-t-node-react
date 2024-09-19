@@ -4,6 +4,7 @@
     "tableNumber": "01",
     "description": "descripción de pedido 1",
     "total": "55.00",
+    "waiter": "Miguel",
     "products": [
       {
         "id": "987",
@@ -30,6 +31,7 @@
     "tableNumber": "02",
     "description": "descripción de pedido 2",
     "total": "40.00",
+    "waiter": "Maria",
     "products": [
       {
         "id": "957",

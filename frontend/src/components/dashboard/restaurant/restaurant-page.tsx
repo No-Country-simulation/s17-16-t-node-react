@@ -109,7 +109,7 @@ export const RestaurantPage = () => {
         address: restaurantData.address,
       });
     }
-  }, [restaurantData]);
+  }, [restaurantData, form]);
 
   return (
     <>
@@ -125,7 +125,7 @@ export const RestaurantPage = () => {
               <FormField
                 control={form.control}
                 name="avatar"
-                render={({ field }) => (
+                render={() => (
                   <FormItem className="relative mb-5 max-w-max overflow-hidden">
                     <FormLabel>
                       <div className="overflow-hidden rounded-full">

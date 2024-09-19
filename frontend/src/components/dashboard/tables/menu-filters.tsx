@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { z } from "zod";
 
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Select,

@@ -9,6 +9,7 @@ export type Order = {
   tableNumber: string;
   description: string;
   total: number;
+  waiter: string;
   products: OrderProduct[];
   status: OrderStatus;
 };

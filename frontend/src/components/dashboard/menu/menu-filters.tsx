@@ -73,9 +73,10 @@ export const MenuFilters = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="one">One</SelectItem>
-                    <SelectItem value="two">Two</SelectItem>
-                    <SelectItem value="three">Three</SelectItem>
+                    <SelectItem value="Pastas">Pastas</SelectItem>
+                    <SelectItem value="Sopas">Sopas</SelectItem>
+                    <SelectItem value="Postres">Postres</SelectItem>
+                    <SelectItem value="Carnes">Carnes</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>

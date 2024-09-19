@@ -18,7 +18,13 @@ export const MenuCard = ({ product, setIsAlertOpen, setFormContent, setIsFormOpe
   return (
     <article className="flex gap-4 rounded-[1rem] p-4 shadow-card-shadow">
       <div className="min-w-[150px] overflow-hidden rounded-[0.875rem]">
-        <Image src={product.image} width={150} height={150} alt={product.name} />
+        <Image
+          src={product.image}
+          width={150}
+          height={150}
+          alt={product.name}
+          className="aspect-square object-cover"
+        />
       </div>
       <section className="w-full">
         <header className="mb-4 flex w-full items-center justify-between">
