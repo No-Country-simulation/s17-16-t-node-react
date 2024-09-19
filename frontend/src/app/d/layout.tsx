@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex w-full flex-col">
         <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 md:justify-end lg:h-[60px] lg:px-6">
           <MobileNavbar />
           <UserButton />
