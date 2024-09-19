@@ -36,7 +36,6 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
     price: z.string(),
     category: z.string(),
     stock: z.string(),
-    code: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,18 +46,15 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
       price: "",
       category: "",
       stock: "",
-      code: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     const newData = {
       ...values,
-      id: Date.now(),
+      id: Date.now().toString(),
       stock: parseInt(values.stock),
-      photo: "/images/asado.jpg",
-      available: 3,
+      image: "/images/asado.jpg",
     };
     addMenu(newData);
     form.reset();
@@ -74,7 +70,6 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
         price: formContent.price,
         category: formContent.category,
         stock: formContent.stock.toString(),
-        code: formContent.code,
       });
     } else {
       reset({
@@ -83,7 +78,6 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
         price: "",
         category: "",
         stock: "",
-        code: "",
       });
     }
   }, [formContent, reset]);
@@ -96,19 +90,6 @@ export const MenuForm = ({ isFormOpen, handleFormState, formContent }: Props) =>
         </SheetHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="">
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem className="mb-5">
-                  <FormControl>
-                    <Input type="number" placeholder="Código" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="name"

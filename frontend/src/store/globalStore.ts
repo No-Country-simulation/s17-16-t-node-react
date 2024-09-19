@@ -2,6 +2,7 @@ import { getProducts } from "@/services/products";
 import { create } from "zustand";
 
 import type { IProduct } from "@/types/menu";
+import type { Order, OrderProduct } from "@/types/orders";
 import type { IUser } from "@/types/user";
 
 interface GlobalState {
@@ -10,6 +11,9 @@ interface GlobalState {
   menu: IProduct[];
   addMenu: (product: IProduct) => void;
   getMenu: () => Promise<void>;
+  orders: Order[];
+  addOrder: (order: Order) => void;
+  updateOrder: (order: Order) => void;
 }
 
 export const useGlobalStore = create<GlobalState>()((set) => ({
@@ -26,5 +30,15 @@ export const useGlobalStore = create<GlobalState>()((set) => ({
       ...state,
       menu: res.data,
     }));
+  },
+
+  //orders
+  orders: [],
+  addOrder: (order: Order) => set((state) => ({ ...state, orders: [...state.orders, order] })),
+  updateOrder: (order: Order) => {
+    set((state) => {
+      const ordersUpdated = state.orders.map((o) => (o.id === order.id ? order : o));
+      return { ...state, orders: ordersUpdated };
+    });
   },
 }));

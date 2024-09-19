@@ -10,7 +10,7 @@
     "id": "55555",
     "tableNumber": "2",
     "chairs": "8",
-    "available": false
+    "available": true
   },
 
   {
@@ -24,6 +24,6 @@
     "id": "87778",
     "tableNumber": "4",
     "chairs": "6",
-    "available": false
+    "available": true
   }
 ]

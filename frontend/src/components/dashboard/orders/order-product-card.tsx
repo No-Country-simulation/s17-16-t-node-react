@@ -13,7 +13,7 @@ export const OrderProductCard = ({ orderProduct }: Props) => {
   return (
     <article className="flex gap-4 rounded-[1rem] p-4 shadow-card-shadow">
       <div className="min-w-[150px] overflow-hidden rounded-[0.875rem]">
-        <Image src={orderProduct.photo} width={150} height={150} alt={orderProduct.name} />
+        <Image src={orderProduct.image} width={150} height={150} alt={orderProduct.name} />
       </div>
       <section className="w-full">
         <header className="mb-4 flex w-full items-center justify-between">
@@ -34,7 +34,7 @@ export const OrderProductCard = ({ orderProduct }: Props) => {
         </div>
         <footer className="flex gap-8 md:gap-12">
           <p>
-            Código: <span className="text-muted-foreground">{orderProduct.code}</span>
+            Código: <span className="text-muted-foreground">{orderProduct.id}</span>
           </p>
           <p>
             Precio: <span className="text-muted-foreground">${orderProduct.price}</span>

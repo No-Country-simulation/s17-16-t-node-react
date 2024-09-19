@@ -32,7 +32,7 @@ export function Navbar() {
         </Link>
       </Button>
 
-      <Button
+      {/* <Button
         variant={pathname === "/d/orders" ? "default" : "ghost"}
         className="justify-start rounded-[0.875rem]"
         asChild
@@ -41,7 +41,7 @@ export function Navbar() {
           <LuClipboard />
           Pedidos
         </Link>
-      </Button>
+      </Button> */}
 
       <p className="mb-2 mt-4 text-[1.125rem] font-semibold">Configuración</p>
 
@@ -72,7 +72,7 @@ export function Navbar() {
           <LuApple /> Menú
         </Link>
       </Button>
-      <Button
+      {/* <Button
         variant={pathname === "/d/tables" ? "default" : "ghost"}
         className="mb-2 justify-start rounded-[0.875rem]"
         asChild
@@ -80,7 +80,7 @@ export function Navbar() {
         <Link className="gap-2" href="/d/tables">
           <RxTable /> Mesas
         </Link>
-      </Button>
+      </Button> */}
     </nav>
   );
 }
