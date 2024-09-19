@@ -59,6 +59,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -91,4 +95,14 @@
   .p {
     @apply text-sm md:text-base md:leading-7;
   }
+}
+
+.inputArrows::-webkit-inner-spin-button,
+.inputArrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.inputArrows {
+  -moz-appearance: textfield;
 }

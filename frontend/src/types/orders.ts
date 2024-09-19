@@ -1,26 +1,15 @@
-import { z } from "zod";
+import type { IProduct } from "./menu";
 
-const productSchema = z.object({
-  id: z.string(),
-  code: z.string(),
-  photo: z.string(),
-  name: z.string(),
-  description: z.string(),
-  price: z.string(),
-  category: z.string(),
-  quantity: z.number().min(1, "La cantidad mínima es 1"),
-});
+export type OrderProduct = IProduct & { quantity: number };
 
-export type OrderProduct = z.infer<typeof productSchema>;
+export type OrderStatus = "Esperando" | "Preparando" | "Listo" | "Entregado" | "Terminado";
 
-export const orderSchema = z.object({
-  id: z.string(),
-  tableNumber: z.string(),
-  total: z.string(),
-  description: z.string().optional(),
-  products: z.array(productSchema).nonempty("Debe seleccionar al menos un producto"),
-});
-
-export type Order = z.infer<typeof orderSchema> & {
+export type Order = {
   id: string;
+  tableNumber: string;
+  description: string;
+  total: number;
+  waiter: string;
+  products: OrderProduct[];
+  status: OrderStatus;
 };

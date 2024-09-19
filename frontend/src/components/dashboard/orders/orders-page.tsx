@@ -89,12 +89,9 @@ export const OrdersPage = () => {
               <h4>Mesa #{o.tableNumber}</h4>
               <section>
                 {o.products.map((p) => (
-                  <OrderProductCard key={p.code} orderProduct={p} />
+                  <OrderProductCard key={p.id} orderProduct={p} />
                 ))}
               </section>
-              <p>
-                Total: <span>{o.total}</span>
-              </p>
             </div>
           ))}
         </section>

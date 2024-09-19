@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Separator } from "@radix-ui/react-separator";
 import { FiEdit2 } from "react-icons/fi";
 import { LuMoreHorizontal } from "react-icons/lu";
 import { RxTrash } from "react-icons/rx";

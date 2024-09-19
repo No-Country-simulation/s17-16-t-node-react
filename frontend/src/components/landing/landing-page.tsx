@@ -27,11 +27,11 @@ export const Landing = () => {
               variant={"secondary"}
               className="flex items-center justify-center gap-3 rounded-[0.875rem] bg-background px-8 py-2"
             >
-              Ver precios
+              <Link href="#prices">Ver precios</Link>
               <RxChevronRight size={16} />
             </Button>
             <Button className="rounded-[0.875rem] bg-primary px-8 py-2">
-              Principales características
+              <Link href="#features">Principales características</Link>
             </Button>
           </div>
         </article>
@@ -41,13 +41,13 @@ export const Landing = () => {
           className="relative z-0 mx-auto"
           width={956}
           height={560}
-          src="/images/macbook.png"
+          src="/images/macbook2.png"
           alt="macbook image"
         />
         {/* </article> */}
       </section>
 
-      <section className="m-auto max-w-screen-xl py-20 text-center">
+      <section id="features" className="m-auto max-w-screen-xl py-20 text-center">
         <article className="mx-auto mb-9 max-w-[646px]">
           <h2 className="mb-3 text-4xl font-semibold leading-[42px] text-foreground">
             ¿Por qué elegirnos?
@@ -234,42 +234,42 @@ export const Landing = () => {
         </div>
       </section>
 
-      <section className="m-auto max-w-screen-xl py-20">
+      <section id="prices" className="m-auto max-w-screen-xl py-20">
         <h2 className="mx-auto mb-24 max-w-[646px] text-center text-4xl font-semibold">
           Precios que se adaptan a tus necesidades
         </h2>
         <div className="mx-auto flex w-max gap-8">
-          <article className="max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
+          <article className="h-max max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
             <h3 className="mb-6 text-2xl font-bold">Base</h3>
-            <ul className="mb-6 max-w-[80%]">
+            <ul className="max-w-[80%]">
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Gestión de menú (agregar, editar y eliminar platos).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Reservas de mesas.
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Gestión de clientes (lista de clientes, historial de reservas).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Informes básicos de ventas.
               </li>
             </ul>
             <p className="mb-6">
-              $ <span className="text-2xl font-bold">123</span>{" "}
-              <span className="text-muted-foreground">/month</span>
+              $ <span className="text-2xl font-bold">15</span>{" "}
+              <span className="text-muted-foreground">/mes</span>
             </p>
             <Button variant="secondary" className="w-full rounded-[0.875rem] py-2">
               Elegir
@@ -282,64 +282,78 @@ export const Landing = () => {
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Todo en el Plan Base.
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Gestión de inventario (seguimiento de ingredientes y suministros).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Reportes de rendimiento (ventas por día, por plato, etc.).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Integración con sistemas de pago.
+              </li>
+
+              <li className="mb-4 flex gap-4">
+                <span>
+                  <RxCheck size={24} />
+                </span>
+                Herramientas de marketing (envío de promociones a clientes).
               </li>
             </ul>
             <p className="mb-6">
-              $ <span className="text-2xl font-bold">123</span>{" "}
-              <span className="text-muted-foreground">/month</span>
+              $ <span className="text-2xl font-bold">40</span>{" "}
+              <span className="text-muted-foreground">/mes</span>
             </p>
             <Button className="w-full rounded-[0.875rem] py-2">Elegir</Button>
           </article>
-          <article className="max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
+          <article className="h-max max-w-[380px] rounded-[1rem] px-6 py-8 shadow-card-shadow">
             <h3 className="mb-6 text-2xl font-bold">Enterprise</h3>
             <ul className="mb-6 max-w-[80%]">
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Todo en el Plan Pro.
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Análisis avanzado de datos (tendencias de ventas, comportamiento de clientes).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Herramientas de gestión de personal (horarios, nómina).
               </li>
               <li className="mb-4 flex gap-4">
                 <span>
                   <RxCheck size={24} />
                 </span>
-                Upload Video with 4K Resolution
+                Soporte para múltiples ubicaciones.
+              </li>
+
+              <li className="mb-4 flex gap-4">
+                <span>
+                  <RxCheck size={24} />
+                </span>
+                Integración con servicios de entrega.
               </li>
             </ul>
             <p className="mb-6">
-              $ <span className="text-2xl font-bold">123</span>{" "}
-              <span className="text-muted-foreground">/month</span>
+              $ <span className="text-2xl font-bold">80</span>{" "}
+              <span className="text-muted-foreground">/mes</span>
             </p>
             <Button variant="secondary" className="w-full rounded-[0.875rem] py-2">
               Elegir

@@ -1,4 +1,7 @@
-import { table } from "console";
+"use client";
+
+import Image from "next/image";
+import { useGlobalStore } from "@/store/globalStore";
 
 import {
   Accordion,
@@ -7,112 +10,111 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { KitchenSelect } from "@/components/dashboard/kitchen/kitchen-select";
 
-const orders = [
-  {
-    id: "order-1",
-    status: "Listo",
-    orderNumber: "001",
-    waiter: "Juan",
-    table: "1",
-    items: [
-      {
-        name: "Asado",
-
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-        quantity: "1",
-      },
-      {
-        name: "Pizza",
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-        quantity: "1",
-      },
-      {
-        name: "Ensalada César",
-
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-        quantity: "1",
-      },
-      {
-        name: "Sushi",
-        quantity: "3",
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-      },
-      {
-        name: "Tacos",
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-        quantity: "1",
-      },
-
-      // Agrega más ítems según sea necesario
-    ],
-  },
-  {
-    id: "order-2",
-    status: "En preparación",
-    orderNumber: "002",
-    table: " 2",
-    waiter: "María",
-    items: [
-      {
-        name: "Pizza",
-        imageUrl: "https://res.cloudinary.com/restity/image/upload/v1726696788/food_moj0wq.png",
-        quantity: "2",
-      },
-      // Agrega más ítems según sea necesario
-    ],
-  },
-  // Agrega más órdenes según sea necesario
-];
 export const KitchenPage = () => {
+  const { orders } = useGlobalStore((state) => ({
+    updateOrder: state.updateOrder,
+    orders: state.orders,
+  }));
+
+  const statusColors = {
+    Esperando: "#FF6347",
+    Preparando: "#8C6A2D",
+    Listo: "#6AB04C",
+    Entregado: "#4A90E2",
+    Terminado: "#42526E",
+  };
+
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className="flex w-full flex-col items-start justify-start gap-6"
-    >
-      {orders.map((order) => (
-        <AccordionItem key={order.id} className="w-full" value={order.id}>
-          <AccordionTrigger className="flex w-full p-3">
-            <div className="flex w-full flex-col items-center justify-center gap-3 rounded-2xl p-4 shadow">
-              <div className="flex flex-col items-start justify-start gap-3 self-stretch">
-                <div className="self-stretch0 inline-flex items-start justify-start gap-3">
-                  <div className="flex w-full justify-evenly gap-6">
-                    <h3 className="flex">Orden #{order.orderNumber}</h3>
+    <>
+      <div className="pb-6">
+        <h3>Cocina - Pedidos</h3>
+      </div>
+      <Separator />
+      <section className="pt-6">
+        {orders.length < 1 && (
+          <p className="mt-12 text-center italic">No hay pedidos disponibles</p>
+        )}
+        <Accordion
+          type="single"
+          collapsible
+          className="mx-auto flex w-full max-w-screen-md flex-col items-start justify-start gap-6 rounded-2xl shadow"
+        >
+          {orders.map((order) => (
+            <AccordionItem key={order.id} className="w-full" value={order.id}>
+              <AccordionTrigger className="flex w-full p-3">
+                <div className="flex w-full flex-col items-center justify-center gap-3 p-4">
+                  <div className="flex flex-col items-start justify-start gap-3 self-stretch">
+                    <div className="self-stretch0 inline-flex items-start justify-start gap-3">
+                      <div className="flex w-full items-center justify-evenly gap-6">
+                        <h3 className="flex text-lg">Orden #{order.id.slice(-5)}</h3>
 
-                    <p className=""># Mesa: {order.table}</p>
+                        <p className="">Mesa: #{order.tableNumber}</p>
 
-                    <p className="">Mesero: {order.waiter}</p>
-                  </div>
+                        <p className="">Mesero/a: {order.waiter}</p>
 
-                  <KitchenSelect />
-                </div>
-              </div>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="w-full">
-            <section className="flex flex-col gap-3 p-3">
-              <h4 className="">Items de la orden:</h4>
-              <ul className="list-disc pl-3">
-                {order.items.map((item, index) => (
-                  <li key={index} className="flex w-full p-2">
-                    <div className="flex w-full items-start justify-between gap-3">
-                      <div className="flex items-center justify-center gap-2.5 self-stretch rounded-xl">
-                        <img className="h-10 w-10 rounded-lg" src={item.imageUrl} alt={item.name} />
+                        <Badge
+                          style={{ backgroundColor: statusColors[order.status] }}
+                          className={`rounded-full p-2 text-xs`}
+                        >
+                          {order.status}
+                        </Badge>
                       </div>
-                      <h3 className="block">{item.name}</h3>
-                      <h3 className="flex items-center justify-center gap-2.5 self-stretch rounded-xl p-2">
-                        Cantidad: {item.quantity};
-                      </h3>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="w-full bg-gray-100 p-2">
+                <section className="flex flex-col gap-3 p-3">
+                  <div className="flex justify-between">
+                    <h4 className="">Lista de pedido:</h4>
+                    {order.status !== "Entregado" && order.status !== "Terminado" && (
+                      <div className="flex gap-2">
+                        <KitchenSelect order={order} />
+                      </div>
+                    )}
+                  </div>
+                  <Separator />
+                  <ul className="list-disc pl-3">
+                    {order.products.map((item, index) => (
+                      <li key={index} className="flex w-full p-2">
+                        <div className="flex w-full items-center gap-8">
+                          <div className="flex items-center justify-center gap-2.5 self-stretch rounded-xl">
+                            <Image
+                              width={40}
+                              height={40}
+                              className="rounded-lg"
+                              src={item.image}
+                              alt={item.name}
+                            />
+                          </div>
+                          <h3 className="ml-12 block text-lg">{item.name}</h3>
+                          <h3 className="ml-auto flex items-center justify-center gap-2.5 self-stretch rounded-xl p-2 text-lg">
+                            Cantidad: {item.quantity}
+                          </h3>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+                {order.description ? (
+                  <div className="mt-2 px-16 text-xs">
+                    <p className="mb-2 font-semibold">Nota:</p>
+                    <p>{order.description}</p>
+                  </div>
+                ) : (
+                  <div className="mt-2 px-16 text-xs">
+                    <p className="mb-2 font-semibold">Nota:</p>
+                    <p className="italic">No hay nota disponible</p>
+                  </div>
+                )}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+    </>
   );
 };

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { z } from "zod";
 
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -15,13 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 
 export const MenuFilters = () => {
   const formSchema = z.object({
     search: z.string().min(2),
     category: z.string().min(2),
-    available: z.boolean(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -29,7 +27,6 @@ export const MenuFilters = () => {
     defaultValues: {
       search: "",
       category: "",
-      available: true,
     },
   });
 
@@ -38,9 +35,9 @@ export const MenuFilters = () => {
   }
 
   return (
-    <section className="pt-6">
+    <section className="mb-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-w-xl items-center gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2">
           <FormField
             control={form.control}
             name="search"
@@ -52,7 +49,7 @@ export const MenuFilters = () => {
                     <Input
                       className="rounded-[0.875rem] pl-6 pr-3"
                       type="search"
-                      placeholder="Buscar carta"
+                      placeholder="Buscar"
                       {...field}
                     />
                   </div>
@@ -73,27 +70,11 @@ export const MenuFilters = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Pastas">Pastas</SelectItem>
-                    <SelectItem value="Sopas">Sopas</SelectItem>
-                    <SelectItem value="Postres">Postres</SelectItem>
+                    <SelectItem value="pastas">Pastas</SelectItem>
                     <SelectItem value="Carnes">Carnes</SelectItem>
+                    <SelectItem value="Sopas">Sopas</SelectItem>
                   </SelectContent>
                 </Select>
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="available"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormControl>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
-                  </FormControl>
-                  <FormLabel>Disponible</FormLabel>
-                </div>
               </FormItem>
             )}
           />

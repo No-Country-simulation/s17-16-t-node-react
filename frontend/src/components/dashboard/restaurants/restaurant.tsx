@@ -1,8 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { LuMapPin, LuMoreHorizontal } from "react-icons/lu";
-
-import { Button } from "@/components/ui/button";
+import { LuMapPin } from "react-icons/lu";
 
 import { RestaurantButton } from "./restaurant-button";
 
