@@ -1,326 +1,297 @@
-# ![Logo](./src/assets/img/logo.png)-S17-16-t-node-react ✨
+# 📘 Backend for ![Logo](./src/assets/img/logo.png) Restify App
 
-![banner](./src/assets/img/Banner.png)
+## 📖 Table of Contents
 
-## 📔 Table of Contents
-
-- [-Rutas Doradas ✨](#-rutas-doradas-)
-  - [📔 Table of Contents](#-table-of-contents)
+- [📘 Backend for  Restify App](#-backend-for--restify-app)
+  - [📖 Table of Contents](#-table-of-contents)
   - [👀 Motivation 🔝](#-motivation-)
-  - [🗃️ Technology 🔝](#️-technology-)
+  - [Documentation](#documentation)
+  - [🧰 Technology Stack 🔝](#-technology-stack-)
+  - [🤵‍♂️ Team communication channels 🔝](#️-team-communication-channels-)
   - [🧑‍💻 Developer Teams 🔝](#-developer-teams-)
-  - [🗃️ Project 🔝](#️-project-)
+  - [🗃️ Project info 🔝](#️-project-info-)
+    - [📚 License 🔝](#-license-)
     - [📚 Workspaces 🔝](#-workspaces-)
-    - [📚 More Info 🔝](#-more-info-)
+    - [📚 Deploy 🔝](#-deploy-)
   - [🛠️ Requirements 🔝](#️-requirements-)
-    - [🎚️ Scripts 🔝](#️-scripts-)
-  - [🩻 Progress Report 🔝](#-progress-report-)
+    - [1. Clone the repository from GitHub](#1-clone-the-repository-from-github)
+    - [2. Navigate to the backend folder](#2-navigate-to-the-backend-folder)
+    - [3. Install the necessary dependencies](#3-install-the-necessary-dependencies)
+    - [4 In the backend folder, create a .env file](#4-in-the-backend-folder-create-a-env-file)
+    - [5. Add the following keys to the .env file](#5-add-the-following-keys-to-the-env-file)
+    - [6. Run the following command to start the server](#6-run-the-following-command-to-start-the-server)
+    - [7. Open your browser and navigate to http://localhost:3001/api/v1/docs](#7-open-your-browser-and-navigate-to-httplocalhost3001apiv1docs)
+  - [🎚️ Scripts 🔝](#️-scripts-)
+  - [🩻 Progress Report on Router Development 🔝](#-progress-report-on-router-development-)
+    - [✨ Root Base](#-root-base)
     - [✨ Start Route 🔝](#-start-route-)
     - [⛔ Invalid Route 🔝](#-invalid-route-)
-    - [📑 Doc Route 🔝](#-doc-route-)
+    - [📑 Docs Route 🔝](#-docs-route-)
     - [🔐 Authorization Routes 🔝](#-authorization-routes-)
     - [🙎‍♂️User Routes 🔝](#️user-routes-)
-    - [🚘 Car Routes 🔝](#-car-routes-)
-    - [🗺️ Travel Routes 🔝](#️-travel-routes-)
-    - [🌟 Rating Routes 🔝](#-rating-routes-)
-    - [🌲 Tree Folder 🔝](#-tree-folder-)
+    - [🛍️ Category Routes 🔝](#️-category-routes-)
+    - [📖 Menus Routes 🔝](#-menus-routes-)
+    - [📑 orders Routes 🔝](#-orders-routes-)
+    - [💵 Payment Routes 🔝](#-payment-routes-)
+    - [🍽️ Restaurant Routes 🔝](#️-restaurant-routes-)
+    - [🎎 Roles Routes 🔝](#-roles-routes-)
+    - [🎏 States Routes 🔝](#-states-routes-)
+    - [🎆 Tables Routes 🔝](#-tables-routes-)
 
-## 👀 Motivation [🔝](#-rutas-doradas-)
+## 👀 Motivation [🔝](#-backend-for--restify-app)
 
-The full REST API for 'Rutas Doradas' streamlines access to data on highlighted trips, enhancing trip planning for travelers seeking passengers. Its goal is to seamlessly integrate users with published trips, fostering innovation and collaboration among users. Through 'rutas Doradas' travelers are encouraged to share their trips and find passengers, as well as those looking to travel comfortably and safely."
+We chose a RESTful API with MongoDB for Restify's backend because these technologies allow us to build a scalable, fast, and flexible solution. Node.js is ideal for real-time applications, as it efficiently handles multiple connections, which is essential for the continuous management of data in a food business. Additionally, MongoDB offers us a NoSQL database that perfectly adapts to changes in storage and data structure requirements, providing the flexibility we need to grow and adapt without complications. This combination ensures an agile and robust platform to manage all aspects of the business.
 
-## 🗃️ Technology [🔝](#-rutas-doradas-)
+## Documentation
 
-[![Node Link](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white 'Node Link')](https://nodejs.org/docs/latest-v20.x/api/index.html) [![Express Link]( https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white 'express Link')](https://expressjs.com/) [![Npm Link](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white 'Npm Link')](https://www.npmjs.com/) [![Postman Link](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white 'Postman Link')](https://www.postman.com/) [![Swagger Link](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black 'Swagger Link')](https://swagger.io/) [![MongoDB Link](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white 'MongoBD Link')](https://www.mongodb.com/atlas/database)
+| Name | Link |
+| :-: | :-: |
+| `📚 Repo` | [Readme](../README.md) |
+| `📕 Frontend` | [Readme](./frontend/README.MD) |
 
-## 🧑‍💻 Developer Teams [🔝](#-rutas-doradas-)
+## 🧰 Technology Stack [🔝](#-backend-for--restify-app)
 
-| ![Avatar](https://avatars.githubusercontent.com/u/69812733?s=96&v=4) |![Avatar](https://avatars.githubusercontent.com/u/65308067?s=96&v=4) | ![Avatar](https://avatars.githubusercontent.com/u/105892061?s=96&v=4) | ![Avatar](https://avatars.githubusercontent.com/u/83015542?s=96&v=4) | ![Avatar](https://avatars.githubusercontent.com/u/136535873?s=96&v=4) |
-|:-:|:-:|:-:|:-:|:-:|
-| **David Caycedo**  | **Rogelio Romo**  | **Pedro Molina**  | **Agustin Gracia**  | **Luis Correa** |
-|[![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')](https://github.com/David-Coach-Dev)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Link')](https://www.linkedin.com/in/davidcoachdev/) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')]( https://github.com/RogelioRomo)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Link')]( https://www.linkedin.com/in/rogelio-romo-5712591b8/) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')](https://github.com/pedroMolina-lab)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Link')](https://www.linkedin.com/in/pedro-molina-pem) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')](https://github.com/Agustingmaggi)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Link')](https://www.linkedin.com/in/agustin-garcia-maggi/) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')](https://github.com/luiscorrea7)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white 'LinkedIn Link')](https://www.linkedin.com) |
+[![JavaScript Link](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white "JavaScript Link")](https://nodejs.org/docs/latest-v20.x/api/index.html) [![Node Link](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white "Node Link")](https://nodejs.org/docs/latest-v20.x/api/index.html) [![Express Link](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge "express Link")](https://expressjs.com/)
+[![Npm Link](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white "Npm Link")](https://www.npmjs.com/) [![Postman Link](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white "Postman Link")](https://www.postman.com/) [![Cloudinary Link](https://img.shields.io/badge/cloudinary-%233448C5?style=for-the-badge&logo=cloudinary&logoColor=ffffff "Cloudinary Link")](https://cloudinary.com/)
+[![Swagger Link](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black "Swagger Link")](https://swagger.io/) [![Markdown Link](https://img.shields.io/badge/Markdown-03a7dd?style=for-the-badge&logo=markdown&logoColor=white "Markdown Link")](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
+[![Zod Link](https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=892CA0&color=313131)](https://zod.dev/ "Zod Link") [![JSON_WEB_TOKENS Link](https://img.shields.io/badge/JSON_WEB_TOKENS-212121?style=for-the-badge&logo=jsonwebtokens&logoColor=ffffff "JSON_WEB_TOKENS Link")](https://jwt.io/)
+[![MongoDB Link](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white "MongoBD Link")](https://www.mongodb.com/atlas/database)
 
-## 🗃️ Project [🔝](#-rutas-doradas-)
+## 🤵‍♂️ Team communication channels [🔝](#-backend-for--restify-app)
 
-### 📚 Workspaces [🔝](#-rutas-doradas-)
+[![Slack Link](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white "Slack Link")](https://slack.com) [![Discord Link](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white "Discord Link")](https://discord.com) [![LinkedIn Link](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Link")](https://linkedIn.com)
 
-The following table shows the project's workspaces.
+## 🧑‍💻 Developer Teams [🔝](#-backend-for--restify-app)
 
-| Name | Path | Description | url |
-| :-: | :-: | :-: | :-: |
-| `🎛️ server` | /server    | application Back-End      |[Back-End](https://rutasdoradasback.vercel.app/api/docs) |
+|                                                                                                                                            ![Avatar](https://avatars.githubusercontent.com/u/33846439?s=96&v=4)                                                                                                                                             |                                                                                                                                              ![Avatar](https://avatars.githubusercontent.com/u/69812733?s=96&v=4)                                                                                                                                               |                                                                                                                                                 ![Avatar](https://avatars.githubusercontent.com/u/87831696?s=96&v=4)                                                                                                                                                 |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                                                                                                      **Aracely Cruz**                                                                                                                                                                       |                                                                                                                                                                        **David Caycedo**                                                                                                                                                                        |                                                                                                                                                                          **Gabriel Braga**                                                                                                                                                                           |
+| [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white "Github Link")](https://github.com/aracely33)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Link")](https://www.linkedin.com/in/aracruzdelangel/) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white "Github Link")](https://github.com/David-Coach-Dev)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Link")](https://www.linkedin.com/in/davidcoachdev/) | [![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white "Github Link")](https://github.com/guebebraga)[![LinkedIn Link](https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white "LinkedIn Link")](https://www.linkedin.com/in/gabriel-braga-24b546232/) |
 
-### 📚 More Info [🔝](#-rutas-doradas-)
+## 🗃️ Project info [🔝](#-backend-for--restify-app)
 
-| Repository | Deploy | Data Base | License |
-|:-: | :-: | :-: | :-:|
-|[![Github Link](https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white 'Github Link')](https://github.com/No-Country/c17-29-n-node) | [![Vercel Link](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white 'Vercel Link')](https://vercel.com/) | [![MongoDB Link](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white 'MongoBD Link')](https://www.mongodb.com/atlas/database) | [![License Link](https://img.shields.io/badge/MIT-FF0000?style=for-the-badge&logo=amazoniam&logoColor=white 'MongoBD Link')](./LICENSE.MD)|
+### 📚 License [🔝](#-backend-for--restify-app)
 
-## 🛠️ Requirements [🔝](#-rutas-doradas-)
+| License | [![License Link](https://img.shields.io/badge/MIT-FF0000?style=for-the-badge&logo=amazoniam&logoColor=white "License Link")](./LICENSE.MD) |
+| :-----: | :----------------------------------------------------------------------------------------------------------------------------------------: |
 
-👉🏻 To use locally Ruta Dorada, you need to:
+### 📚 Workspaces [🔝](#-backend-for--restify-app)
 
-Clone our repository
+|     Name     |   Path   |     Description      |
+| :----------: | :------: | :------------------: |
+| `🎛️ Backend` | /backend | application Back-End |
+
+### 📚 Deploy [🔝](#-backend-for--restify-app)
+
+| Description |                                                                                 Deploy                                                                                 |                                link                                 |
+| :---------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: |
+|   Backend   |            [![Vercel Link](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white "Vercel Link")](https://vercel.com/)             |  [Backend](https://s17-16-t-node-react-dev.vercel.app/api/v1/docs)  |
+|  Data Base  | [![MongoDB Link](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white "MongoBD Link")](https://www.mongodb.com/atlas/database) | [Data Base](https://s17-16-t-node-react-dev.vercel.app/api/v1/docs) |
+
+## 🛠️ Requirements [🔝](#-backend-for--restify-app)
+
+👉🏻 To use the front end locally for the Restify app, you need to:
+
+### 1. Clone the repository from GitHub
 
 ```sh
 git clone https://github.com/No-Country/c17-29-n-node.git
 ```
 
-Move into server folder and install dependencies
+### 2. Navigate to the backend folder
 
 ```sh
-cd server | npm i
+cd backend
 ```
 
-Run the project locally of the server
+### 3. Install the necessary dependencies
+
+```sh
+npm install
+```
+
+### 4 In the backend folder, create a .env file
+
+```sh
+touch .env
+```
+
+### 5. Add the following keys to the .env file
+
+```sh
+//==================
+// Environment
+//==================
+PORT=****
+API_KEY=****
+HOST_DEV=****
+HOST_PROD_FRONT=****
+HOST_PROD_BACK=****
+
+//==================
+// BCRYPT
+//==================
+BCRYPT_SALT=****
+
+//==================
+// JWT
+//==================
+TOKEN_SECRET=****
+TOKEN_EXPIRATION=****
+
+//==================
+// MONGODB
+//==================
+URL_MONGO=****
+DB_PROD_MONGO=****
+DB_TEST_MONGO=****
+DB_RATE_LIMIT_MONGO=****
+USER_MONGO=****
+PASS_MONGO=****
+
+//==================
+// CLOUDINARY
+//==================
+CLOUDINARY_CLOUD_NAME=****
+CLOUDINARY_API_KEY=****
+CLOUDINARY_API_SECRET=****
+CLOUDINARY_RESOURCE_TYPE_EXT=****
+CLOUDINARY_RESOURCE_TYPE=****
+CLOUDINARY_MAX_FILE_SIZE=****
+CLOUDINARY_SIZE_IMAGE=****
+```
+
+### 6. Run the following command to start the server
 
 ```sh
 npm run dev
 ```
 
-### 🎚️ Scripts [🔝](#-rutas-doradas-)
+### 7. Open your browser and navigate to [http://localhost:3001/api/v1/docs](http://localhost:3001/api/v1/docs)
+
+## 🎚️ Scripts [🔝](#-backend-for--restify-app)
 
 - `npm rum start`: Run the application development server with node
-- `npm run dev`: Run the application development server with node --wacth.
-- `npm rum dev:start`: Run the application development server with nodemon.
+- `npm rum dev`: Run the application development server with nodemon.
 
-## 🩻 Progress Report [🔝](#-rutas-doradas-)
+## 🩻 Progress Report on Router Development [🔝](#-backend-for--restify-app)
 
-### ✨ Start Route [🔝](#-rutas-doradas-)
+### ✨ Root Base
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /api | ✔️ | ✔️ | ❌ | ❌ |
+[http://localhost:3001/api/v1/docs](http://localhost:3001/api/v1/docs)
 
-### ⛔ Invalid Route [🔝](#-rutas-doradas-)
+### ✨ Start Route [🔝](#-backend-for--restify-app)
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /* |✔️ | ✔️ | ❌ | ❌ |
+| Method | Router  | Endpoint | Documentation | Api Key | Token |
+| :----: | :-----: | :------: | :-----------: | :-----: | :---: |
+|  Get   |    /    |    ✔️    |      ❌       |   ❌    |  ❌   |
+|  Get   |  /api   |    ✔️    |      ❌       |   ❌    |  ❌   |
+|  Get   | /api/v1 |    ✔️    |      ❌       |   ❌    |  ❌   |
 
-### 📑 Doc Route [🔝](#-rutas-doradas-)
-
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /api/docs | ✔️ | ✔️ | ❌ | ❌ |
-
-### 🔐 Authorization Routes [🔝](#-rutas-doradas-)
+### ⛔ Invalid Route [🔝](#-backend-for--restify-app)
 
 | Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /auth/profile | ✔️ | ✔️ | ✔️ | ✔️ |
-| Post | /auth/register | ✔️ | ✔️ | ✔️ | ❌ |
-| Post | /auth/login | ✔️ | ✔️ | ✔️ | ❌ |
+| :----: | :----: | :------: | :-----------: | :-----: | :---: |
+|  Get   |  /\*   |    ✔️    |      ✔️       |   ❌    |  ❌   |
 
-### 🙎‍♂️User Routes [🔝](#-rutas-doradas-)
+### 📑 Docs Route [🔝](#-backend-for--restify-app)
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /users/ | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /users/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Post | /users/ | ✔️ | ✔️ | ✔️ | ✔️ |
-| Put | /users/:id | ✔️ | ✔️ | ✔️ | ✔️ |
-| Delete | /users/:id | ✔️ | ✔️ | ✔️ | ✔️ |
+| Method |    Router    | Endpoint | Documentation | Api Key | Token |
+| :----: | :----------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /api/v1/docs |    ✔️    |      ✔️       |   ❌    |  ❌   |
 
-### 🚘 Car Routes [🔝](#-rutas-doradas-)
+### 🔐 Authorization Routes [🔝](#-backend-for--restify-app)
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /cars/ | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /cars/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Post | /cars/ | ✔️ | ✔️ | ✔️ | ✔️ |
-| Put | /cars/:id | ✔️ | ✔️ | ✔️ | ✔️ |
-| Delete | /cars/:id | ✔️ | ✔️ | ✔️ | ✔️ |
+| Method |     Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /user/profile  |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Post  | /user/register |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  |  /user/login   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
 
-### 🗺️ Travel Routes [🔝](#-rutas-doradas-)
+### 🙎‍♂️User Routes [🔝](#-backend-for--restify-app)
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /travel/ | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /travels/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Post | /travels/ | ✔️ | ✔️ | ✔️ | ✔️ |
-| Put | /travels/:id | ✔️ | ✔️ | ✔️ | ✔️ |
-| Delete | /rs/:id | ✔️ | ✔️ | ✔️ | ✔️ |
+| Method |    Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :-----------: | :------: | :-----------: | :-----: | :---: |
+|  Get   |  /users/all  |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   |   /users/id   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  |  /users/create   |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /users/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /users/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
 
-### 🌟 Rating Routes [🔝](#-rutas-doradas-)
+### 🛍️ Category Routes [🔝](#-backend-for--restify-app)
 
-| Method | Router | Endpoint | Documentation | Api Key | Token |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| Get | /ratings/ | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /ratings/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /ratings/ratee/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Get | /ratings/rater/:id | ✔️ | ✔️ | ✔️ | ❌ |
-| Post | /ratings/ | ✔️ | ✔️ | ✔️ | ✔️ |
-| Put | /ratings/:id | ✔️ | ✔️ | ✔️ | ✔️ |
-| Delete | /ratings/:id | ✔️ | ✔️ | ✔️ | ✔️ |
+| Method |       Router       | Endpoint | Documentation | Api Key | Token |
+| :----: | :----------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   |  /categories/all   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   |   /categories/id   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   | /categories/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /categories/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /categories/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /categories/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
 
-### 🌲 Tree Folder [🔝](#-table-of-contents)
+### 📖 Menus Routes [🔝](#-backend-for--restify-app)
 
-``` sh
-📦server
- ┣ 📂diseños
- ┃ ┣ 📜diseño.excalidraw
- ┃ ┣ 📜EstructuraDB.drawio
- ┣ 📂postman
- ┃ ┣ 📜c17-29-ft-node-react.postman_collection.json
- ┃ ┗ 📜no country.postman_environment.json
- ┣ 📂requests
- ┃ ┣ 📜authRouters.rest
- ┃ ┣ 📜projects.rest
- ┃ ┗ 📜variables.rest
- ┣ 📂src
- ┃ ┣ 📂apis
- ┃ ┃ ┣ 📂auth
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜auth.Controller.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜login.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜profile.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜register.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tag.doc.js
- ┃ ┃ ┃ ┗ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜auth.router.js
- ┃ ┃ ┣ 📂cars
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜car.controller.js
- ┃ ┃ ┃ ┣ 📂dao
- ┃ ┃ ┃ ┃ ┗ 📜carDao.mongo.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜addCar.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜deleteCar.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜editCar.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜entityCar.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getCarById.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getCars.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagCar.doc.js
- ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┗ 📜car.model.js
- ┃ ┃ ┃ ┗ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜car.router.js
- ┃ ┃ ┣ 📂invalid
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜invalid.controller.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜getInvalid.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagInvalid.doc.js
- ┃ ┃ ┃ ┣ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜invalid.router.js
- ┃ ┃ ┃ ┗ 📂services
- ┃ ┃ ┃ ┃ ┗ 📜invalid.services.js
- ┃ ┃ ┣ 📂ratings
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜ratings.controller.js
- ┃ ┃ ┃ ┣ 📂dao
- ┃ ┃ ┃ ┃ ┗ 📜ratingsDao.mongo.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜addRating.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜deleteRating.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜editRating.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜entityRating.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getRatingById.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getRatingByRateeId.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getRatingByRaterId.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getRatings.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagRating.doc.js
- ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┗ 📜ratings.model.js
- ┃ ┃ ┃ ┗ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜ratings.router.js
- ┃ ┃ ┣ 📂start
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜start.controller.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜getStart.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagStart.doc.js
- ┃ ┃ ┃ ┣ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜start.router.js
- ┃ ┃ ┃ ┗ 📂services
- ┃ ┃ ┃ ┃ ┗ 📜start.services.js
- ┃ ┃ ┣ 📂travels
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜travel-controller.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜addTravel.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜deleteTravel.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜editTravel.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜entityTravel.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getTravel.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getTravelById.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagTravel.doc.js
- ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┗ 📜travel-model.js
- ┃ ┃ ┃ ┗ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜travel-router.js
- ┃ ┃ ┗ 📂users
- ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┗ 📜user.controller.js
- ┃ ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┃ ┣ 📜addUser.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜deleteUser.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜editUser.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜entityUser.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getUserById.doc.js
- ┃ ┃ ┃ ┃ ┣ 📜getUsers.doc.js
- ┃ ┃ ┃ ┃ ┗ 📜tagUser.doc.js
- ┃ ┃ ┃ ┣ 📂model
- ┃ ┃ ┃ ┃ ┗ 📜user.model.js
- ┃ ┃ ┃ ┣ 📂router
- ┃ ┃ ┃ ┃ ┗ 📜user.router.js
- ┃ ┃ ┃ ┗ 📂services
- ┃ ┃ ┃ ┃ ┗ 📜user.services.js
- ┃ ┣ 📂assets
- ┃ ┃ ┣ 📂ico
- ┃ ┃ ┃ ┗ 📜favicon.ico
- ┃ ┃ ┣ 📂img
- ┃ ┃ ┃ ┗ 📜logo.png
- ┃ ┃ ┗ 📂uploads
- ┃ ┃ ┃ ┗ 📜logo.png
- ┃ ┣ 📂config
- ┃ ┃ ┣ 📂cors
- ┃ ┃ ┃ ┗ 📜cors.config.js
- ┃ ┃ ┣ 📂crons
- ┃ ┃ ┃ ┗ 📜resetNumOfReq.js
- ┃ ┃ ┣ 📂helmet
- ┃ ┃ ┃ ┗ 📜helmet.config.js
- ┃ ┃ ┗ 📂swagger
- ┃ ┃ ┃ ┗ 📜swagger.config.js
- ┃ ┣ 📂routers
- ┃ ┃ ┗ 📜routers.js
- ┃ ┣ 📂shared
- ┃ ┃ ┣ 📂apiKey
- ┃ ┃ ┃ ┗ 📜apiKey.js
- ┃ ┃ ┣ 📂apiRespond
- ┃ ┃ ┃ ┗ 📜apiResponse.js
- ┃ ┃ ┣ 📂bcrypt
- ┃ ┃ ┃ ┗ 📜bcrypt.js
- ┃ ┃ ┣ 📂data
- ┃ ┃ ┃ ┗ 📜statusCode.js
- ┃ ┃ ┣ 📂database
- ┃ ┃ ┃ ┗ 📜db.js
- ┃ ┃ ┣ 📂doc
- ┃ ┃ ┃ ┣ 📜apiResponse.doc.js
- ┃ ┃ ┃ ┣ 📜baseEntity.doc.js
- ┃ ┃ ┃ ┣ 📜body.doc.js
- ┃ ┃ ┃ ┣ 📜parámetros.doc.js
- ┃ ┃ ┃ ┗ 📜security.doc.js
- ┃ ┃ ┣ 📂jwt
- ┃ ┃ ┃ ┗ 📜jwtExtractor.js
- ┃ ┃ ┣ 📂multer
- ┃ ┃ ┃ ┗ 📜multer.js
- ┃ ┃ ┗ 📂rateLimit
- ┃ ┃ ┃ ┗ 📜rateLimit.js
- ┃ ┗ 📜server.js
- ┣ 📜.editorconfig
- ┣ 📜.env
- ┣ 📜.env.example
- ┣ 📜.gitignore
- ┣ 📜.nvmrc
- ┣ 📜.vercelIgnore
- ┣ 📜LICENSE
- ┣ 📜package-lock.json
- ┣ 📜package.json
- ┣ 📜README.MD
- ┗ 📜vercel.json
-```
+| Method |    Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :-----------: | :------: | :-----------: | :-----: | :---: |
+|  Get   |  /menus/all   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   |   /menus/id   |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /menus/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /menus/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /menus/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
 
-[🔝](#-rutas-doradas-)
+### 📑 orders Routes [🔝](#-backend-for--restify-app)
+
+| Method |     Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /orders/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /orders/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /orders/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /orders/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+
+### 💵 Payment Routes [🔝](#-backend-for--restify-app)
+
+| Method |      Router      | Endpoint | Documentation | Api Key | Token |
+| :----: | :--------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /payments/all    |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   | /payments/id     |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /payments/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /payments/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /payments/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+
+### 🍽️ Restaurant Routes [🔝](#-backend-for--restify-app)
+
+| Method |       Router        | Endpoint | Documentation | Api Key | Token |
+| :----: | :-----------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /Restaurants/all    |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   | /Restaurants/id     |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Get   | /Restaurants/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /Restaurants/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /Restaurants/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /Restaurants/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+
+### 🎎 Roles Routes [🔝](#-backend-for--restify-app)
+
+| Method |     Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /roles/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /roles/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /roles/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /roles/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+
+### 🎏 States Routes [🔝](#-backend-for--restify-app)
+
+| Method |     Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /states/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /states/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /states/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /states/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+
+### 🎆 Tables Routes [🔝](#-backend-for--restify-app)
+
+| Method |     Router     | Endpoint | Documentation | Api Key | Token |
+| :----: | :------------: | :------: | :-----------: | :-----: | :---: |
+|  Get   | /tables/search |    ✔️    |      ✔️       |   ✔️    |  ❌   |
+|  Post  | /tables/create |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+|  Put   | /tables/update |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
+| Delete | /tables/delete |    ✔️    |      ✔️       |   ✔️    |  ✔️   |
