@@ -8,7 +8,6 @@
 - [📚Readme for  Restify App ✨](#readme-for--restify-app-)
   - [📖 Table Of Contents](#-table-of-contents)
   - [📋 About this project 🔝](#-about-this-project-)
-  - [Documentation](#documentation)
   - [⚙️ Technology Stack 🔝](#️-technology-stack-)
     - [🎨 UX UI Design 🔝](#-ux-ui-design-)
     - [🎆 Front End 🔝](#-front-end-)
@@ -29,13 +28,6 @@
 ## 📋 About this project [🔝](#readme-for--restify-app-)
 
 We created Restify with the goal of simplifying and optimizing the management of food establishments. We know that running a restaurant can be a big challenge, with multiple tasks ranging from inventory control to staff management. The idea of developing a tool that not only saves time but also provides clarity and efficiency in every aspect of the business motivated us. Restify was born to make life easier for owners, helping them focus on what really matters: offering an exceptional culinary experience to their customers, while we take care of the rest.
-
-## Documentation
-
-| Name | Link |
-| :-: | :-: |
-| `📕 Frontend` | [Readme](./frontend/README.MD) |
-| `📘 Backend` | [Readme](./backend/README.MD) |
 
 ## ⚙️ Technology Stack [🔝](#readme-for--restify-app-)
 
