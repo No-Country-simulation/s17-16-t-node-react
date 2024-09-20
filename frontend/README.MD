@@ -1,11 +1,13 @@
 # 📕 Frontend for ![Logo](../backend/src/assets/img/logo.png) Restify App ✨
 
+/[`📚 Repo`](../README.md)/`📕 Frontend`/
+/[`📚 Repo`](../README.md)/[`📘 Backend`](./backend/README.MD)/
+
 ## 📖 Table Of Contents
 
 - [📕 Frontend for  Restify App ✨](#-frontend-for--restify-app-)
   - [📖 Table Of Contents](#-table-of-contents)
   - [👀 Motivation 🔝](#-motivation-)
-  - [Documentation](#documentation)
   - [⚙️ Technology Stack 🔝](#️-technology-stack-)
   - [🤵‍♂️ Team Communication Channels 🔝](#️-team-communication-channels-)
   - [🧑‍💻 Developer Teams 🔝](#-developer-teams-)
@@ -19,13 +21,6 @@
 ## 👀 Motivation [🔝](#-table-of-contents)
 
 For Restify's frontend, we chose Next.js because it provides the perfect balance between performance, flexibility, and an excellent development experience. By using Next.js, we can take advantage of both server-side and client-side rendering capabilities, which significantly improves load times and SEO optimization—crucial for any modern application. Moreover, Next.js makes it easier to create dynamic and fluid interfaces, offering an intuitive and fast user experience. This choice allows us to develop a scalable, maintainable, and adaptable frontend to meet the future needs of the project.
-
-## Documentation [🔝](#-table-of-contents)
-
-| Name | Link |
-| :-: | :-: |
-| `📚 Repo` | [Readme](../README.md) |
-| `📘 Backend` | [Readme](../backend/README.MD) |
 
 ## ⚙️ Technology Stack [🔝](#-table-of-contents)
 

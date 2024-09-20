@@ -1,11 +1,14 @@
 # 📘 Backend for ![Logo](./src/assets/img/logo.png) Restify App
 
+
+/[`📚 Repo`](../README.md)/[`📕 Frontend`](../frontend/README.MD) |
+/[`📚 Repo`](../README.md)/`📘 Backend`/
+
 ## 📖 Table of Contents
 
 - [📘 Backend for  Restify App](#-backend-for--restify-app)
   - [📖 Table of Contents](#-table-of-contents)
   - [👀 Motivation 🔝](#-motivation-)
-  - [Documentation 🔝](#documentation-)
   - [🧰 Technology Stack 🔝](#-technology-stack-)
   - [🤵‍♂️ Team communication channels 🔝](#️-team-communication-channels-)
   - [🧑‍💻 Developer Teams 🔝](#-developer-teams-)
@@ -41,13 +44,6 @@
 ## 👀 Motivation [🔝](#-backend-for--restify-app)
 
 We chose a RESTful API with MongoDB for Restify's backend because these technologies allow us to build a scalable, fast, and flexible solution. Node.js is ideal for real-time applications, as it efficiently handles multiple connections, which is essential for the continuous management of data in a food business. Additionally, MongoDB offers us a NoSQL database that perfectly adapts to changes in storage and data structure requirements, providing the flexibility we need to grow and adapt without complications. This combination ensures an agile and robust platform to manage all aspects of the business.
-
-## Documentation [🔝](#-backend-for--restify-app)
-
-| Name | Link |
-| :-: | :-: |
-| `📚 Repo` | [Readme](../README.md) |
-| `📕 Frontend` | [Readme](../frontend/README.MD) |
 
 ## 🧰 Technology Stack [🔝](#-backend-for--restify-app)
 
