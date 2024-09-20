@@ -47,7 +47,7 @@ We chose a RESTful API with MongoDB for Restify's backend because these technolo
 | Name | Link |
 | :-: | :-: |
 | `📚 Repo` | [Readme](../README.md) |
-| `📕 Frontend` | [Readme](./frontend/README.MD) |
+| `📕 Frontend` | [Readme](../frontend/README.MD) |
 
 ## 🧰 Technology Stack [🔝](#-backend-for--restify-app)
 

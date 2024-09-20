@@ -25,7 +25,7 @@ For Restify's frontend, we chose Next.js because it provides the perfect balance
 | Name | Link |
 | :-: | :-: |
 | `📚 Repo` | [Readme](../README.md) |
-| `📘 Backend` | [Readme](./backend/README.MD) |
+| `📘 Backend` | [Readme](../backend/README.MD) |
 
 ## ⚙️ Technology Stack [🔝](#-table-of-contents)
 
@@ -92,4 +92,3 @@ pnpm dev
 - `pnpm dev`: Run the application development client with next.
 - `pnpm build`: Builds the production bundle for the web application.
 - `pnpm lint`: Linting errors in the codebase automatically.
-
