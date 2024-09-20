@@ -20,7 +20,7 @@
 
 For Restify's frontend, we chose Next.js because it provides the perfect balance between performance, flexibility, and an excellent development experience. By using Next.js, we can take advantage of both server-side and client-side rendering capabilities, which significantly improves load times and SEO optimization—crucial for any modern application. Moreover, Next.js makes it easier to create dynamic and fluid interfaces, offering an intuitive and fast user experience. This choice allows us to develop a scalable, maintainable, and adaptable frontend to meet the future needs of the project.
 
-## Documentation
+## Documentation [🔝](#-table-of-contents)
 
 | Name | Link |
 | :-: | :-: |
