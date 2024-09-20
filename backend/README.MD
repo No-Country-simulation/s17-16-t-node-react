@@ -1,8 +1,7 @@
 # 📘 Backend for ![Logo](./src/assets/img/logo.png) Restify App
 
-
-/[`📚 Repo`](../README.md)/[`📕 Frontend`](../frontend/README.MD) |
-/[`📚 Repo`](../README.md)/`📘 Backend`/
+- [`📚 Repo`](../README.md)/[`📕 Frontend`](../frontend/README.MD)/
+- [`📚 Repo`](../README.md)/`📘 Backend`/
 
 ## 📖 Table of Contents
 
